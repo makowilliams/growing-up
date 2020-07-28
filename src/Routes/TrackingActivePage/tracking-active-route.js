@@ -3,7 +3,7 @@ import HomeMenu from '../../Components/home-menu';
 import Timer from '../../Components/timer';
 import TimerList from '../../Components/timer-list';
 import StopButton from '../../Components/stop-button';
-import FeedingButtons from '../../Components/feeding-buttons'
+import SelectOptButtons from '../../Components/select-opt-buttons'
 
 export default class TrackingActivePage extends React.Component {
     constructor(props) {
@@ -27,7 +27,7 @@ export default class TrackingActivePage extends React.Component {
                         )}
                         <Timer type={this.state.type} />
                     </div>
-                    <FeedingButtons type={this.state.type}/>
+                    <SelectOptButtons type={this.state.type}/>
                         
                     <TimerList />
                     <StopButton type={this.state.type} />
