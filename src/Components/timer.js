@@ -1,7 +1,11 @@
 import React from 'react';
+import AppContext from '../growing-up-context';
+
 const ms = require('pretty-ms');
 
 export default class Timer extends React.Component {
+    //static contextType = AppContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -28,9 +32,15 @@ export default class Timer extends React.Component {
                 }),
             1
         );
+        
     }
 
     stopTimer() {
+        //on stop - update context 
+        //on submit on stop-btn page - send post req to api
+        console.log({
+            duration: ms(this.state.time, { colonNotation: true, secondsDecimalDigits: 0 }),
+        })
         this.setState({ active: false });
         clearInterval(this.timer);
     }

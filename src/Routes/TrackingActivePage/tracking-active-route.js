@@ -3,6 +3,7 @@ import HomeMenu from '../../Components/home-menu';
 import Timer from '../../Components/timer';
 import TimerList from '../../Components/timer-list';
 import StopButton from '../../Components/stop-button';
+import FeedingButtons from '../../Components/feeding-buttons'
 
 export default class TrackingActivePage extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ export default class TrackingActivePage extends React.Component {
             type: props.props.match.params.type,
         };
     }
+
     render() {
         return (
             <div className="tracking-active">
@@ -23,15 +25,12 @@ export default class TrackingActivePage extends React.Component {
                         ) : (
                             <h2 className="sleep-header">Sleep Tracker</h2>
                         )}
-                        <Timer />
+                        <Timer type={this.state.type} />
                     </div>
-                    <div className="feed-buttons-container">
-                        <button>Left</button>
-                        <button>Bottle</button>
-                        <button>Right</button>
-                    </div>
+                    <FeedingButtons type={this.state.type}/>
+                        
                     <TimerList />
-                    <StopButton />
+                    <StopButton type={this.state.type} />
                 </div>
             </div>
         );
