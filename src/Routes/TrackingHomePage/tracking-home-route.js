@@ -10,7 +10,6 @@ export default class TrackingHomePage extends React.Component {
         return (
             <GrowingContext.Consumer>
                 {(context) => {
-                    console.log(context);
                     return (
                         <div className="tracking">
                             <HomeMenu />

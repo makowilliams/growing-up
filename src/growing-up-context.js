@@ -15,8 +15,6 @@ export default class GrowingContextProvider extends React.Component {
         const key = Object.keys(newUpdate);
         const value = Object.values(newUpdate);
 
-        console.log(newUpdate);
-
         this.setState({
             [key[0]]: value[0],
         });
