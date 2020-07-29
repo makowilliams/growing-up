@@ -11,7 +11,7 @@ export default class HomePage extends React.Component {
         super();
 
         this.state = {
-            isVisible: true,
+            isVisible: false,
             name: '',
             age: null,
             updateMode: false,
@@ -24,15 +24,19 @@ export default class HomePage extends React.Component {
         }));
     }
 
-    toggleUpdateMode() {
-        this.toggleVisibility();
-        this.setState((prevState) => ({
-            updateMode: !prevState.updateMode,
-            isVisible: !prevState.isVisible,
-        }));
+    enableUpdateMode() {
+        this.setState({
+            updateMode: true,
+            isVisible: true,
+        });
     }
 
-    displayEditButton() {}
+    cancelUpdateMode() {
+        this.setState({
+            updateMode: false,
+            isVisible: false,
+        });
+    }
 
     updateState = (newUpdate) => {
         const key = Object.keys(newUpdate);
@@ -72,10 +76,10 @@ export default class HomePage extends React.Component {
                                             <p className="age">
                                                 Age: 13 Months
                                             </p>
-                                            {!this.state.isVisible ? (
+                                            {this.state.isVisible ? (
                                                 <EditIcon
                                                     onClick={() =>
-                                                        this.toggleUpdateMode()
+                                                        this.enableUpdateMode()
                                                     }
                                                 />
                                             ) : null}
@@ -92,12 +96,12 @@ export default class HomePage extends React.Component {
                                             />
                                             <CheckCircleIcon
                                                 onClick={() =>
-                                                    this.toggleUpdateMode()
+                                                    this.cancelUpdateMode()
                                                 }
                                             />
                                             <CancelIcon
                                                 onClick={() =>
-                                                    this.toggleUpdateMode()
+                                                    this.cancelUpdateMode()
                                                 }
                                             />
                                         </form>
