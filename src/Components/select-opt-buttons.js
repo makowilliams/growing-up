@@ -18,23 +18,23 @@ export default class FeedingButtons extends React.Component {
 
     handleTypeOpts(e) {
         e.preventDefault();
-        let value = {}
+        let value = {};
         if (this.props.type === 'feeding') {
-            value = {food_type: e.target.value};
+            value = { food_type: e.target.value };
         } else {
-            value = {sleep_type: e.target.value};
+            value = { sleep_type: e.target.value };
         }
         console.log(value);
     }
     handleCategoryOpts(e) {
         e.preventDefault();
-        let value = {}
+        let value = {};
         if (this.props.type === 'feeding') {
-            value = {side_fed: e.target.value};
+            value = { side_fed: e.target.value };
         } else {
-            value = {sleep_category: e.target.value};
+            value = { sleep_category: e.target.value };
         }
-        console.log(value)
+        console.log(value);
     }
 
     render() {
