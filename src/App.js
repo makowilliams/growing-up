@@ -19,15 +19,11 @@ export default class App extends React.Component {
                         <Route
                             exact
                             path="/tracking/:type"
-                            component={(props) => (
-                                <TrackingHomePage props={props} />
-                            )}
+                            component={TrackingHomePage}
                         />
                         <Route
                             path="/tracking/:type/active"
-                            component={(props) => (
-                                <TrackingActivePage props={props} />
-                            )}
+                            component={TrackingActivePage}
                         />
                         <Route component={NotFoundPage} />
                     </Switch>
