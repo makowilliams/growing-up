@@ -7,15 +7,17 @@ export default class TrackerList extends React.Component {
         return (
             <GrowingContext.Consumer>
                 {(context) => {
-                    <ul className="feed-log-container">
-                        {context.sleepData.map((item) => {
-                            return (
-                                <div className="feed-list-container">
-                                    <TrackerLog {...item} />
-                                </div>
-                            );
-                        })}
-                    </ul>;
+                    return (
+                        <ul className="feed-log-container">
+                            {context.sleepData.map((item) => {
+                                return (
+                                    <div className="feed-list-container">
+                                        <TrackerLog {...item} />
+                                    </div>
+                                );
+                            })}
+                        </ul>
+                    );
                 }}
             </GrowingContext.Consumer>
         );
