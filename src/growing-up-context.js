@@ -11,7 +11,7 @@ export default class GrowingContextProvider extends React.Component {
         this.state = {
             type: '',
             sleepData: [],
-            currentUser: ''
+            currentUser: '',
         };
     }
 
@@ -102,7 +102,7 @@ export default class GrowingContextProvider extends React.Component {
                     login: this.login,
                     postUser: this.postUser,
                     getUser: this.getUser,
-                    getSleepData: this.getSleepData
+                    getSleepData: this.getSleepData,
                 }}
             >
                 {this.props.children}
