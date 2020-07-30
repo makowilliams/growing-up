@@ -4,9 +4,11 @@ import LandingPage from './Routes/LandingPage/landing-route';
 import '../src/Sass/style.sass';
 import HomePage from './Routes/HomePage/home-route';
 import TrackingHomePage from './Routes/TrackingHomePage/tracking-home-route';
+import LoginPage from './Routes/LoginPage/LoginPage';
 import NotFoundPage from './Routes/NotFoundPage/not-found-route';
 import TrackingActivePage from './Routes/TrackingActivePage/tracking-active-route';
 import GrowingContextProvider from './growing-up-context';
+import SignUpPage from './Routes/SignUpPage/SignUpPage';
 
 export default class App extends React.Component {
     render() {
@@ -25,6 +27,8 @@ export default class App extends React.Component {
                             path="/tracking/:type/active"
                             component={TrackingActivePage}
                         />
+                        <Route path="/signup" component={SignUpPage} />
+                        <Route path="/login" component={LoginPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </BrowserRouter>
