@@ -9,7 +9,7 @@ export default class TrackingActivePage extends React.Component {
         super(props);
 
         this.state = {
-            type: props.props.match.params.type,
+            type: props.match.params.type
         };
     }
     render() {

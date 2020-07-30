@@ -11,7 +11,8 @@ export default class GrowingContextProvider extends React.Component {
         this.state = {
             type: '',
             sleepData: [],
-            currentUser: ''
+            currentUser: '',
+            currentChild: ''
         };
     }
 
@@ -43,7 +44,7 @@ export default class GrowingContextProvider extends React.Component {
         });
     };
 
-    getUser = (cb) => {
+    getUserInfo = (cb) => {
         fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
                 authorization: `bearer ${TokenService.getAuthToken()}`
@@ -51,11 +52,29 @@ export default class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((currentUser) => {
+                //console.log('current user', currentUser);
                 this.setState(
                     {
                         currentUser
                     },
                     cb(currentUser.id)
+                );
+            });
+    };
+
+    getChildInfo = (cb) => {
+        fetch(`${config.API_ENDPOINT}/children`, {
+            headers: {
+                authorization: `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then((res) => res.json())
+            .then((currentChild) => {
+                this.setState(
+                    {
+                        currentChild
+                    },
+                    cb(currentChild.id)
                 );
             });
     };
@@ -67,6 +86,7 @@ export default class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
+
             .then((sleepData) => {
                 this.setState(
                     {
@@ -83,7 +103,7 @@ export default class GrowingContextProvider extends React.Component {
         const value = Object.values(newUpdate);
 
         console.log('updateContext(newUpdate)', newUpdate);
-
+        // {currentChild: 1}
         this.setState({
             ...this.state,
             ...newUpdate
@@ -101,8 +121,9 @@ export default class GrowingContextProvider extends React.Component {
                     updateContext: this.updateContext.bind(this),
                     login: this.login,
                     postUser: this.postUser,
-                    getUser: this.getUser,
-                    getSleepData: this.getSleepData
+                    getUserInfo: this.getUserInfo,
+                    getSleepData: this.getSleepData,
+                    getChildInfo: this.getChildInfo
                 }}
             >
                 {this.props.children}
