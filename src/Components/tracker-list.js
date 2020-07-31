@@ -1,8 +1,9 @@
 import React from 'react';
 import TrackerLog from './tracker-log';
-import { GrowingContext } from '../growing-up-context';
+import GrowingContext from '../growing-up-context';
 import TokenService from '../token-service';
 
+console.log('fixed?');
 export default class TrackerList extends React.Component {
     static contextType = GrowingContext;
 
@@ -22,26 +23,6 @@ export default class TrackerList extends React.Component {
 
     render() {
         return (
-<<<<<<< HEAD
-            <GrowingContext.Consumer>
-                {(context) => {
-                    return (
-                        <ul className="feed-log-container">
-                            {context.sleepData.map((item) => {
-                                return (
-                                    <div className="feed-list-container">
-                                        <TrackerLog {...item} />
-                                    </div>
-                                );
-                            })}
-                        </ul>
-                    );
-                }}
-            </GrowingContext.Consumer>
-=======
-            // <GrowingContext.Consumer>
-            //     {(context) => {
-            //         return (
             <ul className="feed-log-container">
                 {this.context.sleepData.map((item) => {
                     return (
@@ -51,10 +32,6 @@ export default class TrackerList extends React.Component {
                     );
                 })}
             </ul>
-            //         );
-            //     }}
-            // </GrowingContext.Consumer>
->>>>>>> master
         );
     }
 }

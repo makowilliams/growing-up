@@ -1,6 +1,9 @@
 import React from 'react';
+import GrowingContext from '../growing-up-context'
 
 export default class FeedingButtons extends React.Component {
+    static contextType = GrowingContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -33,18 +36,18 @@ export default class FeedingButtons extends React.Component {
 
     handleTypeOpts(e) {
         e.preventDefault();
-        if (this.props.type === 'feeding') {
-            this.props.context.updateContext({ food_type: e.target.value });
+        if (this.context.type === 'feeding') {
+            this.context.updateContext({ food_type: e.target.value });
         } else {
-            this.props.context.updateContext({ sleep_type: e.target.value });
+            this.context.updateContext({ sleep_type: e.target.value });
         }
     }
     handleCategoryOpts(e) {
         e.preventDefault();
-        if (this.props.type === 'feeding') {
-            this.props.context.updateContext({ side_fed: e.target.value });
+        if (this.context.type === 'feeding') {
+            this.context.updateContext({ side_fed: e.target.value });
         } else {
-            this.props.context.updateContext({
+            this.context.updateContext({
                 sleep_category: e.target.value
             });
         }
@@ -52,11 +55,11 @@ export default class FeedingButtons extends React.Component {
 
     render() {
         let select_one =
-            this.props.type === 'feeding'
+            this.context.type === 'feeding'
                 ? this.state['food_type_opts']
                 : this.state['sleep_type_opts'];
         let select_two =
-            this.props.type === 'feeding'
+            this.context.type === 'feeding'
                 ? this.state['side_fed_opts']
                 : this.state['sleep_category_opts'];
 

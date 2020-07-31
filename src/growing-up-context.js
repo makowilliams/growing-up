@@ -2,9 +2,30 @@ import React, { createContext } from 'react';
 import config from './config';
 import TokenService from './token-service';
 
-export const GrowingContext = createContext();
+const GrowingContext = React.createContext({
+    type: '',
+    sleepData: [],
+    currentUser: '',
+    currentChild: '',
+    feedingData: [],
+    duration: '',
+    date: '',
 
-export default class GrowingContextProvider extends React.Component {
+    updateContext: () => {},
+    login: () => {},
+    postUser: () => {},
+    getUser: () => {},
+    getSleepData: () => {},
+    getUserInfo: () => {},
+    getChildInfo: () => {},
+    updateDuration: () => {},
+    updateDate: () => {},
+    updateType: () => {},
+});
+
+export default GrowingContext;
+
+export class GrowingContextProvider extends React.Component {
     constructor(props) {
         super(props);
 
@@ -12,8 +33,16 @@ export default class GrowingContextProvider extends React.Component {
             type: '',
             sleepData: [],
             currentUser: '',
-            currentChild: ''
+            currentChild: '',
+            feedingData: [],
+            duration: '',
+            date: ''
         };
+
+        this.updateContext = this.updateContext.bind(this);
+        this.updateDuration = this.updateDuration.bind(this);
+        this.updateDate = this.updateDate.bind(this);
+        this.updateType = this.updateType.bind(this);
     }
 
     login = (credentials) => {
@@ -47,17 +76,20 @@ export default class GrowingContextProvider extends React.Component {
     getUserInfo = (cb) => {
         fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
-                authorization: `bearer ${TokenService.getAuthToken()}`
+                //authorization: `bearer ${TokenService.getAuthToken()}`,
+                authorization:
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
             }
         })
             .then((res) => res.json())
             .then((currentUser) => {
-                //console.log('current user', currentUser);
+                console.log('current user', currentUser);
                 this.setState(
                     {
                         currentUser
-                    },
-                    cb(currentUser.id)
+                    }
+                    //not sure what cb() means or what it is trying to set
+                    //cb(currentUser.id)
                 );
             });
     };
@@ -65,7 +97,9 @@ export default class GrowingContextProvider extends React.Component {
     getChildInfo = (cb) => {
         fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
-                authorization: `bearer ${TokenService.getAuthToken()}`
+                //authorization: `bearer ${TokenService.getAuthToken()}`,
+                authorization:
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
             }
         })
             .then((res) => res.json())
@@ -82,7 +116,9 @@ export default class GrowingContextProvider extends React.Component {
     getSleepData = (childId, cb) => {
         return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
             headers: {
-                authorization: `bearer ${TokenService.getAuthToken()}`
+                //authorization: `bearer ${TokenService.getAuthToken()}`,
+                authorization:
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
             }
         })
             .then((res) => res.json())
@@ -99,32 +135,36 @@ export default class GrowingContextProvider extends React.Component {
     };
 
     updateContext(newUpdate) {
-        const key = Object.keys(newUpdate);
-        const value = Object.values(newUpdate);
-
-        console.log('updateContext(newUpdate)', newUpdate);
-        // {currentChild: 1}
-        this.setState({
-            ...this.state,
-            ...newUpdate
-        });
-        // this.setState({
-        //     [key[0]]: value[0]
-        // });
+        this.setState({...newUpdate});
     }
 
+    updateDuration(item) {
+        this.setState({duration: item})
+    }
+    updateDate(item) {
+        this.setState({date: item})
+    }
+    updateType(item) {
+        this.setState({type: item})
+    }
+    
+
     render() {
+        console.log(this.state)
         return (
             <GrowingContext.Provider
                 value={{
                     ...this.state,
-                    updateContext: this.updateContext.bind(this),
+                    updateContext: this.updateContext,
                     login: this.login,
                     postUser: this.postUser,
                     getUser: this.getUser,
                     getSleepData: this.getSleepData,
                     getUserInfo: this.getUserInfo,
-                    getChildInfo: this.getChildInfo
+                    getChildInfo: this.getChildInfo,
+                    updateDuration: this.updateDuration,
+                    updateDate: this.updateDate,
+                    updateType: this.updateType,
                 }}
             >
                 {this.props.children}

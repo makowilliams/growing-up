@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import config  from '../config';
+import GrowingContext from '../growing-up-context'
 //import TokenService from '../services/token-service';
-
+console.log('fix context')
 export default class StopButton extends React.Component {
+    static contextType = GrowingContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +16,7 @@ export default class StopButton extends React.Component {
     submitFeeding(e) {
         e.preventDefault();
         this.setState({ error: null });
-        let { duration, date, food_type, side_fed } = this.props.context;
+        let { duration, date, food_type, side_fed } = this.context;
         let feedingData = {
             type: 'eating',
             duration: duration,
@@ -29,9 +31,9 @@ export default class StopButton extends React.Component {
     submitSleep(e) {
         e.preventDefault();
         this.setState({ error: null });
-        let { duration, date, sleep_type, sleep_category } = this.props.context;
+        let { duration, date, sleep_type, sleep_category } = this.context;
         let feedingData = {
-            type: this.props.type,
+            type: this.context.type,
             duration: duration,
             date: date,
             sleep_type: sleep_type,
@@ -48,7 +50,7 @@ export default class StopButton extends React.Component {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
+                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxNzAxODgsInN1YiI6InRlc3RfdyJ9.PIjYRpRwUYchmsx9RiMx3b14CIp5ghQam6NJQPIlse8'
                 //add back in once there is a login function
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
             },
@@ -63,9 +65,10 @@ export default class StopButton extends React.Component {
         })
         .then(returnData => {
             console.log('success', returnData)
-            //add data to client - implement the add Session function
-            // this.context.addSession();
-            // this.props.history.goBack();
+            //not sure if this is working...might need to write a function
+            if(data.type === 'sleeping'){
+                this.context.sleepData.push(returnData);
+            } else this.context.feedingData.push(returnData);
         })
         .catch(error => {
             this.setState({ error: 'Sorry, the session did not add. Please try again later.' });
@@ -76,7 +79,7 @@ export default class StopButton extends React.Component {
         const { error } = this.state;
         return (
             <>
-                {this.props.type === 'feeding' ? (
+                {this.context.type === 'feeding' ? (
                     <Link
                         onClick={this.submitFeeding.bind(this)}
                         to="/tracking/feeding"

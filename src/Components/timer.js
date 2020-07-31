@@ -1,8 +1,10 @@
 import React from 'react';
-
+import GrowingContext from '../growing-up-context'
 const ms = require('pretty-ms');
 
-export default class Timer extends React.Component {
+export class Timer extends React.Component {
+    static contextType = GrowingContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -60,15 +62,8 @@ export default class Timer extends React.Component {
         this.setState({ active: false });
         clearInterval(this.timer);
 
-        this.updateDate(formatDate);
-        this.updateDuration(formatedDuration);
-    }
-
-    updateDate(formatDate) {
-        this.props.context.updateContext({ date: formatDate });
-    }
-    updateDuration(formatedDuration) {
-        this.props.context.updateContext({ duration: formatedDuration });
+        this.context.updateDate(formatDate);
+        this.context.updateDuration(formatedDuration );
     }
 
     resetTimer() {
@@ -110,3 +105,5 @@ export default class Timer extends React.Component {
         );
     }
 }
+
+export default Timer;

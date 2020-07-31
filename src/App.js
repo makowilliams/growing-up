@@ -7,7 +7,7 @@ import TrackingHomePage from './Routes/TrackingHomePage/tracking-home-route';
 import LoginPage from './Routes/LoginPage/LoginPage';
 import NotFoundPage from './Routes/NotFoundPage/not-found-route';
 import TrackingActivePage from './Routes/TrackingActivePage/tracking-active-route';
-import GrowingContextProvider from './growing-up-context';
+import {GrowingContextProvider} from './growing-up-context';
 import SignUpPage from './Routes/SignUpPage/SignUpPage';
 
 export default class App extends React.Component {
