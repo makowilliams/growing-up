@@ -1,7 +1,6 @@
 import React from 'react';
 import HomeMenu from '../../Components/home-menu';
 import Timer from '../../Components/timer';
-import TimerList from '../../Components/timer-list';
 import StopButton from '../../Components/stop-button';
 import SelectOptButtons from '../../Components/select-opt-buttons';
 import GrowingContext from '../../growing-up-context';
@@ -32,8 +31,6 @@ export default class TrackingActivePage extends React.Component {
                         <Timer />
                     </div>
                     <SelectOptButtons />
-
-                    <TimerList />
                     <StopButton />
                 </div>
             </div>

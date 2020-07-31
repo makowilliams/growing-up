@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import config  from '../config';
 import GrowingContext from '../growing-up-context'
 //import TokenService from '../services/token-service';
-console.log('fix context')
+
+
 export default class StopButton extends React.Component {
     static contextType = GrowingContext;
     constructor(props) {
@@ -24,7 +25,6 @@ export default class StopButton extends React.Component {
             food_type: food_type,
             side_fed: side_fed
         };
-        console.log(feedingData);
         this.postData(feedingData);
     }
 
@@ -39,7 +39,6 @@ export default class StopButton extends React.Component {
             sleep_type: sleep_type,
             sleep_category: sleep_category
         };
-        console.log(feedingData);
         this.postData(feedingData);
     }
 
@@ -50,7 +49,7 @@ export default class StopButton extends React.Component {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxNzAxODgsInN1YiI6InRlc3RfdyJ9.PIjYRpRwUYchmsx9RiMx3b14CIp5ghQam6NJQPIlse8'
+                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
                 //add back in once there is a login function
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
             },
@@ -64,8 +63,6 @@ export default class StopButton extends React.Component {
             return res.json();
         })
         .then(returnData => {
-            console.log('success', returnData)
-            //not sure if this is working...might need to write a function
             if(data.type === 'sleeping'){
                 this.context.sleepData.push(returnData);
             } else this.context.feedingData.push(returnData);

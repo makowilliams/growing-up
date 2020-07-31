@@ -1,6 +1,6 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import config from './config';
-import TokenService from './token-service';
+//import TokenService from './token-service';
 
 const GrowingContext = React.createContext({
     type: '',
@@ -78,7 +78,7 @@ export class GrowingContextProvider extends React.Component {
             headers: {
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
                 authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
             }
         })
             .then((res) => res.json())
@@ -99,7 +99,7 @@ export class GrowingContextProvider extends React.Component {
             headers: {
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
                 authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
             }
         })
             .then((res) => res.json())
@@ -118,7 +118,7 @@ export class GrowingContextProvider extends React.Component {
             headers: {
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
                 authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYxMzc1NDgsInN1YiI6InRlc3RfdyJ9.SGR7XQl2Y_1gX6ZFzuZYyANAUsblMGyz0cLXNkONhJM'
+                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
             }
         })
             .then((res) => res.json())
@@ -150,7 +150,6 @@ export class GrowingContextProvider extends React.Component {
     
 
     render() {
-        console.log(this.state)
         return (
             <GrowingContext.Provider
                 value={{
