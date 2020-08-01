@@ -1,5 +1,5 @@
 import React from 'react';
-import { GrowingContext } from '../../growing-up-context';
+import GrowingContext from '../../growing-up-context';
 
 export default class SignUpPage extends React.Component {
     static contextType = GrowingContext;
