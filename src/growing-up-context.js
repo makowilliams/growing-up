@@ -44,56 +44,49 @@ export default class GrowingContextProvider extends React.Component {
         });
     };
 
-    getUserInfo = (cb) => {
-        fetch(`${config.API_ENDPOINT}/users`, {
+    getUserInfo = () => {
+        return fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
                 authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
             .then((currentUser) => {
-                //console.log('current user', currentUser);
-                this.setState(
-                    {
-                        currentUser
-                    },
-                    cb(currentUser.id)
-                );
+                console.log('current user', currentUser);
+
+                this.setState({
+                    currentUser
+                });
+                return currentUser;
             });
     };
 
-    getChildInfo = (cb) => {
-        fetch(`${config.API_ENDPOINT}/children`, {
+    getChildInfo = () => {
+        return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
                 authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
             .then((currentChild) => {
-                this.setState(
-                    {
-                        currentChild
-                    },
-                    cb(currentChild.id)
-                );
+                this.setState({
+                    currentChild
+                });
+                return currentChild;
             });
     };
 
-    getSleepData = (childId, cb) => {
+    getSleepData = (childId) => {
         return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
             headers: {
                 authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
-
             .then((sleepData) => {
-                this.setState(
-                    {
-                        sleepData
-                    },
-                    cb
-                );
+                this.context.setState({
+                    sleepData
+                });
             })
             .catch((err) => console.error(err));
     };
@@ -103,14 +96,11 @@ export default class GrowingContextProvider extends React.Component {
         const value = Object.values(newUpdate);
 
         console.log('updateContext(newUpdate)', newUpdate);
-        // {currentChild: 1}
+
         this.setState({
             ...this.state,
             ...newUpdate
         });
-        // this.setState({
-        //     [key[0]]: value[0]
-        // });
     }
 
     render() {
