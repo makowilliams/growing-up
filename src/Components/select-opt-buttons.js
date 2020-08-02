@@ -1,49 +1,65 @@
 import React from 'react';
+import GrowingContext from '../growing-up-context'
 
 export default class FeedingButtons extends React.Component {
+    static contextType = GrowingContext;
+
     constructor(props) {
         super(props);
         this.state = {
-            sleep_type_opts: ['Crying', 'Restless', 'Calm', 'crying', 'restless', 'calm'],
-            sleep_category_opts: ['Nap', 'Bedtime', 'nap', 'bedtime', 'Length:'],
-            food_type_opts: ['Bottle', 'Breast-fed', 'Formula', 'bottle', 'breast_fed', 'formula'],
+            sleep_type_opts: [
+                'Crying',
+                'Restless',
+                'Calm',
+                'crying',
+                'restless',
+                'calm'
+            ],
+            sleep_category_opts: [
+                'Nap',
+                'Bedtime',
+                'nap',
+                'bedtime',
+                'Length:'
+            ],
+            food_type_opts: [
+                'Bottle',
+                'Breast-fed',
+                'Formula',
+                'bottle',
+                'breast_fed',
+                'formula'
+            ],
             side_fed_opts: ['Left', 'Right', 'left', 'right', 'Side:'],
-
-            food_type: '',
-            side_fed: '',
-            sleep_type: '',
-            sleep_category: '',
         };
     }
 
     handleTypeOpts(e) {
         e.preventDefault();
-        let value = {};
-        if (this.props.type === 'feeding') {
-            value = { food_type: e.target.value };
+        if (this.context.type === 'feeding') {
+            this.context.updateContext({ food_type: e.target.value });
         } else {
-            value = { sleep_type: e.target.value };
+            this.context.updateContext({ sleep_type: e.target.value });
         }
-        console.log(value);
     }
     handleCategoryOpts(e) {
         e.preventDefault();
-        let value = {};
-        if (this.props.type === 'feeding') {
-            value = { side_fed: e.target.value };
+        if (this.context.type === 'feeding') {
+            this.context.updateContext({ side_fed: e.target.value });
         } else {
-            value = { sleep_category: e.target.value };
+            this.context.updateContext({
+                sleep_category: e.target.value
+            });
         }
-        console.log(value);
     }
 
     render() {
         let select_one =
-            this.props.type === 'feeding'
+            this.context.type === 'feeding'
                 ? this.state['food_type_opts']
                 : this.state['sleep_type_opts'];
         let select_two =
-            this.props.type === 'feeding'
+            this.context.type === 'feeding'
                 ? this.state['side_fed_opts']
                 : this.state['sleep_category_opts'];
 
@@ -52,7 +68,7 @@ export default class FeedingButtons extends React.Component {
                 <label htmlFor="type-options">Type: </label>
 
                 <select
-                    onChange={e => this.handleTypeOpts(e)}
+                    onChange={(e) => this.handleTypeOpts(e)}
                     className="type-options"
                     id="type-opts"
                 >
@@ -66,7 +82,7 @@ export default class FeedingButtons extends React.Component {
                 </select>
                 <label htmlFor="category-options"> {select_two[4]} </label>
                 <select
-                    onChange={e => this.handleCategoryOpts(e)}
+                    onChange={(e) => this.handleCategoryOpts(e)}
                     className="category-options"
                     id="category-opts"
                 >

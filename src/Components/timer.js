@@ -1,10 +1,9 @@
 import React from 'react';
-//import AppContext from '../growing-up-context';
-
+import GrowingContext from '../growing-up-context'
 const ms = require('pretty-ms');
 
-export default class Timer extends React.Component {
-    //static contextType = AppContext;
+export class Timer extends React.Component {
+    static contextType = GrowingContext;
 
     constructor(props) {
         super(props);
@@ -12,7 +11,7 @@ export default class Timer extends React.Component {
             active: false,
             start: 0,
             time: 0,
-            date: '',
+            date: ''
         };
 
         this.startTimer = this.startTimer.bind(this);
@@ -26,19 +25,22 @@ export default class Timer extends React.Component {
             time: this.state.time,
             start: Date.now() - this.state.time,
             active: true,
-            date: new_date.toISOString(),
+            date: new_date.toISOString()
         });
         this.timer = setInterval(
             () =>
                 this.setState({
-                    time: Date.now() - this.state.start,
+                    time: Date.now() - this.state.start
                 }),
             1
         );
     }
 
     format_Duration(time) {
-        let formatDuration = ms(time, { colonNotation: true, secondsDecimalDigits: 0 });
+        let formatDuration = ms(time, {
+            colonNotation: true,
+            secondsDecimalDigits: 0
+        });
         if (formatDuration.length < 8) {
             if (formatDuration.length === 7) {
                 formatDuration = '0'.concat('', formatDuration);
@@ -52,17 +54,16 @@ export default class Timer extends React.Component {
     }
 
     stopTimer() {
-        //on stop - update context
-        //on submit on stop-btn page - send post req to api
-        let formatDate = this.state.date;
-        formatDate = formatDate.substring(0, formatDate.length - 5).replace('T', ' ');
+        let formatDate = this.state.date
+            .substring(0, this.state.date.length - 5)
+            .replace('T', ' ');
         let formatedDuration = this.format_Duration(this.state.time);
-        console.log({
-            duration: formatedDuration,
-            date: formatDate,
-        });
+
         this.setState({ active: false });
         clearInterval(this.timer);
+
+        this.context.updateDate(formatDate);
+        this.context.updateDuration(formatedDuration );
     }
 
     resetTimer() {
@@ -70,8 +71,13 @@ export default class Timer extends React.Component {
     }
 
     render() {
-        let start = this.state.time === 0 ? <button onClick={this.startTimer}>Start</button> : null;
-        let stop = this.state.active ? <button onClick={this.stopTimer}>Stop</button> : null;
+        let start =
+            this.state.time === 0 ? (
+                <button onClick={this.startTimer}>Start</button>
+            ) : null;
+        let stop = this.state.active ? (
+            <button onClick={this.stopTimer}>Stop</button>
+        ) : null;
         let reset =
             this.state.time !== 0 && !this.state.active ? (
                 <button onClick={this.resetTimer}>Reset</button>
@@ -85,7 +91,10 @@ export default class Timer extends React.Component {
                 <p className="timer">
                     {this.state.time < 1000
                         ? '0:00'
-                        : ms(this.state.time, { colonNotation: true, secondsDecimalDigits: 0 })}
+                        : ms(this.state.time, {
+                              colonNotation: true,
+                              secondsDecimalDigits: 0
+                          })}
                 </p>
                 {start}
                 {resume}
@@ -96,3 +105,5 @@ export default class Timer extends React.Component {
         );
     }
 }
+
+export default Timer;
