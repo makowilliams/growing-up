@@ -10,28 +10,24 @@ export default class LoginPage extends React.Component {
     state = { error: null };
 
     handleSubmitJwtAuth = e => {
-        e.preventDefault()
+        e.preventDefault();
         this.setState({ error: null });
-        const username = e.target;
-        const password = e.target;
-        //debugger;
+        const { username, password } = e.target;
+
         AuthApiService.postLogin({
             username: username.value,
             password: password.value,
         })
-
-        .then(res => {
-            username.value = '';
-            password.value = '';
-            TokenService.saveAuthToken(res.authToken);
-            this.props.onLoginSuccess();
-        })
-
-        .catch(res => {
-            this.setState({ error: res.error ? res.error : 'Sorry, something went wrong.' })
-        })
-
-    }
+            .then(res => {
+                username.value = '';
+                password.value = '';
+                TokenService.saveAuthToken(res.authToken);
+                this.props.onLoginSuccess();
+            })
+            .catch(res => {
+                this.setState({ error: res.error ? res.error : 'Sorry, something went wrong.' });
+            });
+    };
 
     render() {
         const { error } = this.state
@@ -64,4 +60,3 @@ export default class LoginPage extends React.Component {
         );
     }
 }
-
