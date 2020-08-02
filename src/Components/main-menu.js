@@ -8,7 +8,7 @@ export default class MainMenu extends React.Component {
                 <div className="logo">LOGO</div>
                 <div className="menu-button-container container">
                     <button>Sign Up</button>
-                    <Link to="/home" className="link">
+                    <Link to="/login" className="link">
                         Log In
                     </Link>
                 </div>
