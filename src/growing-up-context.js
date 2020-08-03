@@ -84,9 +84,19 @@ export class GrowingContextProvider extends React.Component {
             .then((res) => res.json())
             .then((currentUser) => {
                 console.log('current user', currentUser);
+<<<<<<< HEAD
                 this.setState({
                     currentUser
                 });
+=======
+                this.setState(
+                    {
+                        currentUser
+                    }
+                    //not sure what cb() means or what it is trying to set
+                    //cb(currentUser.id)
+                );
+>>>>>>> master
             });
     };
 
@@ -135,7 +145,11 @@ export class GrowingContextProvider extends React.Component {
         this.setState({ date: item });
     }
     updateType(item) {
+<<<<<<< HEAD
         this.setState({ type: item });
+=======
+        this.setState({type: item})
+>>>>>>> master
     }
 
     render() {
