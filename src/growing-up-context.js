@@ -1,6 +1,6 @@
 import React from 'react';
 import config from './config';
-//import TokenService from './token-service';
+import TokenService from './token-service';
 
 const GrowingContext = React.createContext({
     type: '',
@@ -76,9 +76,9 @@ export class GrowingContextProvider extends React.Component {
     getUserInfo = () => {
         return fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
-                authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `Bearer ${TokenService.getAuthToken()}`,
+                //authorization:
+                    //'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
             }
         })
             .then((res) => res.json())
@@ -97,9 +97,9 @@ export class GrowingContextProvider extends React.Component {
     getChildInfo = () => {
         return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
-                authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `Bearer ${TokenService.getAuthToken()}`,
+                // authorization:
+                //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
             }
         })
             .then((res) => res.json())
@@ -114,9 +114,9 @@ export class GrowingContextProvider extends React.Component {
     getSleepData = (childId) => {
         return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
             headers: {
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
-                authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `Bearer ${TokenService.getAuthToken()}`,
+                // authorization:
+                //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
             }
         })
             .then((res) => res.json())

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import config from '../config';
 import GrowingContext from '../growing-up-context';
-//import TokenService from '../services/token-service';
+import TokenService from '../token-service';
 
 export default class StopButton extends React.Component {
     static contextType = GrowingContext;
@@ -69,7 +69,7 @@ export default class StopButton extends React.Component {
             headers: {
                 'content-type': 'application/json',
                 authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYzMTY1OTAsInN1YiI6InRlc3RfdyJ9.XGYQkiRJdS5-pu7GMqYFmcPZTCjvfwm6d_IUeAODJ4Y'
+                    `Bearer ${TokenService.getAuthToken()}`
                 //add back in once there is a login function
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
             },
