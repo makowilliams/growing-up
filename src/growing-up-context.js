@@ -6,6 +6,7 @@ const GrowingContext = React.createContext({
     type: '',
     sleepData: [],
     currentUser: '',
+    usersChildren: [],
     currentChild: '',
     feedingData: [],
     duration: '',
@@ -21,6 +22,7 @@ const GrowingContext = React.createContext({
     updateDuration: () => {},
     updateDate: () => {},
     updateType: () => {},
+    setSelectedChild: () => {},
 });
 
 export default GrowingContext;
@@ -33,6 +35,7 @@ export class GrowingContextProvider extends React.Component {
             type: '',
             sleepData: [],
             currentUser: '',
+            usersChildren: [],
             currentChild: '',
             feedingData: [],
             duration: '',
@@ -43,6 +46,7 @@ export class GrowingContextProvider extends React.Component {
         this.updateDuration = this.updateDuration.bind(this);
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
+        this.setSelectedChild = this.setSelectedChild.bind(this);
     }
 
     login = (credentials) => {
@@ -76,52 +80,42 @@ export class GrowingContextProvider extends React.Component {
     getUserInfo = () => {
         return fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`,
-                //authorization:
-                    //'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `Bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
             .then((currentUser) => {
-                console.log('current user', currentUser);
-                this.setState(
-                    {
-                        currentUser
-                    }
-                    //not sure what cb() means or what it is trying to set
-                    //cb(currentUser.id)
-                );
+                this.setState({
+                    currentUser
+                });
+                return currentUser
             });
     };
 
     getChildInfo = () => {
         return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`,
-                // authorization:
-                //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `Bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
-            .then((currentChild) => {
+            .then((usersChildren) => {
                 this.setState({
-                    currentChild
+                    usersChildren
                 });
-                return currentChild;
+                return usersChildren;
             });
     };
 
     getSleepData = (childId) => {
         return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
             headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`,
-                // authorization:
-                //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `Bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
             .then((sleepData) => {
-                this.context.setState({
+                this.setState({
                     sleepData
                 });
             })
@@ -129,19 +123,21 @@ export class GrowingContextProvider extends React.Component {
     };
 
     updateContext(newUpdate) {
-        this.setState({...newUpdate});
+        this.setState({ ...newUpdate });
     }
 
     updateDuration(item) {
-        this.setState({duration: item})
+        this.setState({ duration: item });
     }
     updateDate(item) {
-        this.setState({date: item})
+        this.setState({ date: item });
     }
     updateType(item) {
-        this.setState({type: item})
+        this.setState({ type: item });
     }
-    
+    setSelectedChild(child){
+        this.setState({ currentChild: child})
+    }
 
     render() {
         return (
@@ -158,6 +154,7 @@ export class GrowingContextProvider extends React.Component {
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
+                    setSelectedChild: this.setSelectedChild,
                 }}
             >
                 {this.props.children}

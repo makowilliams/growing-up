@@ -6,13 +6,7 @@ import GrowingContext from '../growing-up-context';
 export default class TrackerList extends React.Component {
     static contextType = GrowingContext;
 
-    componentDidMount() {
-        this.context.getUserInfo().then((user) => {
-            this.context.getChildInfo().then((currentChild) => {
-                this.context.getSleepData(currentChild.id);
-            });
-        });
-    }
+    
 
     render() {
         return (

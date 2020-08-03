@@ -7,15 +7,22 @@ import GrowingContext from '../../growing-up-context';
 
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
+    
+    componentDidMount() {
+        //will need to change to currentChild
+        this.context.getSleepData(this.context.usersChildren[0].id)
+    }
+
     render() {
+        console.log(this.context)
         return (
             <div className="tracking">
                 <HomeMenu />
                 <div className="main-container">
                     {this.context.type === 'feeding' ? (
-                        <h1 className="feed-header">Feeding Tracker</h1>
+                        <h1 className="feed-header">Feeding Tracker Log</h1>
                     ) : (
-                        <h1 className="feed-header">Sleeping Tracker</h1>
+                        <h1 className="feed-header">Sleeping Tracker Log</h1>
                     )}
                     <TrackerList />
                     {this.context.type === 'feeding' ? (

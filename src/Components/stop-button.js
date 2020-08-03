@@ -62,16 +62,13 @@ export default class StopButton extends React.Component {
     }
 
     postData = (data) => {
-        //still need to get childId
-        let childId = 1;
+        let childId = this.context.currentChild.id;
         return fetch(`${config.API_ENDPOINT}/${data.type}/all/${childId}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 authorization:
                     `Bearer ${TokenService.getAuthToken()}`
-                //add back in once there is a login function
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
             },
             body: JSON.stringify(data)
         })
