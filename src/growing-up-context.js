@@ -20,7 +20,7 @@ const GrowingContext = React.createContext({
     getChildInfo: () => {},
     updateDuration: () => {},
     updateDate: () => {},
-    updateType: () => {},
+    updateType: () => {}
 });
 
 export default GrowingContext;
@@ -84,21 +84,9 @@ export class GrowingContextProvider extends React.Component {
             .then((res) => res.json())
             .then((currentUser) => {
                 console.log('current user', currentUser);
-<<<<<<< HEAD
-
                 this.setState({
                     currentUser
                 });
-                return currentUser;
-=======
-                this.setState(
-                    {
-                        currentUser
-                    }
-                    //not sure what cb() means or what it is trying to set
-                    //cb(currentUser.id)
-                );
->>>>>>> master
             });
     };
 
@@ -137,28 +125,18 @@ export class GrowingContextProvider extends React.Component {
     };
 
     updateContext(newUpdate) {
-        this.setState({...newUpdate});
+        this.setState({ ...newUpdate });
     }
 
-<<<<<<< HEAD
-        console.log('updateContext(newUpdate)', newUpdate);
-
-        this.setState({
-            ...this.state,
-            ...newUpdate
-        });
-=======
     updateDuration(item) {
-        this.setState({duration: item})
+        this.setState({ duration: item });
     }
     updateDate(item) {
-        this.setState({date: item})
+        this.setState({ date: item });
     }
     updateType(item) {
-        this.setState({type: item})
->>>>>>> master
+        this.setState({ type: item });
     }
-    
 
     render() {
         return (
@@ -174,7 +152,7 @@ export class GrowingContextProvider extends React.Component {
                     getChildInfo: this.getChildInfo,
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
-                    updateType: this.updateType,
+                    updateType: this.updateType
                 }}
             >
                 {this.props.children}
