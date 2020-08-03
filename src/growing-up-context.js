@@ -73,8 +73,8 @@ export class GrowingContextProvider extends React.Component {
         });
     };
 
-    getUserInfo = (cb) => {
-        fetch(`${config.API_ENDPOINT}/users`, {
+    getUserInfo = () => {
+        return fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
                 authorization:
@@ -94,8 +94,8 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
-    getChildInfo = (cb) => {
-        fetch(`${config.API_ENDPOINT}/children`, {
+    getChildInfo = () => {
+        return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
                 authorization:
@@ -104,16 +104,14 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((currentChild) => {
-                this.setState(
-                    {
-                        currentChild
-                    },
-                    cb(currentChild.id)
-                );
+                this.setState({
+                    currentChild
+                });
+                return currentChild;
             });
     };
 
-    getSleepData = (childId, cb) => {
+    getSleepData = (childId) => {
         return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
             headers: {
                 //authorization: `bearer ${TokenService.getAuthToken()}`,
@@ -122,14 +120,10 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
-
             .then((sleepData) => {
-                this.setState(
-                    {
-                        sleepData
-                    },
-                    cb
-                );
+                this.context.setState({
+                    sleepData
+                });
             })
             .catch((err) => console.error(err));
     };
