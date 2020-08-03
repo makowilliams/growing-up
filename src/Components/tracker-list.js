@@ -1,30 +1,21 @@
 import React from 'react';
 import TrackerLog from './tracker-log';
-import { GrowingContext } from '../growing-up-context';
-import TokenService from '../token-service';
+import GrowingContext from '../growing-up-context';
+//import TokenService from '../token-service';
 
 export default class TrackerList extends React.Component {
     static contextType = GrowingContext;
 
     componentDidMount() {
-        //const id = this.props.params.child_id;
-
-        const currentChild =
-            this.context.currentChild !== '' ? this.context.currentChild : 1;
-
-        this.context.getSleepData(currentChild, () => {});
-
-        if (!this.context.user_id) {
-            // get user info fetch
-            this.context.getUserInfo();
-        }
+        this.context.getUserInfo().then((user) => {
+            this.context.getChildInfo().then((currentChild) => {
+                this.context.getSleepData(currentChild.id);
+            });
+        });
     }
 
     render() {
         return (
-            // <GrowingContext.Consumer>
-            //     {(context) => {
-            //         return (
             <ul className="feed-log-container">
                 {this.context.sleepData.map((item) => {
                     return (
@@ -34,9 +25,6 @@ export default class TrackerList extends React.Component {
                     );
                 })}
             </ul>
-            //         );
-            //     }}
-            // </GrowingContext.Consumer>
         );
     }
 }

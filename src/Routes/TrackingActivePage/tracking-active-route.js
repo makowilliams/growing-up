@@ -1,11 +1,14 @@
 import React from 'react';
 import HomeMenu from '../../Components/home-menu';
 import Timer from '../../Components/timer';
-import TimerList from '../../Components/timer-list';
 import StopButton from '../../Components/stop-button';
 import SelectOptButtons from '../../Components/select-opt-buttons';
+import GrowingContext from '../../growing-up-context';
+
 
 export default class TrackingActivePage extends React.Component {
+    static contextType = GrowingContext;
+
     constructor(props) {
         super(props);
 
@@ -20,17 +23,15 @@ export default class TrackingActivePage extends React.Component {
                 <HomeMenu />
                 <div className="main-container feed-main-container">
                     <div className="feed-dashboard">
-                        {this.state.type === 'feeding' ? (
+                        {this.context.type === 'feeding' ? (
                             <h2 className="feed-header">Feeding Tracker</h2>
                         ) : (
                             <h2 className="sleep-header">Sleep Tracker</h2>
                         )}
-                        <Timer type={this.state.type} />
+                        <Timer />
                     </div>
-                    <SelectOptButtons type={this.state.type} />
-
-                    <TimerList />
-                    <StopButton type={this.state.type} />
+                    <SelectOptButtons />
+                    <StopButton />
                 </div>
             </div>
         );
