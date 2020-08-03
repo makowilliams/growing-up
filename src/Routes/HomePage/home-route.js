@@ -1,6 +1,5 @@
 import React from 'react';
 import HomeMenu from '../../Components/home-menu';
-import { Link } from 'react-router-dom';
 import GrowingContext from '../../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';

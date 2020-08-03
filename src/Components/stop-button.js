@@ -23,7 +23,7 @@ export default class StopButton extends React.Component {
         e.preventDefault();
         this.setState({ error: null });
         let { duration, date, food_type, side_fed } = this.context;
-        if (this.context.duration == '') {
+        if (this.context.duration === '') {
             this.setState({ error: this.state.error_opts[0] });
         } else if (!food_type) {
             this.setState({ error: this.state.error_opts[1] });
@@ -43,7 +43,7 @@ export default class StopButton extends React.Component {
         e.preventDefault();
         this.setState({ error: null });
         let { duration, date, sleep_type, sleep_category } = this.context;
-        if (this.context.duration == '') {
+        if (this.context.duration === '') {
             this.setState({ error: this.state.error_opts[0] });
         } else if (!sleep_type) {
             this.setState({ error: this.state.error_opts[2]});

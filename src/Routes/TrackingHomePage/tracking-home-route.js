@@ -35,6 +35,7 @@ export default class TrackingHomePage extends React.Component {
                     ) : (
                         <StartButton />
                     )}
+                    <button onClick={() => window.history.back()}>Back</button>
                 </div>
             </div>
         );
