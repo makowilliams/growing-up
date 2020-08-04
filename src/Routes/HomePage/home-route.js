@@ -53,7 +53,6 @@ export default class HomePage extends React.Component {
         this.setState({
             [key[0]]: value[0]
         });
-        console.log('this worked');
     };
 
     render() {

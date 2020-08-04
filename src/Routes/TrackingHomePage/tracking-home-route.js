@@ -11,12 +11,12 @@ export default class TrackingHomePage extends React.Component {
     componentDidMount() {
         if(this.context.type === 'feeding'){
             this.context.getSleepData(this.context.currentChild.id, 'eating')
+        } else {
+            this.context.getSleepData(this.context.currentChild.id, this.context.type)
         }
-        this.context.getSleepData(this.context.currentChild.id, this.context.type)
     }
 
     render() {
-        console.log(this.context)
         return (
             <div className="tracking">
                 <HomeMenu />
