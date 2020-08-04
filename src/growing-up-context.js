@@ -1,12 +1,13 @@
 import React from 'react';
 import config from './config';
-//import TokenService from './token-service';
+import TokenService from './token-service';
 
 const GrowingContext = React.createContext({
     type: '',
     sleepData: [],
     currentUser: '',
-    currentChild: '',
+    //currentChild: '',
+    currentChildren: [],
     feedingData: [],
     duration: '',
     date: '',
@@ -33,7 +34,8 @@ export class GrowingContextProvider extends React.Component {
             type: '',
             sleepData: [],
             currentUser: '',
-            currentChild: '',
+            //currentChild: '',
+            currentChildren: [],
             feedingData: [],
             duration: '',
             date: ''
@@ -76,59 +78,58 @@ export class GrowingContextProvider extends React.Component {
     getUserInfo = () => {
         return fetch(`${config.API_ENDPOINT}/users`, {
             headers: {
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
-                authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
             .then((currentUser) => {
                 console.log('current user', currentUser);
-<<<<<<< HEAD
                 this.setState({
                     currentUser
                 });
-=======
-                this.setState(
-                    {
-                        currentUser
-                    }
-                    //not sure what cb() means or what it is trying to set
-                    //cb(currentUser.id)
-                );
->>>>>>> master
             });
     };
 
     getChildInfo = () => {
         return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
-                authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
-            .then((currentChild) => {
+            .then((currentChildren) => {
                 this.setState({
-                    currentChild
+                    currentChildren
                 });
-                return currentChild;
+                return currentChildren;
             });
     };
 
     getSleepData = (childId) => {
         return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
             headers: {
-                //authorization: `bearer ${TokenService.getAuthToken()}`,
-                authorization:
-                    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTYyMDk3MjksInN1YiI6InRlc3RfdyJ9.wc43jIJWACSMhexrMeHSyGpYZNZoHjiKPEMhGW4hyRM'
+                authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
             .then((res) => res.json())
             .then((sleepData) => {
-                this.context.setState({
-                    sleepData
+                this.setState({
+                    sleepData: [...this.state.sleepData, sleepData[0]]
+                });
+            })
+            .catch((err) => console.error(err));
+    };
+
+    getFeedingData = (childId) => {
+        return fetch(`${config.API_ENDPOINT}/eating/all/${childId}`, {
+            headers: {
+                authorization: `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then((res) => res.json())
+            .then((feedData) => {
+                this.setState({
+                    feedingData: [...this.state.feedingData, feedData[0]]
                 });
             })
             .catch((err) => console.error(err));
@@ -145,11 +146,7 @@ export class GrowingContextProvider extends React.Component {
         this.setState({ date: item });
     }
     updateType(item) {
-<<<<<<< HEAD
         this.setState({ type: item });
-=======
-        this.setState({type: item})
->>>>>>> master
     }
 
     render() {
@@ -162,6 +159,7 @@ export class GrowingContextProvider extends React.Component {
                     postUser: this.postUser,
                     getUser: this.getUser,
                     getSleepData: this.getSleepData,
+                    getFeedingData: this.getFeedingData,
                     getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
                     updateDuration: this.updateDuration,
