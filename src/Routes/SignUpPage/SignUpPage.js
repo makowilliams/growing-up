@@ -82,6 +82,7 @@ export default class SignUpPage extends React.Component {
                     </div>
 
                     <button type="submit">Submit</button>
+                    <button onClick={() => window.history.back()}>Back</button>
                 </form>
             </section>
         );

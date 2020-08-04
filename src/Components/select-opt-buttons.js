@@ -18,8 +18,10 @@ export default class FeedingButtons extends React.Component {
             sleep_category_opts: [
                 'Nap',
                 'Bedtime',
+                '',
                 'nap',
                 'bedtime',
+                '',
                 'Length:'
             ],
             food_type_opts: [
@@ -30,7 +32,7 @@ export default class FeedingButtons extends React.Component {
                 'breast_fed',
                 'formula'
             ],
-            side_fed_opts: ['Left', 'Right', 'left', 'right', 'Side:'],
+            side_fed_opts: ['Left', 'Right', 'Both', 'left', 'right', 'both', 'Side:'],
         };
     }
 
@@ -72,7 +74,7 @@ export default class FeedingButtons extends React.Component {
                     className="type-options"
                     id="type-opts"
                 >
-                    <option disabled selected value>
+                    <option disabled selected value='disabled'>
                         {' '}
                         -- select an option --{' '}
                     </option>
@@ -80,7 +82,7 @@ export default class FeedingButtons extends React.Component {
                     <option value={select_one[4]}>{select_one[1]}</option>
                     <option value={select_one[5]}>{select_one[2]}</option>
                 </select>
-                <label htmlFor="category-options"> {select_two[4]} </label>
+                <label htmlFor="category-options"> {select_two[6]} </label>
                 <select
                     onChange={(e) => this.handleCategoryOpts(e)}
                     className="category-options"
@@ -90,8 +92,9 @@ export default class FeedingButtons extends React.Component {
                         {' '}
                         -- select an option --{' '}
                     </option>
-                    <option value={select_two[2]}>{select_two[0]}</option>
-                    <option value={select_two[3]}>{select_two[1]}</option>
+                    <option value={select_two[3]}>{select_two[0]}</option>
+                    <option value={select_two[4]}>{select_two[1]}</option>
+                    <option value={select_two[5]}>{select_two[2]}</option>
                 </select>
             </div>
         );

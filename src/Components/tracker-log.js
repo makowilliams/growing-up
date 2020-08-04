@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-//import { GrowingContext } from '../growing-up-context';
 
 export default class TrackerLog extends React.Component {
     render() {

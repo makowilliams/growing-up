@@ -59,11 +59,12 @@ export default class LoginPage extends React.Component {
                     </div>
                     <div>
                         <button type="submit">Submit</button>
-                        {/* <Link to="/home" className="link" type='submit'>
-                        Submit
-                    </Link> */}
+                        <div role="alert">
+                            {error && <p className="error">{error}</p>}
+                        </div>
                     </div>
                 </form>
+                <button onClick={() => window.history.back()}>Back</button>
             </main>
         );
     }
