@@ -1,5 +1,6 @@
 import React from 'react';
 import GrowingContext from '../growing-up-context'
+import moment from 'moment';
 const ms = require('pretty-ms');
 
 export class Timer extends React.Component {
@@ -41,6 +42,7 @@ export class Timer extends React.Component {
             colonNotation: true,
             secondsDecimalDigits: 0
         });
+        
         if (formatDuration.length < 8) {
             if (formatDuration.length === 7) {
                 formatDuration = '0'.concat('', formatDuration);
@@ -54,9 +56,9 @@ export class Timer extends React.Component {
     }
 
     stopTimer() {
-        let formatDate = this.state.date
-            .substring(0, this.state.date.length - 5)
-            .replace('T', ' ');
+        //wrong format - adding weird thing to HH
+        //console.log(moment(this.state.time).format("HH:mm:ss"))
+        let formatDate = moment(this.state.date).format("YYYY-MM-DD HH:mm:ss")
         let formatedDuration = this.format_Duration(this.state.time);
 
         this.setState({ active: false });
