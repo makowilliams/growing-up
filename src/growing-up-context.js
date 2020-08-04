@@ -6,8 +6,8 @@ const GrowingContext = React.createContext({
     type: '',
     sleepData: [],
     currentUser: '',
-    usersChildren: [],
-    currentChild: '',
+    //currentChild: '',
+    currentChildren: [],
     feedingData: [],
     duration: '',
     date: '',
@@ -22,7 +22,7 @@ const GrowingContext = React.createContext({
     updateDuration: () => {},
     updateDate: () => {},
     updateType: () => {},
-    setSelectedChild: () => {},
+    setSelectedChild: () => {}
 });
 
 export default GrowingContext;
@@ -35,8 +35,8 @@ export class GrowingContextProvider extends React.Component {
             type: '',
             sleepData: [],
             currentUser: '',
-            usersChildren: [],
             currentChild: '',
+            currentChildren: [],
             feedingData: [],
             duration: '',
             date: ''
@@ -85,10 +85,10 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((currentUser) => {
+                console.log('current user', currentUser);
                 this.setState({
                     currentUser
                 });
-                return currentUser
             });
     };
 
@@ -99,11 +99,11 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
-            .then((usersChildren) => {
+            .then((currentChildren) => {
                 this.setState({
-                    usersChildren
+                    currentChildren
                 });
-                return usersChildren;
+                return currentChildren;
             });
     };
 
@@ -116,7 +116,22 @@ export class GrowingContextProvider extends React.Component {
             .then((res) => res.json())
             .then((sleepData) => {
                 this.setState({
-                    sleepData
+                    sleepData: [...this.state.sleepData, sleepData[0]]
+                });
+            })
+            .catch((err) => console.error(err));
+    };
+
+    getFeedingData = (childId) => {
+        return fetch(`${config.API_ENDPOINT}/eating/all/${childId}`, {
+            headers: {
+                authorization: `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then((res) => res.json())
+            .then((feedData) => {
+                this.setState({
+                    feedingData: [...this.state.feedingData, feedData[0]]
                 });
             })
             .catch((err) => console.error(err));
@@ -135,8 +150,8 @@ export class GrowingContextProvider extends React.Component {
     updateType(item) {
         this.setState({ type: item });
     }
-    setSelectedChild(child){
-        this.setState({ currentChild: child})
+    setSelectedChild(child) {
+        this.setState({ currentChild: child });
     }
 
     render() {
@@ -149,12 +164,13 @@ export class GrowingContextProvider extends React.Component {
                     postUser: this.postUser,
                     getUser: this.getUser,
                     getSleepData: this.getSleepData,
+                    getFeedingData: this.getFeedingData,
                     getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
-                    setSelectedChild: this.setSelectedChild,
+                    setSelectedChild: this.setSelectedChild
                 }}
             >
                 {this.props.children}

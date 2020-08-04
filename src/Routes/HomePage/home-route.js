@@ -99,12 +99,12 @@ export default class HomePage extends React.Component {
                         )}
                     </div>
                     <div className="summary-container">
-                        {!this.context.usersChildren.length ? (
+                        {!this.context.currentChildren.length ? (
                             <p id="empty-results-error">
                                 Sorry, something went wrong.
                             </p>
                         ) : (
-                            this.context.usersChildren.map((child) => {
+                            this.context.currentChildren.map((child) => {
                                 return (
                                     <BabySummary key={child.id} child={child} />
                                 );
@@ -112,7 +112,6 @@ export default class HomePage extends React.Component {
                         )}
                     </div>
                 </div>
-                
             </div>
         );
     }
