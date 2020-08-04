@@ -64,6 +64,7 @@ export class GrowingContextProvider extends React.Component {
     };
 
     postUser = (user) => {
+        console.log(config.API_ENDPOINT)
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
             headers: {

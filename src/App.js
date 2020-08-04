@@ -9,7 +9,7 @@ import NotFoundPage from './Routes/NotFoundPage/not-found-route';
 import TrackingActivePage from './Routes/TrackingActivePage/tracking-active-route';
 import {GrowingContextProvider} from './growing-up-context';
 import SignUpPage from './Routes/SignUpPage/SignUpPage';
-
+console.log(process.env)
 export default class App extends React.Component {
     render() {
         return (
