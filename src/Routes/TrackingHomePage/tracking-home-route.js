@@ -9,8 +9,10 @@ export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
     
     componentDidMount() {
-        //will need to change to currentChild
-        this.context.getSleepData(this.context.usersChildren[0].id)
+        if(this.context.type === 'feeding'){
+            this.context.getSleepData(this.context.currentChild.id, 'eating')
+        }
+        this.context.getSleepData(this.context.currentChild.id, this.context.type)
     }
 
     render() {

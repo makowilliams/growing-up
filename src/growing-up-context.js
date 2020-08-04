@@ -107,8 +107,8 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
-    getSleepData = (childId) => {
-        return fetch(`${config.API_ENDPOINT}/sleeping/all/${childId}`, {
+    getSleepData = (childId, type) => {
+        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
                 authorization: `Bearer ${TokenService.getAuthToken()}`
             }
