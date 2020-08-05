@@ -18,20 +18,6 @@ export default class HomeMenu extends React.Component {
                     <Link to="/home" className="left-menu-button">
                         Home
                     </Link>
-                    <Link
-                        to="/tracking/sleeping"
-                        className="left-menu-button"
-                        onClick={() => this.context.updateType('sleeping')}
-                    >
-                        Sleep
-                    </Link>
-                    <Link
-                        to="/tracking/feeding"
-                        className="left-menu-button"
-                        onClick={() => this.context.updateType('feeding')}
-                    >
-                        Feeding
-                    </Link>
                 </div>
                 <div className="main-button-container">
 
