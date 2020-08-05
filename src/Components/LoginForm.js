@@ -33,6 +33,16 @@ export default class LoginPage extends React.Component {
             });
     };
 
+    Toggle = e => {
+        var temp = document.getElementById('password');
+        if (temp.type === 'password') {
+            temp.type = 'text';
+        }
+        else {
+            temp.type = 'password';
+        }
+    }
+
     render() {
         const { error } = this.state;
         return (
@@ -54,7 +64,11 @@ export default class LoginPage extends React.Component {
                         </div>
                         <div className="password">
                             <label htmlFor="password">Password:</label>
-                            <input name="password" id="password" required />
+
+                            <input type='password' name='password' id='password' required />
+                            <input type='checkbox' onClick={e => this.Toggle(e)} />
+                            <b>Show Password</b>
+
                         </div>
                     </div>
                     <div>

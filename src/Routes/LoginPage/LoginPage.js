@@ -10,19 +10,18 @@ export default class LoginPage extends React.Component {
     };
 
     handleLoginSuccess = () => {
-        const { location, history } = this.props;
-        const destination = (location.state || {}).from || '/';
-        //history.push(destination);
-        history.push('/home');
-    };
+        const { location, history } = this.props
+        const destination = (location.state || {}).from || '/home'
+        history.push(destination)
+  }
 
-    render() {
-        return (
-            <section className="LoginPage">
-                <div>
-                    <LoginForm onLoginSuccess={this.handleLoginSuccess} />
-                </div>
-            </section>
-        );
-    }
+        render() {
+            return (
+                <section className='LoginPage'>
+                    <div>
+                        <LoginForm onLoginSuccess={this.handleLoginSuccess} />
+                    </div>
+                </section>
+            );
+        }
 }
