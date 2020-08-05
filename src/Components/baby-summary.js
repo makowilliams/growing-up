@@ -20,7 +20,7 @@ export default class BabySummary extends React.Component {
                 <p>
                     Last Slept: <br />
                     Last Ate: <br />
-                    Weight: <br />
+                    Age: <br />
                 </p>
                 <div className="action-button-container">
                     <Link
