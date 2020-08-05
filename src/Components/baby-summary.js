@@ -13,11 +13,14 @@ export default class BabySummary extends React.Component {
     render() {
         return (
             <div className="summary-container">
+                <div className="baby-image image">
+                    <p className="image-text">Image</p>
+                </div>
                 <h2>{this.props.child.first_name}</h2>
                 <p>
-                    Slept: <br />
-                    Ate: <br />
-                    Was Changed: <br />
+                    Last Slept: <br />
+                    Last Ate: <br />
+                    Age: <br />
                 </p>
                 <div className="action-button-container">
                     <Link

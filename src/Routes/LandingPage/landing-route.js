@@ -12,6 +12,15 @@ export default class LandingPage extends React.Component {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Vestibulum id ligula porta felis euismod semper.
                     </p>
+                    <p className="hero-copy">
+                        To Demo our app, you can login with:
+                    </p>
+                    <p className="hero-copy">
+                        username: test_user
+                    </p>
+                    <p className="hero-copy">
+                        password: Pass5555
+                    </p>
                 </div>
                 <div className="feature-one feature">
                     <div className="feature-one-copy-container feature-container container">

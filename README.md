@@ -4,9 +4,15 @@ This is the api for our capstone project, called Growing Up.
 
 ## Live App
 
-Deployed App:
+Deployed App: https://growing-up.vercel.app/
+Please feel free to check out our app! We have set up a test user account and password.
+    - username: test_user
+    - password: Pass5555
 
 ## Summary
+
+Growing up is the app that grows with your family. It allows parents to easily track and monitor their child's eating and sleeping habits. Parents can start new feeding and sleeping sessions, add details about how well they slept or what they at, and see a list of last sessions and their details. 
+
 
 ## Technology Used
 
