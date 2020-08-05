@@ -6,7 +6,7 @@ export default class LoginPage extends React.Component {
         location: {},
         history: {
             push: () => {}
-        },
+        }
     };
 
     handleLoginSuccess = () => {
@@ -24,8 +24,4 @@ export default class LoginPage extends React.Component {
                 </section>
             );
         }
-    };
-    
-
-    
-
+}
