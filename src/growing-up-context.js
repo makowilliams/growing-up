@@ -4,9 +4,9 @@ import TokenService from './token-service';
 
 const GrowingContext = React.createContext({
     type: '',
-    sleepData: [],
+    logData: [],
     currentUser: '',
-    //currentChild: '',
+    currentChild: '',
     currentChildren: [],
     feedingData: [],
     duration: '',
@@ -15,7 +15,6 @@ const GrowingContext = React.createContext({
     updateContext: () => {},
     login: () => {},
     postUser: () => {},
-    getUser: () => {},
     getSleepData: () => {},
     getUserInfo: () => {},
     getChildInfo: () => {},
@@ -33,7 +32,7 @@ export class GrowingContextProvider extends React.Component {
 
         this.state = {
             type: '',
-            sleepData: [],
+            logData: [],
             currentUser: '',
             currentChild: '',
             currentChildren: [],
@@ -85,7 +84,6 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((currentUser) => {
-                console.log('current user', currentUser);
                 this.setState({
                     currentUser
                 });
@@ -114,28 +112,28 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
-            .then((sleepData) => {
+            .then((logData) => {
                 this.setState({
-                    sleepData: [...this.state.sleepData, sleepData[0]]
+                    logData
                 });
             })
             .catch((err) => console.error(err));
     };
 
-    getFeedingData = (childId) => {
-        return fetch(`${config.API_ENDPOINT}/eating/all/${childId}`, {
-            headers: {
-                authorization: `bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.json())
-            .then((feedData) => {
-                this.setState({
-                    feedingData: [...this.state.feedingData, feedData[0]]
-                });
-            })
-            .catch((err) => console.error(err));
-    };
+    // getFeedingData = (childId) => {
+    //     return fetch(`${config.API_ENDPOINT}/eating/all/${childId}`, {
+    //         headers: {
+    //             authorization: `bearer ${TokenService.getAuthToken()}`
+    //         }
+    //     })
+    //         .then((res) => res.json())
+    //         .then((feedData) => {
+    //             this.setState({
+    //                 feedingData: [...this.state.feedingData, feedData[0]]
+    //             });
+    //         })
+    //         .catch((err) => console.error(err));
+    // };
 
     updateContext(newUpdate) {
         this.setState({ ...newUpdate });
@@ -162,7 +160,6 @@ export class GrowingContextProvider extends React.Component {
                     updateContext: this.updateContext,
                     login: this.login,
                     postUser: this.postUser,
-                    getUser: this.getUser,
                     getSleepData: this.getSleepData,
                     getFeedingData: this.getFeedingData,
                     getUserInfo: this.getUserInfo,
