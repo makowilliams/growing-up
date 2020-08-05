@@ -68,7 +68,7 @@ export default class HomePage extends React.Component {
                                 onMouseLeave={() => this.toggleVisibility()}
                             >
                                 <h3 className="baby-name">Add Baby</h3>
-                                <p className="age">Age: 13 Months</p>
+                                
                                 {this.state.isVisible ? (
                                     <EditIcon
                                         onClick={() => this.enableUpdateMode()}
@@ -98,7 +98,7 @@ export default class HomePage extends React.Component {
                     <div className="summary-container">
                         {!this.context.currentChildren.length ? (
                             <p id="empty-results-error">
-                                Sorry, something went wrong.
+                                Thanks for joining! Please add a child. 
                             </p>
                         ) : (
                             this.context.currentChildren.map((child) => {
