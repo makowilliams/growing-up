@@ -4,7 +4,6 @@ import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
 import GrowingContext from '../../growing-up-context';
 
-console.log('merged')
 //will have issues with child name on refresh...
 
 export default class TrackingHomePage extends React.Component {
@@ -27,7 +26,6 @@ export default class TrackingHomePage extends React.Component {
     }
 
     render() {
-        console.log('current child', this.context.currentChild);
         return (
             <div className="tracking">
                 <HomeMenu />
