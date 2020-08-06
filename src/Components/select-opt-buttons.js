@@ -7,6 +7,7 @@ export default class FeedingButtons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            //type: props.match.params.type,
             sleep_type_opts: [
                 'Crying',
                 'Restless',
@@ -78,7 +79,6 @@ export default class FeedingButtons extends React.Component {
                 : this.state.breast_feeding === true
                 ? this.state['side_fed_opts']
                 : null;
-        console.log(select_two);
         return (
             <div className="feed-buttons-container">
                 <label htmlFor="type-options">Type: </label>

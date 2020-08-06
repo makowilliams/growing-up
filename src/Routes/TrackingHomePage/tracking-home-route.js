@@ -7,12 +7,23 @@ import GrowingContext from '../../growing-up-context';
 
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
-    
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            type: props.match.params.type,
+            childId: props.match.params.childId
+        };
+    }
+
     componentDidMount() {
-        if(this.context.type === 'feeding'){
-            this.context.getSleepData(this.context.currentChild.id, 'eating')
+        if (this.state.type === 'feeding') {
+            this.context.getLogData(this.state.childId, 'eating');
         } else {
-            this.context.getSleepData(this.context.currentChild.id, this.context.type)
+            this.context.getLogData(
+                this.state.childId,
+                this.state.type
+            );
         }
     }
 
@@ -21,13 +32,13 @@ export default class TrackingHomePage extends React.Component {
             <div className="tracking">
                 <HomeMenu />
                 <div className="main-container">
-                    {this.context.type === 'feeding' ? (
+                    {this.state.type === 'feeding' ? (
                         <h1 className="feed-header">Feeding Tracker Log</h1>
                     ) : (
                         <h1 className="feed-header">Sleeping Tracker Log</h1>
                     )}
                     <TrackerList />
-                    {this.context.type === 'feeding' ? (
+                    {this.state.type === 'feeding' ? (
                         <Link
                             to="/tracking/feeding/active"
                             className="feed-start"

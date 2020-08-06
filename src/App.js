@@ -7,7 +7,7 @@ import TrackingHomePage from './Routes/TrackingHomePage/tracking-home-route';
 import LoginPage from './Routes/LoginPage/LoginPage';
 import NotFoundPage from './Routes/NotFoundPage/not-found-route';
 import TrackingActivePage from './Routes/TrackingActivePage/tracking-active-route';
-import {GrowingContextProvider} from './growing-up-context';
+import { GrowingContextProvider } from './growing-up-context';
 import SignUpPage from './Routes/SignUpPage/SignUpPage';
 
 export default class App extends React.Component {
@@ -19,13 +19,13 @@ export default class App extends React.Component {
                         <Route exact path="/" component={LandingPage} />
                         <Route path="/home" component={HomePage} />
                         <Route
-                            exact
-                            path="/tracking/:type"
-                            component={TrackingHomePage}
-                        />
-                        <Route
                             path="/tracking/:type/active"
                             component={TrackingActivePage}
+                        />
+                        <Route
+                            exact
+                            path="/tracking/:type/:childId"
+                            component={TrackingHomePage}
                         />
                         <Route path="/signup" component={SignUpPage} />
                         <Route path="/login" component={LoginPage} />

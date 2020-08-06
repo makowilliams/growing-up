@@ -24,7 +24,7 @@ export default class BabySummary extends React.Component {
                 </p>
                 <div className="action-button-container">
                     <Link
-                        to="/tracking/sleeping"
+                        to={`/tracking/sleeping/${this.props.child.id}`}
                         className="link"
                         name="sleeping"
                         onClick={(e) => this.updateTypeAndChild(e)}
@@ -32,7 +32,7 @@ export default class BabySummary extends React.Component {
                         Sleep
                     </Link>
                     <Link
-                        to="/tracking/feeding"
+                        to={`/tracking/feeding/${this.props.child.id}`}
                         className="link"
                         name="feeding"
                         onClick={(e) => this.updateTypeAndChild(e)}
