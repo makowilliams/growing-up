@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import HomeMenu from '../../Components/home-menu';
 import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
@@ -18,12 +17,9 @@ export default class TrackingHomePage extends React.Component {
 
     componentDidMount() {
         if (this.state.type === 'feeding') {
-            this.context.getLogData(this.state.childId, 'eating');
+            this.context.getData(this.state.childId, 'eating');
         } else {
-            this.context.getLogData(
-                this.state.childId,
-                this.state.type
-            );
+            this.context.getData(this.state.childId, this.state.type);
         }
     }
 
@@ -38,16 +34,7 @@ export default class TrackingHomePage extends React.Component {
                         <h1 className="feed-header">Sleeping Tracker Log</h1>
                     )}
                     <TrackerList />
-                    {this.state.type === 'feeding' ? (
-                        <Link
-                            to="/tracking/feeding/active"
-                            className="feed-start"
-                        >
-                            Start Feeding
-                        </Link>
-                    ) : (
-                        <StartButton />
-                    )}
+                    <StartButton type={this.state.type} />
                     <button onClick={() => window.history.back()}>Back</button>
                 </div>
             </div>

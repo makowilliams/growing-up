@@ -15,7 +15,7 @@ const GrowingContext = React.createContext({
     updateContext: () => {},
     login: () => {},
     postUser: () => {},
-    getLogData: () => {},
+    getData: () => {},
     getUserInfo: () => {},
     getChildInfo: () => {},
     updateDuration: () => {},
@@ -105,7 +105,7 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
-    getLogData = (childId, type) => {
+    getData = (childId, type) => {
         return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
                 authorization: `Bearer ${TokenService.getAuthToken()}`
@@ -145,7 +145,7 @@ export class GrowingContextProvider extends React.Component {
                     updateContext: this.updateContext,
                     login: this.login,
                     postUser: this.postUser,
-                    getLogData: this.getLogData,
+                    getData: this.getData,
                     getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
                     updateDuration: this.updateDuration,
