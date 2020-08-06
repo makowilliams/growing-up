@@ -4,8 +4,6 @@ import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
 import GrowingContext from '../../growing-up-context';
 
-//will have issues with child name on refresh...
-
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
     constructor(props) {
@@ -17,15 +15,29 @@ export default class TrackingHomePage extends React.Component {
         };
     }
 
-    componentDidMount() {
-        if (this.state.type === 'feeding') {
-            this.context.getData(this.state.childId, 'eating');
-        } else {
-            this.context.getData(this.state.childId, this.state.type);
-        }
+    getAllData() {
+        this.context.getUserInfo().then((user) => {
+            this.context.getChildInfo().then((child) => {
+                this.context.getData(this.state.childId, this.state.type);
+            });
+        });
     }
 
     render() {
+        let name = '';
+        let child;
+        if (!this.context.currentChildren) {
+            return <div>Getting Data</div>;
+        }
+        if (!this.context.currentChildren[0]) {
+            this.getAllData();
+        } else {
+            child = this.context.currentChildren.find(
+                (child) => child.id == this.state.childId
+            );
+            name = child.first_name;
+        }
+
         return (
             <div className="tracking">
                 <HomeMenu />
@@ -33,17 +45,17 @@ export default class TrackingHomePage extends React.Component {
                     {this.state.type === 'feeding' ? (
                         <>
                             <h1 className="feed-header">Feeding Tracker Log</h1>
-                            <h2>{this.context.currentChild.first_name}</h2>
+                            <h2>{name}</h2>
                         </>
                     ) : (
                         <>
                             <h1 className="feed-header">
                                 Sleeping Tracker Log
                             </h1>
-                            <h2>{this.context.currentChild.first_name}</h2>
+                            <h2>{name}</h2>
                         </>
                     )}
-                    <TrackerList type={this.state.type} />
+                    <TrackerList type={this.state.type} child={child} />
                     <StartButton type={this.state.type} />
                     <button onClick={() => window.history.back()}>Back</button>
                 </div>

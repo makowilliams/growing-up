@@ -46,17 +46,7 @@ export default class HomePage extends React.Component {
         });
     }
 
-    updateState = (newUpdate) => {
-        const key = Object.keys(newUpdate);
-        const value = Object.values(newUpdate);
-
-        this.setState({
-            [key[0]]: value[0]
-        });
-    };
-
     render() {
-        console.log(this.context)
         return (
             <div className="home-page">
                 <HomeMenu />
@@ -69,7 +59,7 @@ export default class HomePage extends React.Component {
                                 onMouseLeave={() => this.toggleVisibility()}
                             >
                                 <h3 className="baby-name">Add Baby</h3>
-                                
+
                                 {this.state.isVisible ? (
                                     <EditIcon
                                         onClick={() => this.enableUpdateMode()}
@@ -95,11 +85,11 @@ export default class HomePage extends React.Component {
                             </form>
                         )}
                     </div>
-                    
+
                     <div className="summary-container">
                         {!this.context.currentChildren.length ? (
                             <p id="empty-results-error">
-                                Thanks for joining! Please add a child. 
+                                Thanks for joining! Please add a child.
                             </p>
                         ) : (
                             this.context.currentChildren.map((child) => {

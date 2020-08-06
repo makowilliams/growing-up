@@ -19,12 +19,12 @@ export default class BabySummary extends React.Component {
     }
 
     render() {
-        if (!this.context.sleeping || !this.context.eating) {
+        if (!this.props.child.sleeping || !this.props.child.eating) {
             return <div>Getting Data</div>;
         }
 
-        const lastSlept = this.context.sleeping.slice(-1)[0].date;
-        const lastAte = this.context.eating.slice(-1)[0].date;
+        const lastSlept = this.props.child.sleeping.slice(-1)[0].date;
+        const lastAte = this.props.child.eating.slice(-1)[0].date;
 
         return (
             <div className="summary-container">

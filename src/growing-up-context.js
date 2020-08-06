@@ -105,29 +105,15 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
-    // getData = (childId, type) => {
-    //     console.log(`${config.API_ENDPOINT}/${type}/all/${childId}`)
-    //     return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
-    //         headers: {
-    //             authorization: `Bearer ${TokenService.getAuthToken()}`
-    //         }
-    //     })
-    //         .then((res) => res.json())
-    //         .then((logData) => {
-    //             console.log(logData)
-    //             this.setState({
-    //                 [type]: logData
-    //             });
-    //         })
-    //         .catch((err) => console.error(err));
-    // };
-
-    setChildData(data, type){
-        let newState = this.state
-        let index = this.state.currentChildren.findIndex(child => child.id === data[0].child_id)
-        newState.currentChildren[index][type] = data
-        this.setState(newState)
+    setChildData(data, type) {
+        let newState = this.state;
+        let index = this.state.currentChildren.findIndex(
+            (child) => child.id === data[0].child_id
+        );
+        newState.currentChildren[index][type] = data;
+        this.setState(newState);
     }
+
     getData = (childId, type) => {
         return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
@@ -136,10 +122,7 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((logData) => {
-                this.setChildData(logData, type)
-                this.setState({
-                    [type]: logData
-                });
+                this.setChildData(logData, type);
             })
             .catch((err) => console.error(err));
     };
