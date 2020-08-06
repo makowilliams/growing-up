@@ -7,26 +7,45 @@ import GrowingContext from '../../growing-up-context';
 
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
-    
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            type: props.match.params.type
+        };
+    }
+
     componentDidMount() {
-        if(this.context.type === 'feeding'){
-            this.context.getSleepData(this.context.currentChild.id, 'eating')
+        if (this.context.type === 'feeding') {
+            this.context.getData(this.context.currentChild.id, 'eating');
         } else {
-            this.context.getSleepData(this.context.currentChild.id, this.context.type)
+            this.context.getData(
+                this.context.currentChild.id,
+                this.context.type
+            );
         }
     }
 
     render() {
+        console.log('current child', this.context.currentChild);
         return (
             <div className="tracking">
                 <HomeMenu />
                 <div className="main-container">
                     {this.context.type === 'feeding' ? (
-                        <h1 className="feed-header">Feeding Tracker Log</h1>
+                        <>
+                            <h1 className="feed-header">Feeding Tracker Log</h1>
+                            <h2>{this.context.currentChild.first_name}</h2>
+                        </>
                     ) : (
-                        <h1 className="feed-header">Sleeping Tracker Log</h1>
+                        <>
+                            <h1 className="feed-header">
+                                Sleeping Tracker Log
+                            </h1>
+                            <h2>{this.context.currentChild.first_name}</h2>
+                        </>
                     )}
-                    <TrackerList />
+                    <TrackerList type={this.state.type} />
                     {this.context.type === 'feeding' ? (
                         <Link
                             to="/tracking/feeding/active"
