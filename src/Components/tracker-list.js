@@ -7,10 +7,20 @@ export default class TrackerList extends React.Component {
     static contextType = GrowingContext;
 
     render() {
+        if (!this.props.type) {
+            return <div>getting data</div>;
+        }
+
+        let displayData = '';
+        if (this.props.type === 'feeding') {
+            displayData = this.context.feeding;
+        } else {
+            displayData = this.context.sleeping;
+        }
 
         return (
             <ul className="feed-log-container">
-                {this.context.logData.map((item) => {
+                {displayData.map((item) => {
                     return (
                         <li key={item.id} className="feed-list-container">
                             <TrackerLog {...item} />
