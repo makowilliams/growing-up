@@ -2,6 +2,7 @@ import React from 'react';
 import config from './config';
 import TokenService from './token-service';
 
+console.log('merged')
 const GrowingContext = React.createContext({
     type: '',
     logData: [],
@@ -106,6 +107,7 @@ export class GrowingContextProvider extends React.Component {
     };
 
     getData = (childId, type) => {
+        console.log(`${config.API_ENDPOINT}/${type}/all/${childId}`)
         return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
                 authorization: `Bearer ${TokenService.getAuthToken()}`
@@ -113,12 +115,39 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((logData) => {
+                console.log(logData)
                 this.setState({
-                    logData
+                    [type]: logData
                 });
             })
             .catch((err) => console.error(err));
     };
+
+    // setChildData(data, type){
+    //     let newState = this.state
+    //     let selectedChild = this.state.currentChildren.find(child => child.id === data[0].child_id)
+    //     console.log(this.state.currentChildren)
+    //     this.setState({
+
+    //     })
+    //     console.log(selectedChild, type)
+    // }
+    // getData = (childId, type) => {
+    //     return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
+    //         headers: {
+    //             authorization: `Bearer ${TokenService.getAuthToken()}`
+    //         }
+    //     })
+    //         .then((res) => res.json())
+    //         .then((logData) => {
+    //             console.log(logData)
+    //             this.setChildData(logData, type)
+    //             this.setState({
+    //                 [type]: logData
+    //             });
+    //         })
+    //         .catch((err) => console.error(err));
+    // };
 
     updateContext(newUpdate) {
         this.setState({ ...newUpdate });

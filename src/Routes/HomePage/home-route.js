@@ -6,6 +6,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import BabySummary from '../../Components/baby-summary';
 
+console.log('says something changed?')
 export default class HomePage extends React.Component {
     static contextType = GrowingContext;
 
@@ -102,6 +103,7 @@ export default class HomePage extends React.Component {
                             </p>
                         ) : (
                             this.context.currentChildren.map((child) => {
+                                // console.log('child', child);
                                 return (
                                     <BabySummary key={child.id} child={child} />
                                 );

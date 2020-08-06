@@ -4,6 +4,9 @@ import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
 import GrowingContext from '../../growing-up-context';
 
+console.log('merged')
+//will have issues with child name on refresh...
+
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
     constructor(props) {
@@ -24,16 +27,25 @@ export default class TrackingHomePage extends React.Component {
     }
 
     render() {
+        console.log('current child', this.context.currentChild);
         return (
             <div className="tracking">
                 <HomeMenu />
                 <div className="main-container">
                     {this.state.type === 'feeding' ? (
-                        <h1 className="feed-header">Feeding Tracker Log</h1>
+                        <>
+                            <h1 className="feed-header">Feeding Tracker Log</h1>
+                            <h2>{this.context.currentChild.first_name}</h2>
+                        </>
                     ) : (
-                        <h1 className="feed-header">Sleeping Tracker Log</h1>
+                        <>
+                            <h1 className="feed-header">
+                                Sleeping Tracker Log
+                            </h1>
+                            <h2>{this.context.currentChild.first_name}</h2>
+                        </>
                     )}
-                    <TrackerList />
+                    <TrackerList type={this.state.type} />
                     <StartButton type={this.state.type} />
                     <button onClick={() => window.history.back()}>Back</button>
                 </div>
