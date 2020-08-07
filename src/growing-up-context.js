@@ -105,6 +105,15 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
+    setChildData(data, type) {
+        let newState = this.state;
+        let index = this.state.currentChildren.findIndex(
+            (child) => child.id === data[0].child_id
+        );
+        newState.currentChildren[index][type] = data;
+        this.setState(newState);
+    }
+
     getData = (childId, type) => {
         return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
@@ -113,28 +122,10 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((logData) => {
-                // console.log('log data', logData);
-                this.setState({
-                    [type]: logData
-                });
+                this.setChildData(logData, type);
             })
             .catch((err) => console.error(err));
     };
-
-    // getFeedingData = (childId) => {
-    //     return fetch(`${config.API_ENDPOINT}/eating/all/${childId}`, {
-    //         headers: {
-    //             authorization: `bearer ${TokenService.getAuthToken()}`
-    //         }
-    //     })
-    //         .then((res) => res.json())
-    //         .then((feedData) => {
-    //             this.setState({
-    //                 feedingData: [...this.state.feedingData, feedData[0]]
-    //             });
-    //         })
-    //         .catch((err) => console.error(err));
-    // };
 
     updateContext(newUpdate) {
         this.setState({ ...newUpdate });
@@ -162,7 +153,6 @@ export class GrowingContextProvider extends React.Component {
                     login: this.login,
                     postUser: this.postUser,
                     getData: this.getData,
-                    getFeedingData: this.getFeedingData,
                     getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
                     updateDuration: this.updateDuration,

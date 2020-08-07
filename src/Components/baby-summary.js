@@ -19,17 +19,18 @@ export default class BabySummary extends React.Component {
     }
 
     render() {
-        if (!this.context.sleeping || !this.context.eating) {
-            return <div>can't display data</div>;
+        if (!this.props.child.sleeping || !this.props.child.eating) {
+            return <div>Getting Data</div>;
         }
-        console.log('sleep data', this.context.sleeping);
-        console.log('feed data', this.context.eating);
 
-        const lastSlept = this.context.sleeping.slice(-1)[0].date;
-        const lastAte = this.context.eating.slice(-1)[0].date;
+        const lastSlept = this.props.child.sleeping.slice(-1)[0].date;
+        const lastAte = this.props.child.eating.slice(-1)[0].date;
 
         return (
             <div className="summary-container">
+                <div className="baby-image image">
+                    <p className="image-text">Image</p>
+                </div>
                 <div className="name-age">
                     <h2>{this.props.child.first_name}</h2>
                     <p>Age: {this.props.child.age} months</p>
@@ -42,7 +43,7 @@ export default class BabySummary extends React.Component {
                 </ul>
                 <div className="action-button-container">
                     <Link
-                        to="/tracking/sleeping"
+                        to={`/tracking/sleeping/${this.props.child.id}`}
                         className="link"
                         name="sleeping"
                         onClick={(e) => this.updateTypeAndChild(e)}
@@ -50,7 +51,7 @@ export default class BabySummary extends React.Component {
                         Sleep
                     </Link>
                     <Link
-                        to="/tracking/feeding"
+                        to={`/tracking/feeding/${this.props.child.id}`}
                         className="link"
                         name="feeding"
                         onClick={(e) => this.updateTypeAndChild(e)}
