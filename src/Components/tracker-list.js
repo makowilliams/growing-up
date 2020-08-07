@@ -23,7 +23,7 @@ export default class TrackerList extends React.Component {
             } else return <div>Please add a session</div>;
         }
         return (
-            <ul className="feed-log-container">
+            <ul>
                 {!displayData
                     ? ''
                     : displayData.map((item) => {
