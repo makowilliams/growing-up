@@ -3,7 +3,6 @@ import moment from 'moment';
 
 export default class TrackerLog extends React.Component {
     render() {
-        console.log(this.props)
         return (
             <div className="feed-log-container">
                 <div className="icon">
