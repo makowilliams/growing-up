@@ -3,6 +3,7 @@ import moment from 'moment';
 
 export default class TrackerLog extends React.Component {
     render() {
+        console.log(this.props)
         return (
             <div className="feed-log-container">
                 <div className="icon">
@@ -13,6 +14,9 @@ export default class TrackerLog extends React.Component {
                 <p className="duration">{this.props.duration}</p>
                 <p className="time">
                     {moment(this.props.date).format('h:mma')}
+                </p>
+                <p className="date">
+                    {moment(this.props.date).format('MMM Do')}
                 </p>
             </div>
         );
