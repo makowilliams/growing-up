@@ -16,9 +16,13 @@ export default class TrackingHomePage extends React.Component {
     }
 
     getAllData() {
+        let type = '';
+        if (this.state.type === 'feeding') {
+            type = 'eating';
+        } else type = this.state.type;
         this.context.getUserInfo().then((user) => {
             this.context.getChildInfo().then((child) => {
-                this.context.getData(this.state.childId, this.state.type);
+                this.context.getData(this.state.childId, type);
             });
         });
     }

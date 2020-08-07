@@ -14,6 +14,9 @@ export default class TrackerLog extends React.Component {
                 <p className="time">
                     {moment(this.props.date).format('h:mma')}
                 </p>
+                <p className="date">
+                    {moment(this.props.date).format('MMM Do')}
+                </p>
             </div>
         );
     }

@@ -56,8 +56,6 @@ export class Timer extends React.Component {
     }
 
     stopTimer() {
-        //wrong format - adding weird thing to HH
-        //console.log(moment(this.state.time).format("HH:mm:ss"))
         let formatDate = moment(this.state.date).format('YYYY-MM-DD HH:mm:ss');
         let formatedDuration = this.format_Duration(this.state.time);
 
@@ -88,6 +86,18 @@ export class Timer extends React.Component {
             this.state.time !== 0 && !this.state.active ? (
                 <button onClick={this.startTimer}>Resume</button>
             ) : null;
+
+        let child;
+        let lastSession = [];
+        if (this.context.currentChildren) {
+            child = this.context.currentChildren.find(
+                (child) => child.id == this.context.currentChild.id
+            );
+            if (this.context.type === 'sleeping') {
+                lastSession = [' slept ', child.sleeping.slice(-1)[0].date];
+            } else lastSession = [' fed ', child.eating.slice(-1)[0].date];
+        }
+
         return (
             <div className="timer-container">
                 <p className="timer">
@@ -102,7 +112,14 @@ export class Timer extends React.Component {
                 {resume}
                 {stop}
                 {reset}
-                <p className="last-feed">Last feed was at 5:00PM</p>
+                {!lastSession ? (
+                    ''
+                ) : (
+                    <p className="last-feed">
+                        Last {lastSession[0]} was at{' '}
+                        {moment(lastSession[1]).format('h:mma')}
+                    </p>
+                )}
             </div>
         );
     }

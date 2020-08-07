@@ -8,7 +8,6 @@ const GrowingContext = React.createContext({
     currentUser: '',
     currentChild: '',
     currentChildren: [],
-    feedingData: [],
     duration: '',
     date: '',
 
@@ -19,6 +18,7 @@ const GrowingContext = React.createContext({
     getUserInfo: () => {},
     getChildInfo: () => {},
     updateDuration: () => {},
+    updateSession: () => {},
     updateDate: () => {},
     updateType: () => {},
     setSelectedChild: () => {}
@@ -36,12 +36,12 @@ export class GrowingContextProvider extends React.Component {
             currentUser: '',
             currentChild: '',
             currentChildren: [],
-            feedingData: [],
             duration: '',
             date: ''
         };
 
         this.updateContext = this.updateContext.bind(this);
+        this.updateSession = this.updateSession.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -105,6 +105,15 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
+    updateSession(data, type) {
+        let newState = this.state;
+        let index = this.state.currentChildren.findIndex(
+            (child) => child.id === data.child_id
+        );
+        newState.currentChildren[index][type].push(data);
+        this.setState(newState);
+    }
+
     setChildData(data, type) {
         let newState = this.state;
         let index = this.state.currentChildren.findIndex(
@@ -155,6 +164,7 @@ export class GrowingContextProvider extends React.Component {
                     getData: this.getData,
                     getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
+                    updateSession: this.updateSession,
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
