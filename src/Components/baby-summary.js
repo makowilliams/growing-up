@@ -19,12 +19,17 @@ export default class BabySummary extends React.Component {
     }
 
     render() {
-        if (!this.props.child.sleeping || !this.props.child.eating) {
-            return <div>Getting Data</div>;
-        }
+        let lastSlept;
+        if (this.props.child.sleeping) {
+            let slept = this.props.child.sleeping.slice(-1)[0].date;
+            lastSlept = moment(slept).format('h:mma');
+        } else lastSlept = 'No sessions yet';
 
-        const lastSlept = this.props.child.sleeping.slice(-1)[0].date;
-        const lastAte = this.props.child.eating.slice(-1)[0].date;
+        let lastAte;
+        if (this.props.child.eating) {
+            let ate = this.props.child.eating.slice(-1)[0].date;
+            lastAte = moment(ate).format('h:mma');
+        } else lastAte = 'No sessions yet';
 
         return (
             <div className="summary-container">
@@ -36,11 +41,9 @@ export default class BabySummary extends React.Component {
                     <p>Age: {this.props.child.age} months</p>
                 </div>
 
-                <p>Last</p>
-                <ul>
-                    <li>Slept: {moment(lastSlept).format('h:mma')}</li>
-                    <li>Ate: {moment(lastAte).format('h:mma')}</li>
-                </ul>
+                <p>Last Slept: {lastSlept}</p>
+                <p>Last Ate: {lastAte}</p>
+
                 <div className="action-button-container">
                     <Link
                         to={`/tracking/sleeping/${this.props.child.id}`}
