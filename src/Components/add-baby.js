@@ -43,10 +43,12 @@ export default class AddBaby extends React.Component {
         BabyApiService.postBaby({
             first_name: first_name.value,
             age: age.value,
+            weight: weight.value,
         })
             .then((res) => {
                 first_name.value = '';
                 age.value = '';
+                weight.value = '';
                 this.props.onAddSuccess();
             })
             .catch((res) => {
