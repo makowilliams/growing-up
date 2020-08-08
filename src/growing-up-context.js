@@ -131,7 +131,9 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((logData) => {
-                this.setChildData(logData, type);
+                if(logData.length){
+                    this.setChildData(logData, type);
+                }
             })
             .catch((err) => console.error(err));
     };
