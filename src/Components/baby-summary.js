@@ -30,8 +30,9 @@ export default class BabySummary extends React.Component {
             let ate = this.props.child.eating.slice(-1)[0].date;
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
-
+        
         return (
+            
             <div className="summary-container">
                 <div className="baby-image image">
                     <p className="image-text">Image</p>
@@ -39,6 +40,7 @@ export default class BabySummary extends React.Component {
                 <div className="name-age">
                     <h2>{this.props.child.first_name}</h2>
                     <p>Age: {this.props.child.age} months</p>
+                    <p>Weight: {this.props.child.weight} lbs</p>
                 </div>
 
                 <p>Last Slept: {lastSlept}</p>
