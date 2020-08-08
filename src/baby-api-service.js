@@ -3,7 +3,6 @@ import TokenService from './token-service';
 
 const AddBabyService = {
     postBaby(babyInfo) {
-        debugger
         return fetch(`${config.API_ENDPOINT}/children`, {
             method: 'POST',
             headers: {

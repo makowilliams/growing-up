@@ -16,12 +16,29 @@ export default class AddBaby extends React.Component {
         });
     }
 
+    validateWeight = weight => {
+        if(!weight.value.match(/^\d+\.\d{2}?$/)){
+            return 'Weight must be to two decimal places';
+        }
+    }
+
     state = { error: null };
 
     handleAddBaby = (e) => {
         e.preventDefault();
         this.setState({ error: null });
-        const { first_name, age } = e.target;
+
+        const { first_name, age, weight } = e.target;
+
+        if(weight){
+            const weightErr = this.validateWeight(weight)
+            if(weightErr) {
+                this.setState({error: weightErr})
+            }    
+        }
+        if(!age){
+            this.setState({error: 'Please enter an age'})
+        }
 
         BabyApiService.postBaby({
             first_name: first_name.value,
@@ -48,13 +65,22 @@ export default class AddBaby extends React.Component {
                 className="baby-input-container"
                 onSubmit={(e) => this.handleAddBaby(e)}
             >
+                <label htmlFor='first_name'>Name</label>
                 <input
                     className="name-input"
                     id='first_name'
                     name='first_name'
+                    required
+                />
+                <label htmlFor='weight'>Weight</label>
+                <input
+                    className="name-input"
+                    id='weight'
+                    name='weight'
+                    required
                 />
                 <label htmlFor='age'>Age(months)</label>
-                <select name='age' id='age'>
+                <select name='age' id='age' required>
                     <option value='0'>0</option>
                     <option value='1'>1</option>
                     <option value='2'>2</option>
@@ -76,12 +102,9 @@ export default class AddBaby extends React.Component {
                     <option value='18'>18</option>
                 </select>
                 <button type='submit'> Add </button>    
-                {/* <CheckCircleIcon
-                    onClick={(e) => this.handleAddBaby(e)}
-                />
-                <CancelIcon
-                   onClick={() => this.cancelUpdateMode()}
-                /> */}
+                <div role="alert">
+                    {error && <p className="error">{error}</p>}
+                </div>
             </form>
         );
     }
