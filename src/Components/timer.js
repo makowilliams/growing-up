@@ -94,8 +94,22 @@ export class Timer extends React.Component {
                 (child) => child.id == this.context.currentChild.id
             );
             if (this.context.type === 'sleeping') {
-                lastSession = [' slept ', child.sleeping.slice(-1)[0].date];
-            } else lastSession = [' fed ', child.eating.slice(-1)[0].date];
+                lastSession = 'First Session'
+                if(child.sleeping){
+                    let last_slept = child.sleeping.slice(-1)[0].date
+                    let last_time = moment(last_slept).format('h:mma');
+                    lastSession = ['Last sleep was at ' + last_time];
+                }
+                
+            } else {
+                lastSession = 'First Session'
+                if(child.eating){
+                    let last_ate = child.eating.slice(-1)[0].date
+                    let last_time = moment(last_ate).format('h:mma');
+                    lastSession = ['Last meal was at ' + last_time];
+                }
+                
+            }
         }
 
         return (
@@ -116,8 +130,8 @@ export class Timer extends React.Component {
                     ''
                 ) : (
                     <p className="last-feed">
-                        Last {lastSession[0]} was at{' '}
-                        {moment(lastSession[1]).format('h:mma')}
+                        
+                        {lastSession}
                     </p>
                 )}
             </div>

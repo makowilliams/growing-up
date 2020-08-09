@@ -110,7 +110,11 @@ export class GrowingContextProvider extends React.Component {
         let index = this.state.currentChildren.findIndex(
             (child) => child.id === data.child_id
         );
-        newState.currentChildren[index][type].push(data);
+        if(newState.currentChildren[index][type]){
+            newState.currentChildren[index][type].push(data);
+        } else {
+            newState.currentChildren[index][type] = [data];
+        }
         this.setState(newState);
     }
 
