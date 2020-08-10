@@ -38,12 +38,10 @@ export default class BabyWeight extends React.Component {
     }
 
     render() {
-        console.log(this.context)
         return (
             <>
                 {this.state.updateMode === false ? (
                     <div
-                        // className="baby-copy-container"
                         onMouseEnter={() => this.toggleVisibility()}
                         onMouseLeave={() => this.toggleVisibility()}
                     >
@@ -53,7 +51,7 @@ export default class BabyWeight extends React.Component {
                         ) : null}
                     </div>
                 ) : (
-                    <UpdateWeight childId={this.props.child.id} />
+                    <UpdateWeight childId={this.props.child.id} onUpdateSuccess={() => this.cancelUpdateMode()}/>
                 )}
             </>
         );

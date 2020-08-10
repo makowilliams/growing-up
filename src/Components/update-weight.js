@@ -4,13 +4,9 @@ import BabyApiService from '../baby-api-service';
 
 export default class UpdateWeight extends React.Component {
     static contextType = GrowingContext;
-
-    cancelUpdateMode() {
-        this.setState({
-            updateMode: false,
-            isVisible: false
-        });
-    }
+    static defaultProps = {
+        onUpdateSuccess: () => {}
+    };
 
     validateWeight = (weight) => {
         if (!weight.value.match(/^\d+\.\d{2}?$/)) {
@@ -42,8 +38,10 @@ export default class UpdateWeight extends React.Component {
             .then((res) => {
                 weight.value = '';
                 this.context.updateWeight(newWeight);
+                this.props.onUpdateSuccess();
             })
             .catch((res) => {
+                console.log(res)
                 this.setState({
                     error: res.error
                         ? res.error
