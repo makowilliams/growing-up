@@ -1,6 +1,7 @@
 import React from 'react';
 import config from './config';
 import TokenService from './token-service';
+// import ImageUploader from 'react-images-upload';
 
 const GrowingContext = React.createContext({
     type: '',
@@ -11,6 +12,7 @@ const GrowingContext = React.createContext({
     feedingData: [],
     duration: '',
     date: '',
+    image: '',
 
     updateContext: () => {},
     login: () => {},
@@ -38,7 +40,8 @@ export class GrowingContextProvider extends React.Component {
             currentChildren: [],
             feedingData: [],
             duration: '',
-            date: ''
+            date: '',
+            image: ''
         };
 
         this.updateContext = this.updateContext.bind(this);
@@ -47,6 +50,12 @@ export class GrowingContextProvider extends React.Component {
         this.updateType = this.updateType.bind(this);
         this.setSelectedChild = this.setSelectedChild.bind(this);
     }
+
+    // onDrop(picture) {
+    //     this.setState({
+    //         pictures: this.state.pictures.concat(picture)
+    //     });
+    // }
 
     login = (credentials) => {
         return fetch(`${config.API_ENDPOINT}/auth/login`, {

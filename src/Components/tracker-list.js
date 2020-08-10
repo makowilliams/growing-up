@@ -12,21 +12,33 @@ export default class TrackerList extends React.Component {
         }
 
         let displayData = '';
-        if (this.props.type === 'feeding') {
-            displayData = this.context.feeding;
-        } else {
-            displayData = this.context.sleeping;
+        if (!displayData) {
+            if (this.props.child) {
+                if (this.props.type === 'feeding') {
+                    displayData = this.context.feeding;
+                } else {
+                    displayData = this.context.sleeping;
+                }
+            } else if (this.context.currentChild) {
+                if (this.props.type === 'feeding') {
+                    displayData = this.context.currentChild.eating;
+                } else {
+                    displayData = this.context.currentChild.sleeping;
+                }
+            }
         }
 
         return (
             <ul className="feed-log-container">
-                {displayData.map((item) => {
-                    return (
-                        <li key={item.id} className="feed-list-container">
-                            <TrackerLog {...item} />
-                        </li>
-                    );
-                })}
+                {!displayData
+                    ? ''
+                    : displayData.map((item) => {
+                          return (
+                              <li key={item.id} className="feed-list-container">
+                                  <TrackerLog {...item} />
+                              </li>
+                          );
+                      })}
             </ul>
         );
     }

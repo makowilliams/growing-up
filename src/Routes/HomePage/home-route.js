@@ -21,9 +21,11 @@ export default class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        this.context.getUserInfo().then((user) => {
-            this.context.getChildInfo();
-        });
+        this.context.getUserInfo();
+        this.context.getChildInfo();
+        // .then(() => {
+        //     this.context.getChildInfo();
+        // });
     }
 
     toggleVisibility() {
@@ -68,7 +70,7 @@ export default class HomePage extends React.Component {
                                 onMouseLeave={() => this.toggleVisibility()}
                             >
                                 <h3 className="baby-name">Add Baby</h3>
-                                
+
                                 {this.state.isVisible ? (
                                     <EditIcon
                                         onClick={() => this.enableUpdateMode()}
@@ -94,15 +96,14 @@ export default class HomePage extends React.Component {
                             </form>
                         )}
                     </div>
-                    
+
                     <div className="summary-container">
                         {!this.context.currentChildren.length ? (
                             <p id="empty-results-error">
-                                Thanks for joining! Please add a child. 
+                                Thanks for joining! Please add a child.
                             </p>
                         ) : (
                             this.context.currentChildren.map((child) => {
-                                // console.log('child', child);
                                 return (
                                     <BabySummary key={child.id} child={child} />
                                 );

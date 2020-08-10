@@ -5,7 +5,6 @@ import StopButton from '../../Components/stop-button';
 import SelectOptButtons from '../../Components/select-opt-buttons';
 import GrowingContext from '../../growing-up-context';
 
-
 export default class TrackingActivePage extends React.Component {
     static contextType = GrowingContext;
 

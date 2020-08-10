@@ -18,45 +18,77 @@ export default class BabySummary extends React.Component {
         this.context.getData(this.props.child.id, 'eating');
     }
 
+    onFileLoad() {}
+
+    handleUpdateImg() {}
+
     render() {
         if (!this.context.sleeping || !this.context.eating) {
             return <div>can't display data</div>;
         }
-        console.log('sleep data', this.context.sleeping);
-        console.log('feed data', this.context.eating);
+
+        // console.log('sleep data', this.context.sleeping);
+        // console.log('feed data', this.context.eating);
+        console.log('children data', this.context.children);
+        console.log('props child data', this.props.child);
 
         const lastSlept = this.context.sleeping.slice(-1)[0].date;
         const lastAte = this.context.eating.slice(-1)[0].date;
+        const childImg = this.props.child.image;
 
         return (
             <div className="summary-container">
-                <div className="name-age">
-                    <h2>{this.props.child.first_name}</h2>
-                    <p>Age: {this.props.child.age} months</p>
+                <div className="update-img-container">
+                    <input
+                        type="file"
+                        id="file-input"
+                        name="file-input"
+                        ref={(input) => (this.fileInput = input)}
+                        onDragOver={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
+                        onDrop={this.onFileLoad.bind(this)}
+                        onChange={this.onFileLoad.bind(this)}
+                    />
+                    <div className="update-img">
+                        <img
+                            className="child-img"
+                            src={childImg}
+                            alt="baby image"
+                            width="300"
+                        />
+                    </div>
                 </div>
+                <div className="child-info-container">
+                    <div className="name-age">
+                        <h2>{this.props.child.first_name}</h2>
+                        <p>Age: {this.props.child.age} months</p>
+                    </div>
 
-                <p>Last</p>
-                <ul>
-                    <li>Slept: {moment(lastSlept).format('h:mma')}</li>
-                    <li>Ate: {moment(lastAte).format('h:mma')}</li>
-                </ul>
-                <div className="action-button-container">
-                    <Link
-                        to="/tracking/sleeping"
-                        className="link"
-                        name="sleeping"
-                        onClick={(e) => this.updateTypeAndChild(e)}
-                    >
-                        Sleep
-                    </Link>
-                    <Link
-                        to="/tracking/feeding"
-                        className="link"
-                        name="feeding"
-                        onClick={(e) => this.updateTypeAndChild(e)}
-                    >
-                        Feeding
-                    </Link>
+                    <p>Last</p>
+                    <ul>
+                        <li>Slept: {moment(lastSlept).format('h:mma')}</li>
+                        <li>Ate: {moment(lastAte).format('h:mma')}</li>
+                    </ul>
+                    <div className="action-button-container">
+                        <Link
+                            to="/tracking/sleeping"
+                            className="link"
+                            name="sleeping"
+                            onClick={(e) => this.updateTypeAndChild(e)}
+                        >
+                            Sleep
+                        </Link>
+                        <Link
+                            to="/tracking/feeding"
+                            className="link"
+                            name="feeding"
+                            onClick={(e) => this.updateTypeAndChild(e)}
+                        >
+                            Feeding
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
