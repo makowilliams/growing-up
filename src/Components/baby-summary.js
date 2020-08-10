@@ -11,26 +11,19 @@ export default class BabySummary extends React.Component {
         this.context.updateType(e.target.name);
     }
 
-    componentDidMount() {
-        this.context.updateType('sleeping');
-        this.context.updateType('eating');
-        this.context.getData(this.props.child.id, 'sleeping');
-        this.context.getData(this.props.child.id, 'eating');
-    }
-
     onFileLoad() {}
 
     handleUpdateImg() {}
 
     render() {
         let lastSlept;
-        if (this.props.child.sleeping) {
+        if (this.props.child.sleeping.length) {
             let slept = this.props.child.sleeping.slice(-1)[0].date;
             lastSlept = moment(slept).format('h:mma');
         } else lastSlept = 'No sessions yet';
 
         let lastAte;
-        if (this.props.child.eating) {
+        if (this.props.child.eating.length) {
             let ate = this.props.child.eating.slice(-1)[0].date;
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';

@@ -15,18 +15,6 @@ export default class TrackingHomePage extends React.Component {
         };
     }
 
-    getAllData() {
-        let type = '';
-        if (this.state.type === 'feeding') {
-            type = 'eating';
-        } else type = this.state.type;
-        this.context.getUserInfo().then((user) => {
-            this.context.getChildInfo().then((child) => {
-                this.context.getData(this.state.childId, type);
-            });
-        });
-    }
-
     render() {
         let name = '';
         let child;
@@ -34,7 +22,7 @@ export default class TrackingHomePage extends React.Component {
             return <div>Getting Data</div>;
         }
         if (!this.context.currentChildren[0]) {
-            this.getAllData();
+            this.context.getChildInfo();
         } else {
             child = this.context.currentChildren.find(
                 (child) => child.id == this.state.childId

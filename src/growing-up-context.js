@@ -6,7 +6,6 @@ import TokenService from './token-service';
 const GrowingContext = React.createContext({
     type: '',
     logData: [],
-    currentUser: '',
     currentChild: '',
     currentChildren: [],
     duration: '',
@@ -16,8 +15,6 @@ const GrowingContext = React.createContext({
     updateContext: () => {},
     login: () => {},
     postUser: () => {},
-    getData: () => {},
-    getUserInfo: () => {},
     getChildInfo: () => {},
     updateDuration: () => {},
     updateSession: () => {},
@@ -35,7 +32,6 @@ export class GrowingContextProvider extends React.Component {
         this.state = {
             type: '',
             logData: [],
-            currentUser: '',
             currentChild: '',
             currentChildren: [],
             duration: '',
@@ -85,20 +81,6 @@ export class GrowingContextProvider extends React.Component {
         });
     };
 
-    getUserInfo = () => {
-        return fetch(`${config.API_ENDPOINT}/users`, {
-            headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.json())
-            .then((currentUser) => {
-                this.setState({
-                    currentUser
-                });
-            });
-    };
-
     getChildInfo = () => {
         return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
@@ -107,9 +89,32 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((currentChildren) => {
-                this.setState({
-                    currentChildren
-                });
+                // create an array of promises
+                const sleepingPromises =  currentChildren.map(child => this.getData(child.id, 'sleeping'));
+                Promise
+                  .all(sleepingPromises)
+                  .then(sleepingData => {
+                      // an array of sleeping data 
+                      sleepingData.forEach((currSleepingData, index)=>{
+                          currentChildren[index].sleeping = currSleepingData;
+                      });
+                  })
+                  .then(() => {
+                      // create an array of promises
+                      const eatingPromises = currentChildren.map(child => this.getData(child.id, 'eating'));
+                      return Promise.all(eatingPromises)
+                  })
+                  .then(eatingData => {
+                    // an array of eating data  
+                    eatingData.forEach((currEatingData, index)=>{
+                        currentChildren[index].eating = currEatingData;
+                    });
+                  })
+                  .then(() => {
+                    this.setState({
+                        currentChildren
+                    });
+                  })
                 return currentChildren;
             });
     };
@@ -127,15 +132,6 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
-    setChildData(data, type) {
-        let newState = this.state;
-        let index = this.state.currentChildren.findIndex(
-            (child) => child.id === data[0].child_id
-        );
-        newState.currentChildren[index][type] = data;
-        this.setState(newState);
-    }
-
     getData = (childId, type) => {
         return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
@@ -143,11 +139,6 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
-            .then((logData) => {
-                if(logData.length){
-                    this.setChildData(logData, type);
-                }
-            })
             .catch((err) => console.error(err));
     };
 
@@ -176,8 +167,6 @@ export class GrowingContextProvider extends React.Component {
                     updateContext: this.updateContext,
                     login: this.login,
                     postUser: this.postUser,
-                    getData: this.getData,
-                    getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
                     updateSession: this.updateSession,
                     updateDuration: this.updateDuration,

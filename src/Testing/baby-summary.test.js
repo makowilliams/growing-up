@@ -68,7 +68,6 @@ const contextValue = {
         }
     ],
     updateType: jest.fn(() => {}),
-    getData: jest.fn(() => {}),
 };
 
 it('renders without crashing', () => {
