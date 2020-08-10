@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import TrackingHomeRoute from '../Routes/TrackingHomePage/tracking-home-route';
+import { BrowserRouter } from 'react-router-dom';
+
 import { MemoryRouter } from 'react-router-dom';
 
 // it('renders without crashing', () => {
@@ -37,6 +39,7 @@ const contextValue = {
         {
             id: 1,
             age: 8,
+            
             eating: [{
                 0: {
                     id: 1,
@@ -52,12 +55,20 @@ const contextValue = {
     ],
 };
 
+const match = {
+    params: {
+        type: 'feeding',
+        childId: 1,
+    },
+};
+
 test('renders tracker log', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
-            <TrackingHomeRoute />
+            <BrowserRouter>
+                <TrackingHomeRoute match={match}/>
+            </BrowserRouter>
         </GrowingContext.Provider>
-    
     );
     const linkElement = getByText(/Tracker Log/i);
     expect(linkElement).toBeInTheDocument();
