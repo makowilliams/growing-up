@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import BabySummary from '../Components/baby-summary';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-
 import '@testing-library/jest-dom/extend-expect';
 import GrowingContext from '../growing-up-context';
 
@@ -70,16 +68,6 @@ const contextValue = {
     updateType: jest.fn(() => {}),
 };
 
-it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(
-        <GrowingContext.Provider value={contextValue}>
-            <BabySummary />, div)
-        </GrowingContext.Provider>
-    );
-    ReactDOM.unmountComponentAtNode(div);
-});
-
 test('renders tracker log', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
@@ -88,6 +76,6 @@ test('renders tracker log', () => {
             </BrowserRouter>   
         </GrowingContext.Provider>
     );
-    const linkElement = getByText(/Age/i);
+    const linkElement = getByText(/Ate: /i);
     expect(linkElement).toBeInTheDocument();
 });

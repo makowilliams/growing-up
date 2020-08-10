@@ -16,6 +16,7 @@ export default class BabySummary extends React.Component {
     handleUpdateImg() {}
 
     render() {
+        console.log(this.props)
         let lastSlept;
         if (this.props.child.sleeping.length) {
             let slept = this.props.child.sleeping.slice(-1)[0].date;
