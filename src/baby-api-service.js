@@ -18,6 +18,22 @@ const AddBabyService = {
             : res.json()
             )
     },
+    patchWeight(babyInfo) {
+        return fetch(`${config.API_ENDPOINT}/children/${babyInfo.childId}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(babyInfo),
+            
+        })
+        .then(res => 
+            (!res.ok)
+            ? res.json()
+            : res.json()
+            )
+    },
 }
 
 export default AddBabyService;

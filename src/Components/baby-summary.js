@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
+import BabyWeight from './baby-weight';
 import moment from 'moment';
 
 export default class BabySummary extends React.Component {
@@ -57,7 +58,7 @@ export default class BabySummary extends React.Component {
                     <div className="name-age">
                         <h2>{this.props.child.first_name}</h2>
                         <p>Age: {this.props.child.age} months</p>
-                        <p>Weight: {this.props.child.weight} lbs</p>
+                        <BabyWeight child={this.props.child}/>
                     </div>
 
                     <p>Last Slept: {lastSlept}</p>
