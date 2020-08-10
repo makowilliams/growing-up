@@ -6,7 +6,6 @@ import SelectOptButtons from '../../Components/select-opt-buttons';
 import GrowingContext from '../../growing-up-context';
 import { Redirect } from 'react-router-dom';
 
-
 export default class TrackingActivePage extends React.Component {
     static contextType = GrowingContext;
 

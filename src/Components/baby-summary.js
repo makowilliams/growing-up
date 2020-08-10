@@ -18,6 +18,10 @@ export default class BabySummary extends React.Component {
         this.context.getData(this.props.child.id, 'eating');
     }
 
+    onFileLoad() {}
+
+    handleUpdateImg() {}
+
     render() {
         let lastSlept;
         if (this.props.child.sleeping) {
@@ -34,14 +38,33 @@ export default class BabySummary extends React.Component {
         return (
             
             <div className="summary-container">
-                <div className="baby-image image">
-                    <p className="image-text">Image</p>
+                <div className="update-img-container">
+                    <input
+                        type="file"
+                        id="file-input"
+                        name="file-input"
+                        ref={(input) => (this.fileInput = input)}
+                        onDragOver={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
+                        onDrop={this.onFileLoad.bind(this)}
+                        onChange={this.onFileLoad.bind(this)}
+                    />
+                    <div className="update-img">
+                        <img
+                            className="child-img"
+                            src={childImg}
+                            alt="baby image"
+                            width="300"
+                        />
+                    </div>
                 </div>
-                <div className="name-age">
-                    <h2>{this.props.child.first_name}</h2>
-                    <p>Age: {this.props.child.age} months</p>
-                    <p>Weight: {this.props.child.weight} lbs</p>
-                </div>
+                <div className="child-info-container">
+                    <div className="name-age">
+                        <h2>{this.props.child.first_name}</h2>
+                        <p>Age: {this.props.child.age} months</p>
+                    </div>
 
                 <p>Last Slept: {lastSlept}</p>
                 <p>Last Ate: {lastAte}</p>
