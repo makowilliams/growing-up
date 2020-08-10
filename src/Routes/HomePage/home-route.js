@@ -22,12 +22,14 @@ export default class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        this.context.getUserInfo();
-        this.context.getChildInfo();
-        // .then(() => {
+        // this.context.getUserInfo().then((user) => {
         //     this.context.getChildInfo();
         // });
+        this.context.getUserInfo();
+        this.context.getChildInfo();
+        
     }
+
 
     toggleVisibility() {
         this.setState((prevState) => ({
