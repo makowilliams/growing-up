@@ -38,6 +38,7 @@ export default class BabyWeight extends React.Component {
     }
 
     render() {
+        console.log(this.context)
         return (
             <>
                 {this.state.updateMode === false ? (

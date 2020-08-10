@@ -33,14 +33,15 @@ export default class UpdateWeight extends React.Component {
             }
         }
 
-        BabyApiService.patchWeight({
+        const newWeight= {
             childId: this.props.childId,
             weight: weight.value
-        })
+        }
+
+        BabyApiService.patchWeight(newWeight)
             .then((res) => {
                 weight.value = '';
-                console.log(res);
-                // this.props.onAddSuccess();
+                this.context.updateWeight(newWeight);
             })
             .catch((res) => {
                 this.setState({

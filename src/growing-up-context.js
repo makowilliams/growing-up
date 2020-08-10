@@ -18,6 +18,7 @@ const GrowingContext = React.createContext({
     getChildInfo: () => {},
     updateDuration: () => {},
     updateSession: () => {},
+    updateWeight: () => {},
     updateDate: () => {},
     updateType: () => {},
     setSelectedChild: () => {}
@@ -41,6 +42,7 @@ export class GrowingContextProvider extends React.Component {
 
         this.updateContext = this.updateContext.bind(this);
         this.updateSession = this.updateSession.bind(this);
+        this.updateWeight = this.updateWeight.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -132,6 +134,15 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
+    updateWeight(data) {
+        let newState = {...this.state};
+        let index = newState.currentChildren.findIndex(
+            (child) => child.id === data.childId
+        );
+        newState.currentChildren[index].weight = data.weight;
+        this.setState(newState);
+    }
+
     getData = (childId, type) => {
         return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
@@ -169,6 +180,7 @@ export class GrowingContextProvider extends React.Component {
                     postUser: this.postUser,
                     getChildInfo: this.getChildInfo,
                     updateSession: this.updateSession,
+                    updateWeight: this.updateWeight,
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
