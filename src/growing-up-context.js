@@ -19,6 +19,7 @@ const GrowingContext = React.createContext({
     updateDuration: () => {},
     updateSession: () => {},
     updateWeight: () => {},
+    addNewChild: () => {},
     updateDate: () => {},
     updateType: () => {},
     setSelectedChild: () => {}
@@ -43,6 +44,7 @@ export class GrowingContextProvider extends React.Component {
         this.updateContext = this.updateContext.bind(this);
         this.updateSession = this.updateSession.bind(this);
         this.updateWeight = this.updateWeight.bind(this);
+        this.addNewChild = this.addNewChild.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -92,31 +94,34 @@ export class GrowingContextProvider extends React.Component {
             .then((res) => res.json())
             .then((currentChildren) => {
                 // create an array of promises
-                const sleepingPromises =  currentChildren.map(child => this.getData(child.id, 'sleeping'));
-                Promise
-                  .all(sleepingPromises)
-                  .then(sleepingData => {
-                      // an array of sleeping data 
-                      sleepingData.forEach((currSleepingData, index)=>{
-                          currentChildren[index].sleeping = currSleepingData;
-                      });
-                  })
-                  .then(() => {
-                      // create an array of promises
-                      const eatingPromises = currentChildren.map(child => this.getData(child.id, 'eating'));
-                      return Promise.all(eatingPromises)
-                  })
-                  .then(eatingData => {
-                    // an array of eating data  
-                    eatingData.forEach((currEatingData, index)=>{
-                        currentChildren[index].eating = currEatingData;
+                const sleepingPromises = currentChildren.map((child) =>
+                    this.getData(child.id, 'sleeping')
+                );
+                Promise.all(sleepingPromises)
+                    .then((sleepingData) => {
+                        // an array of sleeping data
+                        sleepingData.forEach((currSleepingData, index) => {
+                            currentChildren[index].sleeping = currSleepingData;
+                        });
+                    })
+                    .then(() => {
+                        // create an array of promises
+                        const eatingPromises = currentChildren.map((child) =>
+                            this.getData(child.id, 'eating')
+                        );
+                        return Promise.all(eatingPromises);
+                    })
+                    .then((eatingData) => {
+                        // an array of eating data
+                        eatingData.forEach((currEatingData, index) => {
+                            currentChildren[index].eating = currEatingData;
+                        });
+                    })
+                    .then(() => {
+                        this.setState({
+                            currentChildren
+                        });
                     });
-                  })
-                  .then(() => {
-                    this.setState({
-                        currentChildren
-                    });
-                  })
                 return currentChildren;
             });
     };
@@ -126,7 +131,7 @@ export class GrowingContextProvider extends React.Component {
         let index = this.state.currentChildren.findIndex(
             (child) => child.id === data.child_id
         );
-        if(newState.currentChildren[index][type]){
+        if (newState.currentChildren[index][type]) {
             newState.currentChildren[index][type].push(data);
         } else {
             newState.currentChildren[index][type] = [data];
@@ -135,12 +140,20 @@ export class GrowingContextProvider extends React.Component {
     }
 
     updateWeight(data) {
-        let newState = {...this.state};
+        let newState = { ...this.state };
         let index = newState.currentChildren.findIndex(
             (child) => child.id === data.childId
         );
         newState.currentChildren[index].weight = data.weight;
         this.setState(newState);
+    }
+
+    addNewChild(data) {
+        let currChildren = this.state.currentChildren;
+        currChildren = [...currChildren, data];
+        this.setState({
+            currentChildren: currChildren
+        });
     }
 
     getData = (childId, type) => {
@@ -181,6 +194,7 @@ export class GrowingContextProvider extends React.Component {
                     getChildInfo: this.getChildInfo,
                     updateSession: this.updateSession,
                     updateWeight: this.updateWeight,
+                    addNewChild: this.addNewChild,
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,

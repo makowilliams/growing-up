@@ -18,13 +18,13 @@ export default class BabySummary extends React.Component {
 
     render() {
         let lastSlept;
-        if (this.props.child.sleeping.length) {
+        if (this.props.child.sleeping && this.props.child.sleeping.length) {
             let slept = this.props.child.sleeping.slice(-1)[0].date;
             lastSlept = moment(slept).format('h:mma');
         } else lastSlept = 'No sessions yet';
 
         let lastAte;
-        if (this.props.child.eating.length) {
+        if (this.props.child.eating && this.props.child.eating.length) {
             let ate = this.props.child.eating.slice(-1)[0].date;
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';

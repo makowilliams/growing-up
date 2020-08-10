@@ -41,7 +41,6 @@ export default class UpdateWeight extends React.Component {
                 this.props.onUpdateSuccess();
             })
             .catch((res) => {
-                console.log(res)
                 this.setState({
                     error: res.error
                         ? res.error
