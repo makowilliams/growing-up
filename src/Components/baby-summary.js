@@ -38,7 +38,7 @@ export default class BabySummary extends React.Component {
         return (
             
             <div className="summary-container">
-                <div className="update-img-container">
+                {/* <div className="update-img-container">
                     <input
                         type="file"
                         id="file-input"
@@ -54,38 +54,43 @@ export default class BabySummary extends React.Component {
                     <div className="update-img">
                         <img
                             className="child-img"
-                            src={childImg}
+                            // src={childImg}
                             alt="baby image"
                             width="300"
                         />
                     </div>
+                </div> */}
+                <div className="baby-image image">
+                    <p className="image-text">Image</p>
                 </div>
                 <div className="child-info-container">
                     <div className="name-age">
                         <h2>{this.props.child.first_name}</h2>
                         <p>Age: {this.props.child.age} months</p>
+                        <p>Weight: {this.props.child.weight} lbs</p>
                     </div>
 
-                <p>Last Slept: {lastSlept}</p>
-                <p>Last Ate: {lastAte}</p>
+                    <p>Last Slept: {lastSlept}</p>
+                    <p>Last Ate: {lastAte}</p>
 
-                <div className="action-button-container">
-                    <Link
-                        to={`/tracking/sleeping/${this.props.child.id}`}
-                        className="link"
-                        name="sleeping"
-                        onClick={(e) => this.updateTypeAndChild(e)}
-                    >
-                        Sleep
-                    </Link>
-                    <Link
-                        to={`/tracking/feeding/${this.props.child.id}`}
-                        className="link"
-                        name="feeding"
-                        onClick={(e) => this.updateTypeAndChild(e)}
-                    >
-                        Feeding
-                    </Link>
+                    <div className="action-button-container">
+                        <Link
+                            to={`/tracking/sleeping/${this.props.child.id}`}
+                            className="link"
+                            name="sleeping"
+                            onClick={(e) => this.updateTypeAndChild(e)}
+                        >
+                            Sleep
+                        </Link>
+                        <Link
+                            to={`/tracking/feeding/${this.props.child.id}`}
+                            className="link"
+                            name="feeding"
+                            onClick={(e) => this.updateTypeAndChild(e)}
+                        >
+                            Feeding
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
