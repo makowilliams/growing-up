@@ -1,23 +1,18 @@
 import React from 'react';
 import TrackerLog from './tracker-log';
 import GrowingContext from '../growing-up-context';
-//import TokenService from '../token-service';
 
 export default class TrackerList extends React.Component {
     static contextType = GrowingContext;
 
     render() {
-        if (!this.props.type) {
-            return <div>getting data</div>;
-        }
-
         let displayData = '';
         if (!displayData) {
             if (this.props.child) {
                 if (this.props.type === 'feeding') {
-                    displayData = this.context.feeding;
+                    displayData = this.props.child.eating;
                 } else {
-                    displayData = this.context.sleeping;
+                    displayData = this.props.child.sleeping;
                 }
             } else if (this.context.currentChild) {
                 if (this.props.type === 'feeding') {
@@ -25,11 +20,10 @@ export default class TrackerList extends React.Component {
                 } else {
                     displayData = this.context.currentChild.sleeping;
                 }
-            }
+            } else return <div>Please add a session</div>;
         }
-
         return (
-            <ul className="feed-log-container">
+            <ul>
                 {!displayData
                     ? ''
                     : displayData.map((item) => {

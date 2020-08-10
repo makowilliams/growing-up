@@ -23,20 +23,20 @@ export default class BabySummary extends React.Component {
     handleUpdateImg() {}
 
     render() {
-        if (!this.context.sleeping || !this.context.eating) {
-            return <div>can't display data</div>;
-        }
+        let lastSlept;
+        if (this.props.child.sleeping) {
+            let slept = this.props.child.sleeping.slice(-1)[0].date;
+            lastSlept = moment(slept).format('h:mma');
+        } else lastSlept = 'No sessions yet';
 
-        // console.log('sleep data', this.context.sleeping);
-        // console.log('feed data', this.context.eating);
-        console.log('children data', this.context.children);
-        console.log('props child data', this.props.child);
-
-        const lastSlept = this.context.sleeping.slice(-1)[0].date;
-        const lastAte = this.context.eating.slice(-1)[0].date;
-        const childImg = this.props.child.image;
-
+        let lastAte;
+        if (this.props.child.eating) {
+            let ate = this.props.child.eating.slice(-1)[0].date;
+            lastAte = moment(ate).format('h:mma');
+        } else lastAte = 'No sessions yet';
+        
         return (
+            
             <div className="summary-container">
                 <div className="update-img-container">
                     <input
@@ -66,29 +66,26 @@ export default class BabySummary extends React.Component {
                         <p>Age: {this.props.child.age} months</p>
                     </div>
 
-                    <p>Last</p>
-                    <ul>
-                        <li>Slept: {moment(lastSlept).format('h:mma')}</li>
-                        <li>Ate: {moment(lastAte).format('h:mma')}</li>
-                    </ul>
-                    <div className="action-button-container">
-                        <Link
-                            to="/tracking/sleeping"
-                            className="link"
-                            name="sleeping"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Sleep
-                        </Link>
-                        <Link
-                            to="/tracking/feeding"
-                            className="link"
-                            name="feeding"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Feeding
-                        </Link>
-                    </div>
+                <p>Last Slept: {lastSlept}</p>
+                <p>Last Ate: {lastAte}</p>
+
+                <div className="action-button-container">
+                    <Link
+                        to={`/tracking/sleeping/${this.props.child.id}`}
+                        className="link"
+                        name="sleeping"
+                        onClick={(e) => this.updateTypeAndChild(e)}
+                    >
+                        Sleep
+                    </Link>
+                    <Link
+                        to={`/tracking/feeding/${this.props.child.id}`}
+                        className="link"
+                        name="feeding"
+                        onClick={(e) => this.updateTypeAndChild(e)}
+                    >
+                        Feeding
+                    </Link>
                 </div>
             </div>
         );

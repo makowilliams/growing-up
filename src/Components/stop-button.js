@@ -28,14 +28,14 @@ export default class StopButton extends React.Component {
         } else if (!food_type) {
             this.setState({ error: this.state.error_opts[1] });
         } else {
-            let feedingData = {
+            let sessionData = {
                 type: 'eating',
                 duration: duration,
                 date: date,
                 food_type: food_type,
                 side_fed: side_fed
             };
-            this.postData(feedingData);
+            this.postData(sessionData);
         }
     }
 
@@ -46,18 +46,18 @@ export default class StopButton extends React.Component {
         if (this.context.duration === '') {
             this.setState({ error: this.state.error_opts[0] });
         } else if (!sleep_type) {
-            this.setState({ error: this.state.error_opts[2]});
+            this.setState({ error: this.state.error_opts[2] });
         } else if (!sleep_category) {
-            this.setState({ error: this.state.error_opts[3]});
+            this.setState({ error: this.state.error_opts[3] });
         } else {
-            let feedingData = {
+            let sessionData = {
                 type: this.context.type,
                 duration: duration,
                 date: date,
                 sleep_type: sleep_type,
                 sleep_category: sleep_category
             };
-            this.postData(feedingData);
+            this.postData(sessionData);
         }
     }
 
@@ -67,8 +67,7 @@ export default class StopButton extends React.Component {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                authorization:
-                    `Bearer ${TokenService.getAuthToken()}`
+                authorization: `Bearer ${TokenService.getAuthToken()}`
             },
             body: JSON.stringify(data)
         })
@@ -81,11 +80,12 @@ export default class StopButton extends React.Component {
                 return res.json();
             })
             .then((returnData) => {
+                this.context.updateSession(returnData, data.type);
                 if (data.type === 'sleeping') {
                     this.context.logData.push(returnData);
                     window.history.back();
                 } else {
-                    this.context.feedingData.push(returnData);
+                    this.context.logData.push(returnData);
                     window.history.back();
                 }
             })
