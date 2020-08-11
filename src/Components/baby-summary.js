@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
+import BabyWeight from './baby-weight';
 import moment from 'moment';
 
 export default class BabySummary extends React.Component {
@@ -17,13 +18,13 @@ export default class BabySummary extends React.Component {
 
     render() {
         let lastSlept;
-        if (this.props.child.sleeping.length) {
+        if (this.props.child.sleeping && this.props.child.sleeping.length) {
             let slept = this.props.child.sleeping.slice(-1)[0].date;
             lastSlept = moment(slept).format('h:mma');
         } else lastSlept = 'No sessions yet';
 
         let lastAte;
-        if (this.props.child.eating.length) {
+        if (this.props.child.eating && this.props.child.eating.length) {
             let ate = this.props.child.eating.slice(-1)[0].date;
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
@@ -57,7 +58,7 @@ export default class BabySummary extends React.Component {
                     <div className="name-age">
                         <h2>{this.props.child.first_name}</h2>
                         <p>Age: {this.props.child.age} months</p>
-                        <p>Weight: {this.props.child.weight} lbs</p>
+                        <BabyWeight child={this.props.child}/>
                     </div>
 
                     <p>Last Slept: {lastSlept}</p>

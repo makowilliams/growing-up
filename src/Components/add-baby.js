@@ -1,10 +1,13 @@
 import React from 'react';
 import BabyApiService from '../baby-api-service';
 import TokenService from '../token-service';
+import GrowingContext from '../growing-up-context';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 export default class AddBaby extends React.Component {
+    static contextType = GrowingContext;
+
     static defaultProps = {
         onAddSuccess: () => {}
     };
@@ -40,16 +43,16 @@ export default class AddBaby extends React.Component {
             this.setState({error: 'Please enter an age'})
         }
 
-        BabyApiService.postBaby({
+        const newBaby = {
             first_name: first_name.value,
             age: age.value,
             weight: weight.value,
-        })
+        }
+
+        BabyApiService.postBaby(newBaby)
             .then((res) => {
-                first_name.value = '';
-                age.value = '';
-                weight.value = '';
                 this.props.onAddSuccess();
+                this.context.addNewChild(res);
             })
             .catch((res) => {
                 this.setState({

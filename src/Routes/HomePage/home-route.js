@@ -67,7 +67,7 @@ export default class HomePage extends React.Component {
                                 ) : null}
                             </div>
                         ) : (
-                            <AddBaby />
+                            <AddBaby onAddSuccess={() => this.cancelUpdateMode()}/>
                         )}
                     </div>
 
