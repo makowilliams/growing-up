@@ -89,7 +89,6 @@ export class Timer extends React.Component {
 
         let child;
         let lastSession = [];
-        console.log(this.context)
         if (this.context.currentChildren) {
             child = this.context.currentChildren.find(
                 (child) => child.id == this.context.currentChild.id
