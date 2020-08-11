@@ -89,13 +89,14 @@ export class Timer extends React.Component {
 
         let child;
         let lastSession = [];
+        console.log(this.context)
         if (this.context.currentChildren) {
             child = this.context.currentChildren.find(
                 (child) => child.id == this.context.currentChild.id
             );
             if (this.context.type === 'sleeping') {
                 lastSession = 'First Session'
-                if(child.sleeping){
+                if(child.sleeping && child.sleeping.length){
                     let last_slept = child.sleeping.slice(-1)[0].date
                     let last_time = moment(last_slept).format('h:mma');
                     lastSession = ['Last sleep was at ' + last_time];
@@ -103,7 +104,7 @@ export class Timer extends React.Component {
                 
             } else {
                 lastSession = 'First Session'
-                if(child.eating){
+                if(child.eating && child.eating.length){
                     let last_ate = child.eating.slice(-1)[0].date
                     let last_time = moment(last_ate).format('h:mma');
                     lastSession = ['Last meal was at ' + last_time];
