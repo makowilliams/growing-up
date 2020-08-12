@@ -4,11 +4,13 @@ import '@testing-library/jest-dom/extend-expect';
 import TrackingHomeRoute from '../Routes/TrackingHomePage/tracking-home-route';
 import { BrowserRouter } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
+import ReactDOM from 'react-dom';
 
 const contextValue = {
     type: 'feeding',
     currentChild: {
         id: 1,
+        age: 3,
         first_name: 'liam',
         eating: [{
             0: {
@@ -26,7 +28,7 @@ const contextValue = {
         {
             id: 1,
             age: 8,
-            
+            first_name: 'liam',
             eating: [{
                 0: {
                     id: 1,
@@ -45,7 +47,7 @@ const contextValue = {
 const match = {
     params: {
         type: 'feeding',
-        childId: 1,
+        childId: '1',
     },
 };
 
@@ -53,7 +55,7 @@ test('renders tracker log', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
             <BrowserRouter>
-                <TrackingHomeRoute match={match}/>
+                <TrackingHomeRoute key={contextValue.currentChild.id} match={match}/>
             </BrowserRouter>
         </GrowingContext.Provider>
     );
