@@ -22,11 +22,7 @@ export default class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        this.context.getUserInfo();
         this.context.getChildInfo();
-        // .then(() => {
-        //     this.context.getChildInfo();
-        // });
     }
 
     toggleVisibility() {
@@ -70,7 +66,9 @@ export default class HomePage extends React.Component {
                                 ) : null}
                             </div>
                         ) : (
-                            <AddBaby />
+                            <AddBaby
+                                onAddSuccess={() => this.cancelUpdateMode()}
+                            />
                         )}
                     </div>
 

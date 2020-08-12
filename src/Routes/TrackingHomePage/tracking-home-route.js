@@ -3,11 +3,17 @@ import HomeMenu from '../../Components/home-menu';
 import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
 import GrowingContext from '../../growing-up-context';
+import { Redirect } from 'react-router-dom';
 
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
     constructor(props) {
         super(props);
+        window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+            event.returnValue = '';
+            return '';
+        });
 
         this.state = {
             type: props.match.params.type,
@@ -15,33 +21,20 @@ export default class TrackingHomePage extends React.Component {
         };
     }
 
-    getAllData() {
-        let type = '';
-        if (this.state.type === 'feeding') {
-            type = 'eating';
-        } else type = this.state.type;
-        this.context.getUserInfo().then((user) => {
-            this.context.getChildInfo().then((child) => {
-                this.context.getData(this.state.childId, type);
-            });
-        });
-    }
-
     render() {
         let name = '';
         let child;
+        if (!this.context.currentChild) {
+            return <Redirect to="/home"></Redirect>;
+        }
         if (!this.context.currentChildren) {
             return <div>Getting Data</div>;
-        }
-        if (!this.context.currentChildren[0]) {
-            this.getAllData();
         } else {
             child = this.context.currentChildren.find(
                 (child) => child.id == this.state.childId
             );
             name = child.first_name;
         }
-
         return (
             <div className="tracking">
                 <HomeMenu />

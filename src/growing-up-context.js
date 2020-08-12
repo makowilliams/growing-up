@@ -5,8 +5,6 @@ import TokenService from './token-service';
 
 const GrowingContext = React.createContext({
     type: '',
-    logData: [],
-    currentUser: '',
     currentChild: '',
     currentChildren: [],
     duration: '',
@@ -16,11 +14,13 @@ const GrowingContext = React.createContext({
     updateContext: () => {},
     login: () => {},
     postUser: () => {},
-    getData: () => {},
-    getUserInfo: () => {},
     getChildInfo: () => {},
     updateDuration: () => {},
     updateSession: () => {},
+    deleteSession: () => {},
+    updateWeight: () => {},
+    deleteBaby: () => {},
+    addNewChild: () => {},
     updateDate: () => {},
     updateType: () => {},
     setSelectedChild: () => {},
@@ -35,8 +35,6 @@ export class GrowingContextProvider extends React.Component {
 
         this.state = {
             type: '',
-            logData: [],
-            currentUser: '',
             currentChild: '',
             currentChildren: [],
             duration: '',
@@ -46,6 +44,10 @@ export class GrowingContextProvider extends React.Component {
 
         this.updateContext = this.updateContext.bind(this);
         this.updateSession = this.updateSession.bind(this);
+        this.deleteSession = this.deleteSession.bind(this);
+        this.updateWeight = this.updateWeight.bind(this);
+        this.deleteBaby = this.deleteBaby.bind(this);
+        this.addNewChild = this.addNewChild.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
@@ -87,20 +89,6 @@ export class GrowingContextProvider extends React.Component {
         });
     };
 
-    getUserInfo = () => {
-        return fetch(`${config.API_ENDPOINT}/users`, {
-            headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.json())
-            .then((currentUser) => {
-                this.setState({
-                    currentUser
-                });
-            });
-    };
-
     getChildInfo = () => {
         return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
@@ -109,9 +97,35 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((currentChildren) => {
-                this.setState({
-                    currentChildren
-                });
+                // create an array of promises
+                const sleepingPromises = currentChildren.map((child) =>
+                    this.getData(child.id, 'sleeping')
+                );
+                Promise.all(sleepingPromises)
+                    .then((sleepingData) => {
+                        // an array of sleeping data
+                        sleepingData.forEach((currSleepingData, index) => {
+                            currentChildren[index].sleeping = currSleepingData;
+                        });
+                    })
+                    .then(() => {
+                        // create an array of promises
+                        const eatingPromises = currentChildren.map((child) =>
+                            this.getData(child.id, 'eating')
+                        );
+                        return Promise.all(eatingPromises);
+                    })
+                    .then((eatingData) => {
+                        // an array of eating data
+                        eatingData.forEach((currEatingData, index) => {
+                            currentChildren[index].eating = currEatingData;
+                        });
+                    })
+                    .then(() => {
+                        this.setState({
+                            currentChildren
+                        });
+                    });
                 return currentChildren;
             });
     };
@@ -143,13 +157,40 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
-    setChildData(data, type) {
-        let newState = this.state;
-        let index = this.state.currentChildren.findIndex(
-            (child) => child.id === data[0].child_id
+    deleteSession(session, child_id) {
+        let newState = { ...this.state };
+
+        let newSessions = newState.currentChild[session.type].filter(
+            (each_session) => each_session.id != session.id
         );
-        newState.currentChildren[index][type] = data;
+        newState.currentChild[session.type] = newSessions;
+
         this.setState(newState);
+    }
+
+    updateWeight(data) {
+        let newState = { ...this.state };
+        let index = newState.currentChildren.findIndex(
+            (child) => child.id === data.childId
+        );
+        newState.currentChildren[index].weight = data.weight;
+        this.setState(newState);
+    }
+
+    deleteBaby(childId) {
+        let currChildren = this.state.currentChildren;
+        let newChildren = currChildren.filter((child) => child.id != childId);
+        this.setState({
+            currentChildren: newChildren
+        });
+    }
+
+    addNewChild(data) {
+        let currChildren = this.state.currentChildren;
+        currChildren = [...currChildren, data];
+        this.setState({
+            currentChildren: currChildren
+        });
     }
 
     getData = (childId, type) => {
@@ -159,11 +200,14 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
+<<<<<<< HEAD
             .then((logData) => {
                 if (logData.length) {
                     this.setChildData(logData, type);
                 }
             })
+=======
+>>>>>>> master
             .catch((err) => console.error(err));
     };
 
@@ -210,10 +254,12 @@ export class GrowingContextProvider extends React.Component {
                     updateContext: this.updateContext,
                     login: this.login,
                     postUser: this.postUser,
-                    getData: this.getData,
-                    getUserInfo: this.getUserInfo,
                     getChildInfo: this.getChildInfo,
                     updateSession: this.updateSession,
+                    deleteSession: this.deleteSession,
+                    updateWeight: this.updateWeight,
+                    deleteBaby: this.deleteBaby,
+                    addNewChild: this.addNewChild,
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
