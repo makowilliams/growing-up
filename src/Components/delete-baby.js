@@ -22,24 +22,21 @@ export default class DeleteBaby extends React.Component {
     }
 
     handleDeleteBaby = (e) => {
-        console.log(this.props.child.id)
         e.preventDefault();
         this.setState({ error: null });
 
         BabyApiService.delete_baby(this.props.child.id)
             .then((res) => {
-                this.context.deleteBaby(this.props.child.id)
+                this.context.deleteBaby(this.props.child.id);
             })
             .catch((res) => {
-                console.log(res);
                 this.setState({
                     error: res.error
                         ? res.error
                         : 'Sorry, something went wrong.'
                 });
             });
-    }
-
+    };
 
     render() {
         const { error } = this.state;
@@ -55,7 +52,7 @@ export default class DeleteBaby extends React.Component {
                     ) : null}
                 </div>
                 <div role="alert">
-                {error && <p className="error">{error}</p>}
+                    {error && <p className="error">{error}</p>}
                 </div>
             </>
         );

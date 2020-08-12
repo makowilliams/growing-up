@@ -142,18 +142,14 @@ export class GrowingContextProvider extends React.Component {
     }
 
     deleteSession(session, child_id) {
-        console.log(session, child_id);
-        let newState = this.state;
-        let index = newState.currentChildren.findIndex(
-            (child) => child.id === child_id
-        );
-        let newChildren = newState.currentChildren[index][session.type].filter(
+        let newState = { ...this.state };
+
+        let newSessions = newState.currentChild[session.type].filter(
             (each_session) => each_session.id != session.id
         );
-        console.log(newChildren);
-        this.setState({
-            currentChildren: newChildren
-        });
+        newState.currentChild[session.type] = newSessions;
+
+        this.setState(newState);
     }
 
     updateWeight(data) {

@@ -25,7 +25,6 @@ export default class HomePage extends React.Component {
         this.context.getChildInfo();
     }
 
-
     toggleVisibility() {
         this.setState((prevState) => ({
             isVisible: !prevState.isVisible
@@ -47,7 +46,6 @@ export default class HomePage extends React.Component {
     }
 
     render() {
-        console.log(this.context)
         return (
             <div className="home-page">
                 <HomeMenu />
@@ -68,7 +66,9 @@ export default class HomePage extends React.Component {
                                 ) : null}
                             </div>
                         ) : (
-                            <AddBaby onAddSuccess={() => this.cancelUpdateMode()}/>
+                            <AddBaby
+                                onAddSuccess={() => this.cancelUpdateMode()}
+                            />
                         )}
                     </div>
 

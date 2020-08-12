@@ -81,11 +81,7 @@ export default class StopButton extends React.Component {
             })
             .then((returnData) => {
                 this.context.updateSession(returnData, data.type);
-                if (data.type === 'sleeping') {
-                    window.history.back();
-                } else {
-                    window.history.back();
-                }
+                window.history.back();
             })
             .catch((error) => {
                 this.setState({

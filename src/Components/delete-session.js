@@ -23,17 +23,11 @@ export default class DeleteSession extends React.Component {
         };
 
         BabyApiService.delete_session(sessionToDel)
-            
+
             .then((res) => {
-                console.log('test', res);
-                this.context.deleteSession(
-                    sessionToDel,
-                    this.props.session.child_id
-                );
-                // this.props.onUpdateSuccess();
+                this.context.deleteSession(sessionToDel);
             })
             .catch((res) => {
-                console.log(res);
                 this.setState({
                     error: res.error
                         ? res.error
