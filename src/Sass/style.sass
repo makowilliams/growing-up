@@ -1,3 +1,26 @@
+//Colors
+$teal : #8ED1D4
+$primary-purple : #341F78
+
+//Fonts
+@font-face 
+    font-family: 'Open Sans'
+    src: local('Open Sans'), url('../fonts/open_sans/OpenSans-ExtraBold.ttf') format('truetype')
+
+@font-face 
+    font-family: 'Lora'
+    src: local('Lora'), url('../fonts/Lora/static/Lora-Bold.ttf') format('truetype')
+    
+=open-sans-bold 
+    font-family: 'Open Sans'
+    font-weight: 700
+
+=lora-bold
+    font-family: 'Lora'
+    font-weight: 700
+
+
+//Mixins
 =flexRow
     display: flex
     flex-direction: row
@@ -6,226 +29,46 @@
     display: flex
     flex-direction: column
 
-=featureImageHolder
-    width: 200px
-    height: 200px
-    background-color: lightgrey
-    text-align: center
-    margin: 0px
-
-=regularButton
-    font-size: 14px
-    padding-top: 10px
-    padding-bottom: 10px
-    padding-left: 20px
-    padding-right: 20px
-    border: solid grey 2px
-    background: lightgrey
-    color: black
-    text-decoration: none
-
-=longButton
-    font-size: 14px
-    padding-top: 10px
-    padding-bottom: 10px
-    padding-left: 20px
-    padding-right: 20px
-    border: solid grey 2px
-    background: lightgrey
-    color: black
-    text-decoration: none
-    width: -webkit-fill-available
-    text-align: center
-
-=smallIcon
-    background: grey
-    border-radius: 100px
-    padding: 11px
-    width: 20px
-    text-align: center
-
-body, .main-container
-    +flexColumn 
-    justify-content: center
-
-.logo
-    margin-top: 10px
-    border-bottom-width: 10px
-    margin-bottom: 10px
-    margin-left: 25px
-    margin-right: 25px
-
-
-
+//Universal
+h1 
+    +lora-bold 
+    font-size: 27px
     
-.main-menu-container
-    +flexRow
-    justify-content: space-between
 
+//Main Menu
+.main-menu-container
+    box-sizing: border-box
+    +flexRow 
+    justify-content: space-between
+    margin-right: 5vw
+    margin-left: 5vw
+    margin-top: 25px
 
 .menu-button-container
-    +flexRow
-    justify-content: space-between
-    width: 190px
+    box-sizing: border-box
+    +flexRow 
 
+.login
+    box-sizing: border-box
+    border: none
+    border-radius: 14px
+    background-color: $teal
+    width: 138px
+    height: 44px
+    text-align: center
+    padding: 10px
+    text-decoration: none
+    font-color: $primary-purple
+    +open-sans-bold 
+
+//Hero Section
 .hero-container
-    +flexColumn
-    justify-content: center
-    align-items: center
-    margin-top: 50px
-
-.image
-    +featureImageHolder 
-
-.icon
-    +smallIcon
-
-.feature-container
-    +flexColumn 
-    width: 400px
-
-.feature
-    +flexRow 
-    justify-content: center
-    align-content: center
-    align-items: center
-    margin-top: 50px
-    flex-wrap: wrap
-
-.feature-two-copy-container
-    margin-left: 50px
-
-.feature-one-copy-container
-    margin-right: 50px
-
-button, .link 
-    +regularButton
-
-.feature-two
-    flex-wrap: wrap-reverse
-
-.home
-    justify-content: flex-end
-
-.baby-container
+    box-sizing: border-box
     +flexColumn 
     align-items: center
-    margin-top: 50px
+    justify-content: center
+    margin-top: 35px
+
+.hero-copy
+    width: 33vw
     text-align: center
-
-.baby-copy-container 
-    +flexRow 
-    align-items: center
-    justify-content: space-evenly
-    margin-top: 25px
-    margin-bottom: 0px
-    padding: 7px
-    width: 265px
-    &:hover 
-        border: solid black 2px
-        padding: 5px 
-
-.baby-input-container
-    +flexRow 
-    margin-top: 25px
-    margin-bottom: 0px
-    padding: 7px
-    width: 265px
-
-.age-input, .name-input
-    margin-right: 15px
-
-.baby-name, .age
-    margin-top: 0px
-    margin-bottom: 0px
-    margin-right: 5px
-
-.action-button-container
-    text-align: center
-
-.summary-container
-    max-width: 750px
-    align-self: center
-
-.dashboard
-    +flexRow
-    align-self: center
-    justify-content: space-between
-    width: 500px
-    margin-bottom: 50px
-
-.baby-image
-    border-radius: 100px
-
-.sleep-header, .sleep-list-container, .sleep-start, .feed-header, .feed-list-container, .feed-start
-    align-self: center
-
-.sleep-log-container, .feed-log-container
-    +flexRow 
-    justify-content: space-between
-    align-items: center
-    width: 300px
-
-.sleep-log-container
-  +flexColumn
-
-.sleep-list-container, .feed-list-container
-    margin-top: 50px
-
-.sleep-start, .sleep-stop, .feed-start, .feed-stop
-    +longButton 
-    margin-top: 25px
-
-.main-container
-    align-self: center
-
-.sleep-dashboard, .feed-dashboard
-    margin-top: 50px
-    text-align: center
-
-.sleep-main-container, .feed-main-container
-    align-items: center
-
-.timer
-    font-size: 50px
-
-.left-menu-button
-    margin-left: 15px
-
-.home-page
-    display: flex
-    flex-direction: column
-
-
-.childImg:hover 
-    opacity: 0.5
-
-.addImg 
-    display: block
-    height: 100%
-
-.addImg:hover 
-    display: block
-    color: grey
-    z-index: 10
-
-@media only screen and (max-width:45.625em) 
-    .feature-two-copy-container
-        margin-left: 0px
-        margin-bottom: 25px
-    .feature-one-copy-container
-        margin-right: 0px
-        margin-bottom: 25px
-    .feature-one
-        flex-direction: column
-        width: 90vw
-    .feature-two
-        flex-direction: column-reverse
-        width: 90vw
-    .hero-container
-        margin-right: 10vw
-        margin-left: 10vw
-        text-align: center
-    .dashboard
-        +flexColumn
-        

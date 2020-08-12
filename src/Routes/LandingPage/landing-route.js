@@ -1,5 +1,6 @@
 import React from 'react';
 import MainMenu from '../../Components/main-menu';
+import { Link } from 'react-router-dom';
 
 export default class LandingPage extends React.Component {
     render() {
@@ -9,18 +10,18 @@ export default class LandingPage extends React.Component {
                 <div className="hero-container container">
                     <h1>The App That Grows With Your Family</h1>
                     <p className="hero-copy">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Vestibulum id ligula porta felis euismod semper.
+                        Cum sociis natoque penatibus et magnis dis parturient
+                        montes, nascetur ridiculus mus. Nullam id dolor id nibh
+                        ultricies vehicula ut id elit.
                     </p>
-                    <p className="hero-copy">
+                    <Link to="/signup" className="link sign-up">
+                        Sign Up
+                    </Link>
+                    <p className="demo-copy">
                         To Demo our app, you can login with:
                     </p>
-                    <p className="hero-copy">
-                        username: test_user
-                    </p>
-                    <p className="hero-copy">
-                        password: Pass5555
-                    </p>
+                    <p className="demo-copy">username: test_user</p>
+                    <p className="demo-copy">password: Pass5555</p>
                 </div>
                 <div className="feature-one feature">
                     <div className="feature-one-copy-container feature-container container">
