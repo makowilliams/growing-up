@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
 import BabyWeight from './baby-weight';
 import moment from 'moment';
+import DeleteBaby from './delete-baby';
 
 export default class BabySummary extends React.Component {
     static contextType = GrowingContext;
@@ -56,7 +57,7 @@ export default class BabySummary extends React.Component {
                 </div> */}
                 <div className="child-info-container">
                     <div className="name-age">
-                        <h2>{this.props.child.first_name}</h2>
+                        <DeleteBaby child={this.props.child}/>
                         <p>Age: {this.props.child.age} months</p>
                         <BabyWeight child={this.props.child}/>
                     </div>
