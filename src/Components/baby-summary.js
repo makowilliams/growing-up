@@ -29,7 +29,7 @@ export default class BabySummary extends React.Component {
             let ate = this.props.child.eating.slice(-1)[0].date;
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
-        
+
         return (
             
             <div className="summary-container">

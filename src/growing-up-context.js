@@ -141,11 +141,11 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
-    deleteSession(session, child_id) {
+    deleteSession(session) {
         let newState = { ...this.state };
 
         let newSessions = newState.currentChild[session.type].filter(
-            (each_session) => each_session.id != session.id
+            (each_session) => each_session.id !== session.id
         );
         newState.currentChild[session.type] = newSessions;
 
@@ -163,7 +163,7 @@ export class GrowingContextProvider extends React.Component {
 
     deleteBaby(childId) {
         let currChildren = this.state.currentChildren;
-        let newChildren = currChildren.filter((child) => child.id != childId);
+        let newChildren = currChildren.filter((child) => child.id !== childId);
         this.setState({
             currentChildren: newChildren
         });
