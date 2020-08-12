@@ -28,9 +28,7 @@ export default class DeleteBaby extends React.Component {
 
         BabyApiService.delete_baby(this.props.child.id)
             .then((res) => {
-                console.log('test', res);
-                
-                // this.props.onUpdateSuccess();
+                this.context.deleteBaby(this.props.child.id)
             })
             .catch((res) => {
                 console.log(res);

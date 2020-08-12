@@ -47,6 +47,7 @@ export default class HomePage extends React.Component {
     }
 
     render() {
+        console.log(this.context)
         return (
             <div className="home-page">
                 <HomeMenu />
