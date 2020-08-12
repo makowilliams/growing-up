@@ -35,7 +35,6 @@ const AddBabyService = {
             )
     },
     delete_session(sessionInfo) {
-        console.log(sessionInfo)
         return fetch(`${config.API_ENDPOINT}/${sessionInfo.type}/${sessionInfo.id}`, {
             method: 'DELETE',
             headers: {
@@ -43,11 +42,14 @@ const AddBabyService = {
                 "Authorization": `Bearer ${TokenService.getAuthToken()}`
             },        
         })
-        .then(res => 
-            (!res.ok)
-            ? res.json()
-            : res.json()
-            )
+        .then((res) => {
+            if (!res.ok) {
+                return res.json().then((error) => {
+                    throw error;
+                });
+            }
+            return;
+        })
     },
 }
 

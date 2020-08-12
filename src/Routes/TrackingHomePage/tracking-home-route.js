@@ -29,8 +29,9 @@ export default class TrackingHomePage extends React.Component {
             );
             name = child.first_name;
         }
-
+        console.log(this.context)
         return (
+            
             <div className="tracking">
                 <HomeMenu />
                 <div className="main-container">

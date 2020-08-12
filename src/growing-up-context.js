@@ -5,7 +5,6 @@ import TokenService from './token-service';
 
 const GrowingContext = React.createContext({
     type: '',
-    logData: [],
     currentChild: '',
     currentChildren: [],
     duration: '',
@@ -18,6 +17,7 @@ const GrowingContext = React.createContext({
     getChildInfo: () => {},
     updateDuration: () => {},
     updateSession: () => {},
+    deleteSession: () => {},
     updateWeight: () => {},
     addNewChild: () => {},
     updateDate: () => {},
@@ -33,7 +33,6 @@ export class GrowingContextProvider extends React.Component {
 
         this.state = {
             type: '',
-            logData: [],
             currentChild: '',
             currentChildren: [],
             duration: '',
@@ -43,6 +42,7 @@ export class GrowingContextProvider extends React.Component {
 
         this.updateContext = this.updateContext.bind(this);
         this.updateSession = this.updateSession.bind(this);
+        this.deleteSession = this.deleteSession.bind(this);
         this.updateWeight = this.updateWeight.bind(this);
         this.addNewChild = this.addNewChild.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
@@ -139,6 +139,21 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
+    deleteSession(session, child_id){
+        console.log(session, child_id)
+        let newState = this.state;
+        let index = newState.currentChildren.findIndex(
+            (child) => child.id === child_id
+        );
+        let newChildren = newState.currentChildren[index][session.type].filter(
+            (each_session) => each_session.id != session.id
+        )
+        console.log(newChildren)
+        this.setState({
+            currentChildren: newChildren
+        });
+    }
+
     updateWeight(data) {
         let newState = { ...this.state };
         let index = newState.currentChildren.findIndex(
@@ -193,6 +208,7 @@ export class GrowingContextProvider extends React.Component {
                     postUser: this.postUser,
                     getChildInfo: this.getChildInfo,
                     updateSession: this.updateSession,
+                    deleteSession: this.deleteSession,
                     updateWeight: this.updateWeight,
                     addNewChild: this.addNewChild,
                     updateDuration: this.updateDuration,

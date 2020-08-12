@@ -7,7 +7,7 @@ export default class DeleteSession extends React.Component {
     static contextType = GrowingContext;
     state = { error: null };
 
-    deleteSession = (e) => {
+    handleDeleteSession = (e) => {
         e.preventDefault();
         this.setState({ error: null });
 
@@ -23,11 +23,17 @@ export default class DeleteSession extends React.Component {
         };
 
         BabyApiService.delete_session(sessionToDel)
+            
             .then((res) => {
-                // this.context.updateWeight(newWeight);
+                console.log('test', res);
+                this.context.deleteSession(
+                    sessionToDel,
+                    this.props.session.child_id
+                );
                 // this.props.onUpdateSuccess();
             })
             .catch((res) => {
+                console.log(res);
                 this.setState({
                     error: res.error
                         ? res.error
@@ -37,11 +43,10 @@ export default class DeleteSession extends React.Component {
     };
 
     render() {
-        console.log(this.props.session);
         const { error } = this.state;
         return (
             <>
-                <DeleteIcon onClick={(e) => this.deleteSession(e)} />
+                <DeleteIcon onClick={(e) => this.handleDeleteSession(e)} />
 
                 <div role="alert">
                     {error && <p className="error">{error}</p>}
