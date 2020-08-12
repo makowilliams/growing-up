@@ -23,7 +23,8 @@ const GrowingContext = React.createContext({
     updateSession: () => {},
     updateDate: () => {},
     updateType: () => {},
-    setSelectedChild: () => {}
+    setSelectedChild: () => {},
+    updateImageState: () => {}
 });
 
 export default GrowingContext;
@@ -49,6 +50,7 @@ export class GrowingContextProvider extends React.Component {
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
         this.setSelectedChild = this.setSelectedChild.bind(this);
+        this.updateImageState = this.updateImageState.bind(this);
     }
 
     // onDrop(picture) {
@@ -114,12 +116,26 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
+    getChildImage = (childId) => {
+        return fetch(`${config.API_ENDPOINT}/children/${childId}/image`, {
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then((res) => res.contentType('image/jpeg'))
+            .then((childImage) => {
+                this.setState({
+                    image: childImage
+                });
+            });
+    };
+
     updateSession(data, type) {
         let newState = this.state;
         let index = this.state.currentChildren.findIndex(
             (child) => child.id === data.child_id
         );
-        if(newState.currentChildren[index][type]){
+        if (newState.currentChildren[index][type]) {
             newState.currentChildren[index][type].push(data);
         } else {
             newState.currentChildren[index][type] = [data];
@@ -144,15 +160,33 @@ export class GrowingContextProvider extends React.Component {
         })
             .then((res) => res.json())
             .then((logData) => {
-                if(logData.length){
+                if (logData.length) {
                     this.setChildData(logData, type);
                 }
             })
             .catch((err) => console.error(err));
     };
 
+    updateImage = (childId) => {
+        const formData = new FormData();
+
+        formData.append('img', this.state.image, this.state.image.name);
+
+        return fetch(`${config.API_ENDPOINT}/children/${childId}/image`, {
+            method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            },
+            body: formData
+        }).catch((err) => console.error(err));
+    };
+
     updateContext(newUpdate) {
         this.setState({ ...newUpdate });
+    }
+
+    updateImageState(newImg) {
+        this.setState({ image: newImg });
     }
 
     updateDuration(item) {
@@ -183,7 +217,10 @@ export class GrowingContextProvider extends React.Component {
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
-                    setSelectedChild: this.setSelectedChild
+                    setSelectedChild: this.setSelectedChild,
+                    updateImage: this.updateImage,
+                    updateImageState: this.updateImageState,
+                    getChildImage: this.getChildImage
                 }}
             >
                 {this.props.children}
