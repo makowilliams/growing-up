@@ -51,6 +51,23 @@ const AddBabyService = {
             return;
         })
     },
+    delete_baby(childId) {
+        return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${TokenService.getAuthToken()}`
+            },        
+        })
+        .then((res) => {
+            if (!res.ok) {
+                return res.json().then((error) => {
+                    throw error;
+                });
+            }
+            return;
+        })
+    },
 }
 
 export default AddBabyService;
