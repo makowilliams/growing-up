@@ -1,6 +1,7 @@
 import React from 'react';
 import MainMenu from '../../Components/main-menu';
 import { Link } from 'react-router-dom';
+import { ReactComponent as BlueCloud } from '../../assets/blue-cloud.svg';
 
 export default class LandingPage extends React.Component {
     render() {
@@ -8,6 +9,7 @@ export default class LandingPage extends React.Component {
             <div className="landing-page">
                 <MainMenu />
                 <div className="hero-container container">
+                    <BlueCloud />
                     <h1>The App That Grows With Your Family</h1>
                     <p className="hero-copy">
                         Cum sociis natoque penatibus et magnis dis parturient
