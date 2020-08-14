@@ -1,6 +1,8 @@
 import React from 'react';
 import BabyApiService from '../baby-api-service';
 import GrowingContext from '../growing-up-context';
+import CancelIcon from '@material-ui/icons/Cancel';
+
 
 export default class AddBaby extends React.Component {
     static contextType = GrowingContext;
@@ -8,13 +10,6 @@ export default class AddBaby extends React.Component {
     static defaultProps = {
         onAddSuccess: () => {}
     };
-
-    cancelUpdateMode() {
-        this.setState({
-            updateMode: false,
-            isVisible: false
-        });
-    }
 
     validateWeight = weight => {
         if(!weight.value.match(/^\d+\.\d{2}?$/)){
@@ -67,6 +62,7 @@ export default class AddBaby extends React.Component {
                 className="baby-input-container"
                 onSubmit={(e) => this.handleAddBaby(e)}
             >
+                <CancelIcon onClick={() => this.props.onAddSuccess()} />
                 <label htmlFor='first_name'>Name</label>
                 <input
                     className="name-input"

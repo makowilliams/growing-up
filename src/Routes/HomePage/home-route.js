@@ -78,7 +78,7 @@ export default class HomePage extends React.Component {
                         ) : (
                             this.context.currentChildren.map((child) => {
                                 return (
-                                    <BabySummary key={child.id} child={child} />
+                                    <BabySummary key={child.id} child={child}/>
                                 );
                             })
                         )}
