@@ -53,20 +53,6 @@ export class GrowingContextProvider extends React.Component {
         this.updateImageState = this.updateImageState.bind(this);
     }
 
-    login = (credentials) => {
-        return fetch(`${config.API_ENDPOINT}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        }).then((res) => {
-            return !res.ok
-                ? res.json().then((e) => Promise.reject(e))
-                : res.json();
-        });
-    };
-
     postUser = (user) => {
         return fetch(`${config.API_ENDPOINT}/users`, {
             method: 'POST',
@@ -180,16 +166,6 @@ export class GrowingContextProvider extends React.Component {
             currentChildren: currChildren
         });
     }
-
-    getData = (childId, type) => {
-        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
-            headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.json())
-            .catch((err) => console.error(err));
-    };
 
     updateImage = (childId, encodedImage) => {
         return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
