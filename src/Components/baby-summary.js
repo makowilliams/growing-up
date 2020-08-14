@@ -13,9 +13,33 @@ export default class BabySummary extends React.Component {
         this.context.updateType(e.target.name);
     }
 
-    onFileLoad() {}
+    onChange = (ev) => {
+        this.context.updateImageState(ev.target.files[0]);
+    };
 
-    handleUpdateImg() {}
+    onSubmit = (ev) => {
+        ev.preventDefault();
+        if (!this.context.image) return;
+        this.uploadImage(this.context.image);
+    };
+
+    uploadImage = (imageFile) => {
+        const toBase64 = (file) =>
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+            });
+
+        toBase64(imageFile).then((encodedImage) => {
+            this.context
+                .updateImage(this.props.child.id, encodedImage)
+                .then((res) => {
+                    console.log(res);
+                });
+        });
+    };
 
     render() {
         let lastSlept;
@@ -31,35 +55,29 @@ export default class BabySummary extends React.Component {
         } else lastAte = 'No sessions yet';
 
         return (
-            
             <div className="summary-container">
-                {/* <div className="update-img-container">
+                <img
+                    className="child-img"
+                    src={this.props.child.image}
+                    alt="baby image"
+                    width="300"
+                />
+
+                <form onSubmit={this.onSubmit} className="update-img-container">
                     <input
                         type="file"
-                        id="file-input"
-                        name="file-input"
-                        ref={(input) => (this.fileInput = input)}
-                        onDragOver={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }}
-                        onDrop={this.onFileLoad.bind(this)}
-                        onChange={this.onFileLoad.bind(this)}
+                        id="image"
+                        name="image"
+                        onChange={this.onChange}
                     />
-                    <div className="update-img">
-                        <img
-                            className="child-img"
-                            // src={childImg}
-                            alt="baby image"
-                            width="300"
-                        />
-                    </div>
-                </div> */}
+                    <button type="submit">Submit</button>
+                </form>
+
                 <div className="child-info-container">
                     <div className="name-age">
-                        <DeleteBaby child={this.props.child}/>
+                        <DeleteBaby child={this.props.child} />
                         <p>Age: {this.props.child.age} months</p>
-                        <BabyWeight child={this.props.child}/>
+                        <BabyWeight child={this.props.child} />
                     </div>
 
                     <p>Last Slept: {lastSlept}</p>

@@ -1,7 +1,6 @@
 import React from 'react';
 import config from './config';
 import TokenService from './token-service';
-// import ImageUploader from 'react-images-upload';
 
 const GrowingContext = React.createContext({
     type: '',
@@ -22,7 +21,8 @@ const GrowingContext = React.createContext({
     addNewChild: () => {},
     updateDate: () => {},
     updateType: () => {},
-    setSelectedChild: () => {}
+    setSelectedChild: () => {},
+    updateImageState: () => {}
 });
 
 export default GrowingContext;
@@ -50,13 +50,22 @@ export class GrowingContextProvider extends React.Component {
         this.updateDate = this.updateDate.bind(this);
         this.updateType = this.updateType.bind(this);
         this.setSelectedChild = this.setSelectedChild.bind(this);
+        this.updateImageState = this.updateImageState.bind(this);
     }
 
-    // onDrop(picture) {
-    //     this.setState({
-    //         pictures: this.state.pictures.concat(picture)
-    //     });
-    // }
+    login = (credentials) => {
+        return fetch(`${config.API_ENDPOINT}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        }).then((res) => {
+            return !res.ok
+                ? res.json().then((e) => Promise.reject(e))
+                : res.json();
+        });
+    };
 
     postUser = (user) => {
         return fetch(`${config.API_ENDPOINT}/users`, {
@@ -172,8 +181,39 @@ export class GrowingContextProvider extends React.Component {
         });
     }
 
+    getData = (childId, type) => {
+        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then((res) => res.json())
+            .catch((err) => console.error(err));
+    };
+
+    updateImage = (childId, encodedImage) => {
+        return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify({
+                image: encodedImage
+            })
+        })
+            .then((res) => {
+                res.json();
+            })
+            .catch((err) => console.error(err));
+    };
+
     updateContext(newUpdate) {
         this.setState({ ...newUpdate });
+    }
+
+    updateImageState(newImg) {
+        this.setState({ image: newImg });
     }
 
     updateDuration(item) {
@@ -208,7 +248,10 @@ export class GrowingContextProvider extends React.Component {
                     updateDuration: this.updateDuration,
                     updateDate: this.updateDate,
                     updateType: this.updateType,
-                    setSelectedChild: this.setSelectedChild
+                    setSelectedChild: this.setSelectedChild,
+                    updateImage: this.updateImage,
+                    updateImageState: this.updateImageState,
+                    getChildImage: this.getChildImage
                 }}
             >
                 {this.props.children}
