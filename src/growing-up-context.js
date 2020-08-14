@@ -17,6 +17,7 @@ const GrowingContext = React.createContext({
     updateSession: () => {},
     deleteSession: () => {},
     updateWeight: () => {},
+    updateAge: () => {},
     deleteBaby: () => {},
     addNewChild: () => {},
     updateDate: () => {},
@@ -44,6 +45,7 @@ export class GrowingContextProvider extends React.Component {
         this.updateSession = this.updateSession.bind(this);
         this.deleteSession = this.deleteSession.bind(this);
         this.updateWeight = this.updateWeight.bind(this);
+        this.updateAge = this.updateAge.bind(this);
         this.deleteBaby = this.deleteBaby.bind(this);
         this.addNewChild = this.addNewChild.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
@@ -52,20 +54,6 @@ export class GrowingContextProvider extends React.Component {
         this.setSelectedChild = this.setSelectedChild.bind(this);
         this.updateImageState = this.updateImageState.bind(this);
     }
-
-    login = (credentials) => {
-        return fetch(`${config.API_ENDPOINT}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        }).then((res) => {
-            return !res.ok
-                ? res.json().then((e) => Promise.reject(e))
-                : res.json();
-        });
-    };
 
     postUser = (user) => {
         return fetch(`${config.API_ENDPOINT}/users`, {
@@ -165,6 +153,15 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
+    updateAge(data) {
+        let newState = { ...this.state };
+        let index = newState.currentChildren.findIndex(
+            (child) => child.id === data.childId
+        );
+        newState.currentChildren[index].age = data.age;
+        this.setState(newState);
+    }
+
     deleteBaby(childId) {
         let currChildren = this.state.currentChildren;
         let newChildren = currChildren.filter((child) => child.id !== childId);
@@ -180,16 +177,6 @@ export class GrowingContextProvider extends React.Component {
             currentChildren: currChildren
         });
     }
-
-    getData = (childId, type) => {
-        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
-            headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.json())
-            .catch((err) => console.error(err));
-    };
 
     updateImage = (childId, encodedImage) => {
         return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
@@ -243,6 +230,7 @@ export class GrowingContextProvider extends React.Component {
                     updateSession: this.updateSession,
                     deleteSession: this.deleteSession,
                     updateWeight: this.updateWeight,
+                    updateAge: this.updateAge,
                     deleteBaby: this.deleteBaby,
                     addNewChild: this.addNewChild,
                     updateDuration: this.updateDuration,
