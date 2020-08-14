@@ -1,5 +1,5 @@
 import React from 'react';
-import BabyWeight from '../Components/baby-weight';
+import BabyAge from '../Components/baby-age';
 import GrowingContext from '../growing-up-context';
 import { BrowserRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
@@ -71,14 +71,14 @@ const contextValue = {
     updateType: jest.fn(() => {})
 };
 
-test('renders baby weight', () => {
+test('renders baby age', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
             <BrowserRouter>
-                <BabyWeight child={contextValue.currentChild} />
+                <BabyAge child={contextValue.currentChild} />
             </BrowserRouter>
         </GrowingContext.Provider>
     );
-    const linkElement = getByText('Weight: 10.22lbs');
+    const linkElement = getByText('Age: 8 months');
     expect(linkElement).toBeInTheDocument();
 });
