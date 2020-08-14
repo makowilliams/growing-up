@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
 import BabyWeight from './baby-weight';
+import BabyAge from './baby-age';
 import moment from 'moment';
 import DeleteBaby from './delete-baby';
 
@@ -76,7 +77,7 @@ export default class BabySummary extends React.Component {
                 <div className="child-info-container">
                     <div className="name-age">
                         <DeleteBaby child={this.props.child} />
-                        <p>Age: {this.props.child.age} months</p>
+                        <BabyAge child={this.props.child} />
                         <BabyWeight child={this.props.child} />
                     </div>
 

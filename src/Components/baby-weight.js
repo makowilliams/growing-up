@@ -11,8 +11,6 @@ export default class BabyWeight extends React.Component {
 
         this.state = {
             isVisible: false,
-            name: '',
-            age: null,
             updateMode: false
         };
     }
