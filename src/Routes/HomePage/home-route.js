@@ -2,8 +2,6 @@ import React from 'react';
 import HomeMenu from '../../Components/home-menu';
 import GrowingContext from '../../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
 import BabySummary from '../../Components/baby-summary';
 import AddBaby from '../../Components/add-baby';
 

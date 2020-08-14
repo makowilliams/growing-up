@@ -11,7 +11,6 @@ const GrowingContext = React.createContext({
     image: '',
 
     updateContext: () => {},
-    login: () => {},
     postUser: () => {},
     getChildInfo: () => {},
     updateDuration: () => {},
@@ -82,6 +81,16 @@ export class GrowingContextProvider extends React.Component {
         });
     };
 
+    getData = (childId, type) => {
+        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
+            headers: {
+                authorization: `Bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then((res) => res.json())
+            .catch((err) => console.error(err));
+    };
+
     getChildInfo = () => {
         return fetch(`${config.API_ENDPOINT}/children`, {
             headers: {
@@ -136,11 +145,11 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
-    deleteSession(session, child_id) {
+    deleteSession(session) {
         let newState = { ...this.state };
 
         let newSessions = newState.currentChild[session.type].filter(
-            (each_session) => each_session.id != session.id
+            (each_session) => each_session.id !== session.id
         );
         newState.currentChild[session.type] = newSessions;
 
@@ -158,7 +167,7 @@ export class GrowingContextProvider extends React.Component {
 
     deleteBaby(childId) {
         let currChildren = this.state.currentChildren;
-        let newChildren = currChildren.filter((child) => child.id != childId);
+        let newChildren = currChildren.filter((child) => child.id !== childId);
         this.setState({
             currentChildren: newChildren
         });
@@ -210,12 +219,15 @@ export class GrowingContextProvider extends React.Component {
     updateDuration(item) {
         this.setState({ duration: item });
     }
+
     updateDate(item) {
         this.setState({ date: item });
     }
+
     updateType(item) {
         this.setState({ type: item });
     }
+
     setSelectedChild(child) {
         this.setState({ currentChild: child });
     }
@@ -226,7 +238,6 @@ export class GrowingContextProvider extends React.Component {
                 value={{
                     ...this.state,
                     updateContext: this.updateContext,
-                    login: this.login,
                     postUser: this.postUser,
                     getChildInfo: this.getChildInfo,
                     updateSession: this.updateSession,

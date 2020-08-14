@@ -31,7 +31,7 @@ export default class TrackingHomePage extends React.Component {
             return <div>Getting Data</div>;
         } else {
             child = this.context.currentChildren.find(
-                (child) => child.id == this.state.childId
+                (child) => child.id.toString() === this.state.childId
             );
             name = child.first_name;
         }

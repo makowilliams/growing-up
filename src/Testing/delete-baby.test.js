@@ -1,6 +1,6 @@
 import React from 'react';
-import BabySummary from '../Components/baby-summary';
-import { render } from '@testing-library/react';
+import DeleteBaby from '../Components/delete-baby';
+import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import GrowingContext from '../growing-up-context';
@@ -68,14 +68,16 @@ const contextValue = {
     updateType: jest.fn(() => {}),
 };
 
-test('renders last time the baby ate', () => {
-    const { getByText } = render(
+test('renders delete baby component', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(
         <GrowingContext.Provider value={contextValue}>
             <BrowserRouter>
-                <BabySummary child={contextValue.currentChild}/>
+                <DeleteBaby child={contextValue.currentChild}/>
             </BrowserRouter>   
-        </GrowingContext.Provider>
+        </GrowingContext.Provider>,
+        div
     );
-    const linkElement = getByText(/Ate: /i);
-    expect(linkElement).toBeInTheDocument();
+    ReactDOM.unmountComponentAtNode(div);
+   
 });
