@@ -68,7 +68,7 @@ const contextValue = {
     updateType: jest.fn(() => {}),
 };
 
-test('renders tracker log', () => {
+test('renders delete baby component', () => {
     const div = document.createElement('div');
     ReactDOM.render(
         <GrowingContext.Provider value={contextValue}>

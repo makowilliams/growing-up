@@ -51,7 +51,7 @@ const match = {
     },
 };
 
-test('renders tracker log', () => {
+test('renders without crashing', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
             <BrowserRouter>

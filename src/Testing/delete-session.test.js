@@ -22,7 +22,7 @@ const contextValue = {
     ]
 };
 
-test('renders tracker log', () => {
+test('renders delete session component', () => {
     const div = document.createElement('div');
     ReactDOM.render(
         <GrowingContext.Provider value={contextValue}>
