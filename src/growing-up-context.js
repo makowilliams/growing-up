@@ -1,7 +1,6 @@
 import React from 'react';
 import config from './config';
 import TokenService from './token-service';
-// import ImageUploader from 'react-images-upload';
 
 const GrowingContext = React.createContext({
     type: '',
@@ -54,12 +53,6 @@ export class GrowingContextProvider extends React.Component {
         this.setSelectedChild = this.setSelectedChild.bind(this);
         this.updateImageState = this.updateImageState.bind(this);
     }
-
-    // onDrop(picture) {
-    //     this.setState({
-    //         pictures: this.state.pictures.concat(picture)
-    //     });
-    // }
 
     login = (credentials) => {
         return fetch(`${config.API_ENDPOINT}/auth/login`, {
@@ -130,20 +123,6 @@ export class GrowingContextProvider extends React.Component {
             });
     };
 
-    getChildImage = (childId) => {
-        return fetch(`${config.API_ENDPOINT}/children/${childId}/image`, {
-            headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.contentType('image/jpeg'))
-            .then((childImage) => {
-                this.setState({
-                    image: childImage
-                });
-            });
-    };
-
     updateSession(data, type) {
         let newState = this.state;
         let index = this.state.currentChildren.findIndex(
@@ -200,29 +179,24 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
-<<<<<<< HEAD
-            .then((logData) => {
-                if (logData.length) {
-                    this.setChildData(logData, type);
-                }
-            })
-=======
->>>>>>> master
             .catch((err) => console.error(err));
     };
 
-    updateImage = (childId) => {
-        const formData = new FormData();
-
-        formData.append('img', this.state.image, this.state.image.name);
-
-        return fetch(`${config.API_ENDPOINT}/children/${childId}/image`, {
+    updateImage = (childId, encodedImage) => {
+        return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
             method: 'PATCH',
             headers: {
+                'content-type': 'application/json',
                 authorization: `Bearer ${TokenService.getAuthToken()}`
             },
-            body: formData
-        }).catch((err) => console.error(err));
+            body: JSON.stringify({
+                image: encodedImage
+            })
+        })
+            .then((res) => {
+                res.json();
+            })
+            .catch((err) => console.error(err));
     };
 
     updateContext(newUpdate) {

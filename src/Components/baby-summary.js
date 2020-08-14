@@ -13,22 +13,32 @@ export default class BabySummary extends React.Component {
         this.context.updateType(e.target.name);
     }
 
-    componentDidMount() {
-        this.context.updateType('sleeping');
-        this.context.updateType('eating');
-        this.context.getData(this.props.child.id, 'sleeping');
-        this.context.getData(this.props.child.id, 'eating');
-    }
-
     onChange = (ev) => {
         this.context.updateImageState(ev.target.files[0]);
     };
 
     onSubmit = (ev) => {
         ev.preventDefault();
-        const child = this.props.child.id;
-        this.context.updateImage(child);
-        this.context.getChildImage(child);
+        if (!this.context.image) return;
+        this.uploadImage(this.context.image);
+    };
+
+    uploadImage = (imageFile) => {
+        const toBase64 = (file) =>
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+            });
+
+        toBase64(imageFile).then((encodedImage) => {
+            this.context
+                .updateImage(this.props.child.id, encodedImage)
+                .then((res) => {
+                    console.log(res);
+                });
+        });
     };
 
     render() {
@@ -44,42 +54,25 @@ export default class BabySummary extends React.Component {
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
 
-        let childImg;
-        if (this.context.image) {
-            childImg = this.context.image;
-        } else childImg = 'Add image';
-
-        console.log('child img', childImg);
-
         return (
             <div className="summary-container">
-                <form
-                    onSubmit={this.onSubmit}
-                    className="update-img-container"
-                    encType="multipart/form-data"
-                >
-                    <div className="update-img">
-                        <img
-                            className="child-img"
-                            // src={childImg}
-                            alt="baby image"
-                            width="300"
-                        />
-                    </div>
+                <img
+                    className="child-img"
+                    src={this.props.child.image}
+                    alt="baby image"
+                    width="300"
+                />
+
+                <form onSubmit={this.onSubmit} className="update-img-container">
                     <input
                         type="file"
-                        id="img"
-                        name="img"
-                        ref={(input) => (this.fileInput = input)}
-                        // onDragOver={(e) => {
-                        //     e.preventDefault();
-                        //     e.stopPropagation();
-                        // }}
-                        // onDrop={this.onFileLoad.bind(this)}
+                        id="image"
+                        name="image"
                         onChange={this.onChange}
                     />
                     <button type="submit">Submit</button>
                 </form>
+
                 <div className="child-info-container">
                     <div className="name-age">
                         <DeleteBaby child={this.props.child} />
