@@ -68,7 +68,7 @@ const contextValue = {
     updateType: jest.fn(() => {}),
 };
 
-test('renders tracker log', () => {
+test('renders last time the baby ate', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
             <BrowserRouter>

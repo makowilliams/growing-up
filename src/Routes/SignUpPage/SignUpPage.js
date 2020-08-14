@@ -31,11 +31,15 @@ export default class SignUpPage extends React.Component {
                 this.handleRegistrationSuccess();
             })
             .catch((res) => {
-                this.setState({ error: res.error });
+                console.log(res);
+                this.setState({
+                    error: res.error || 'Sorry, something went wrong.'
+                });
             });
     };
 
     render() {
+        const { error } = this.state;
         return (
             <section className="signUpMain">
                 <form onSubmit={this.handleSubmit}>
@@ -57,33 +61,18 @@ export default class SignUpPage extends React.Component {
                             <input name="username" id="username" />
                         </div>
 
-                        <div role="alert">
-                            {this.state.error &&
-                                this.state.error
-                                    .toLowerCase()
-                                    .includes('username') && (
-                                    <p className="red">{this.state.error}</p>
-                                )}
-                        </div>
-
                         <div className="password">
                             <label htmlFor="password">Password:</label>
                             <input name="password" id="password" />
-                        </div>
-
-                        <div role="alert">
-                            {this.state.error &&
-                                this.state.error
-                                    .toLowerCase()
-                                    .includes('password') && (
-                                    <p className="red">{this.state.error}</p>
-                                )}
                         </div>
                     </div>
 
                     <button type="submit">Submit</button>
                     <button onClick={() => window.history.back()}>Back</button>
                 </form>
+                <div role="alert">
+                    {error && <p className="error">{error}</p>}
+                </div>
             </section>
         );
     }

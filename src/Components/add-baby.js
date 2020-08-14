@@ -1,9 +1,6 @@
 import React from 'react';
 import BabyApiService from '../baby-api-service';
-import TokenService from '../token-service';
 import GrowingContext from '../growing-up-context';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
 
 export default class AddBaby extends React.Component {
     static contextType = GrowingContext;
