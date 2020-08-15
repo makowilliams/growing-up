@@ -53,6 +53,7 @@ export class GrowingContextProvider extends React.Component {
         this.updateType = this.updateType.bind(this);
         this.setSelectedChild = this.setSelectedChild.bind(this);
         this.updateImageState = this.updateImageState.bind(this);
+        this.renderImage = this.renderImage.bind(this);
     }
 
     postUser = (user) => {
@@ -67,16 +68,6 @@ export class GrowingContextProvider extends React.Component {
                 ? res.json().then((e) => Promise.reject(e))
                 : res.json();
         });
-    };
-
-    getData = (childId, type) => {
-        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
-            headers: {
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            }
-        })
-            .then((res) => res.json())
-            .catch((err) => console.error(err));
     };
 
     getChildInfo = () => {
@@ -153,6 +144,14 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
+    renderImage(image, childId) {
+        let newState = { ...this.state };
+        let index = newState.currentChildren.findIndex(
+            (child) => child.id === childId
+        );
+        newState.currentChildren[index].image = image;
+        this.setState(newState);
+    }
     updateAge(data) {
         let newState = { ...this.state };
         let index = newState.currentChildren.findIndex(
@@ -178,20 +177,13 @@ export class GrowingContextProvider extends React.Component {
         });
     }
 
-    updateImage = (childId, encodedImage) => {
-        return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
-            method: 'PATCH',
+    getData = (childId, type) => {
+        return fetch(`${config.API_ENDPOINT}/${type}/all/${childId}`, {
             headers: {
-                'content-type': 'application/json',
                 authorization: `Bearer ${TokenService.getAuthToken()}`
-            },
-            body: JSON.stringify({
-                image: encodedImage
-            })
+            }
         })
-            .then((res) => {
-                res.json();
-            })
+            .then((res) => res.json())
             .catch((err) => console.error(err));
     };
 
@@ -237,9 +229,8 @@ export class GrowingContextProvider extends React.Component {
                     updateDate: this.updateDate,
                     updateType: this.updateType,
                     setSelectedChild: this.setSelectedChild,
-                    updateImage: this.updateImage,
                     updateImageState: this.updateImageState,
-                    getChildImage: this.getChildImage
+                    renderImage: this.renderImage
                 }}
             >
                 {this.props.children}

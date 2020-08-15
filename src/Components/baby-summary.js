@@ -5,9 +5,15 @@ import BabyWeight from './baby-weight';
 import BabyAge from './baby-age';
 import moment from 'moment';
 import DeleteBaby from './delete-baby';
+import BabyApiService from '../baby-api-service';
 
 export default class BabySummary extends React.Component {
     static contextType = GrowingContext;
+    static defaultProps = {
+        onUpdateSuccess: () => {}
+    };
+
+    state = { error: null };
 
     updateTypeAndChild(e) {
         this.context.setSelectedChild(this.props.child);
@@ -34,11 +40,12 @@ export default class BabySummary extends React.Component {
             });
 
         toBase64(imageFile).then((encodedImage) => {
-            this.context
-                .updateImage(this.props.child.id, encodedImage)
-                .then((res) => {
-                    console.log(res);
-                });
+            BabyApiService.updateImage(this.props.child.id, encodedImage).then(
+                () => {
+                    this.context.renderImage(encodedImage, this.props.child.id);
+                    this.props.onUpdateSuccess();
+                }
+            );
         });
     };
 
@@ -55,22 +62,32 @@ export default class BabySummary extends React.Component {
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
 
+        console.log(this.context);
+
         return (
             <div className="summary-container">
                 <img
                     className="child-img"
                     src={this.props.child.image}
-                    alt="baby image"
+                    alt="baby"
                     width="300"
                 />
 
-                <form onSubmit={this.onSubmit} className="update-img-container">
+                <form
+                    onSubmit={this.onSubmit.bind(this)}
+                    className="update-img-container"
+                >
                     <input
                         type="file"
                         id="image"
                         name="image"
                         onChange={this.onChange}
+                        ref={(fileInput) => (this.fileInput = fileInput)}
+                        style={{ display: 'none' }}
                     />
+                    <button onClick={() => this.fileInput.click()}>
+                        Choose a file
+                    </button>
                     <button type="submit">Submit</button>
                 </form>
 
