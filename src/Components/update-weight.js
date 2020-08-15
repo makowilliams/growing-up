@@ -1,6 +1,7 @@
 import React from 'react';
 import GrowingContext from '../growing-up-context';
 import BabyApiService from '../baby-api-service';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 export default class UpdateWeight extends React.Component {
     static contextType = GrowingContext;
@@ -16,7 +17,7 @@ export default class UpdateWeight extends React.Component {
 
     state = { error: null };
 
-    handleupdateWeight = (e) => {
+    handleUpdateWeight = (e) => {
         e.preventDefault();
         this.setState({ error: null });
 
@@ -29,10 +30,10 @@ export default class UpdateWeight extends React.Component {
             }
         }
 
-        const newWeight= {
+        const newWeight = {
             childId: this.props.childId,
             weight: weight.value
-        }
+        };
 
         BabyApiService.patchWeight(newWeight)
             .then((res) => {
@@ -53,7 +54,8 @@ export default class UpdateWeight extends React.Component {
         const { error } = this.state;
 
         return (
-            <form onSubmit={(e) => this.handleupdateWeight(e)}>
+            <form onSubmit={(e) => this.handleUpdateWeight(e)}>
+                <CancelIcon onClick={() => this.props.onUpdateSuccess()} />
                 <label htmlFor="weight">Weight: </label>
                 <input
                     className="name-input"
@@ -62,6 +64,7 @@ export default class UpdateWeight extends React.Component {
                     required
                 />
                 <button type="submit"> Add </button>
+
                 <div role="alert">
                     {error && <p className="error">{error}</p>}
                 </div>
