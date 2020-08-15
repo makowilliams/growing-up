@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import DeleteSession from './delete-session';
 
 export default class TrackerLog extends React.Component {
     render() {
@@ -18,6 +19,7 @@ export default class TrackerLog extends React.Component {
                     {moment(this.props.date).format('MMM Do')}
                 </td>
             </tr>
+            // <DeleteSession session={this.props}/>
         );
     }
 }

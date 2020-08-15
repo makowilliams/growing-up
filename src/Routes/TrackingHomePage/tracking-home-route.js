@@ -4,11 +4,17 @@ import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
 import GrowingContext from '../../growing-up-context';
 import { ReactComponent as BackArrow } from '../../assets/back-arrow.svg';
+import { Redirect } from 'react-router-dom';
 
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
     constructor(props) {
         super(props);
+        window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+            event.returnValue = '';
+            return '';
+        });
 
         this.state = {
             type: props.match.params.type,
@@ -19,18 +25,17 @@ export default class TrackingHomePage extends React.Component {
     render() {
         let name = '';
         let child;
+        if (!this.context.currentChild) {
+            return <Redirect to="/home"></Redirect>;
+        }
         if (!this.context.currentChildren) {
             return <div>Getting Data</div>;
-        }
-        if (!this.context.currentChildren[0]) {
-            this.context.getChildInfo();
         } else {
             child = this.context.currentChildren.find(
-                (child) => child.id == this.state.childId
+                (child) => child.id.toString() === this.state.childId
             );
             name = child.first_name;
         }
-
         return (
             <div className="tracking">
                 <HomeMenu />

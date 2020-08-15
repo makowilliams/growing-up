@@ -2,20 +2,53 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
 import BabyWeight from './baby-weight';
+import BabyAge from './baby-age';
 import moment from 'moment';
 import babyGirl from '../../src/assets/baby-girl/baby-girl-lg.png';
+import DeleteBaby from './delete-baby';
+import BabyApiService from '../baby-api-service';
 
 export default class BabySummary extends React.Component {
     static contextType = GrowingContext;
+    static defaultProps = {
+        onUpdateSuccess: () => {}
+    };
+
+    state = { error: null };
 
     updateTypeAndChild(e) {
         this.context.setSelectedChild(this.props.child);
         this.context.updateType(e.target.name);
     }
 
-    onFileLoad() {}
+    onChange = (ev) => {
+        this.context.updateImageState(ev.target.files[0]);
+    };
 
-    handleUpdateImg() {}
+    onSubmit = (ev) => {
+        ev.preventDefault();
+        if (!this.context.image) return;
+        this.uploadImage(this.context.image);
+    };
+
+    uploadImage = (imageFile) => {
+        const toBase64 = (file) =>
+            new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+            });
+
+        toBase64(imageFile).then((encodedImage) => {
+            BabyApiService.updateImage(this.props.child.id, encodedImage).then(
+                () => {
+                    this.context.renderImage(encodedImage, this.props.child.id);
+                    this.props.onUpdateSuccess();
+                }
+            );
+        });
+    };
 
     render() {
         let lastSlept;
@@ -30,33 +63,38 @@ export default class BabySummary extends React.Component {
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
 
+        console.log(this.context);
+
         return (
             <div className="summary-container">
-                {/* <div className="update-img-container">
+                <img
+                    className="child-img"
+                    src={this.props.child.image}
+                    alt="baby"
+                    width="300"
+                />
+
+                <form
+                    onSubmit={this.onSubmit.bind(this)}
+                    className="update-img-container"
+                >
                     <input
                         type="file"
-                        id="file-input"
-                        name="file-input"
-                        ref={(input) => (this.fileInput = input)}
-                        onDragOver={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }}
-                        onDrop={this.onFileLoad.bind(this)}
-                        onChange={this.onFileLoad.bind(this)}
+                        id="image"
+                        name="image"
+                        onChange={this.onChange}
+                        ref={(fileInput) => (this.fileInput = fileInput)}
+                        style={{ display: 'none' }}
                     />
-                    <div className="update-img">
-                        <img
-                            className="child-img"
-                            // src={childImg}
-                            alt="baby image"
-                            width="300"
-                        />
-                    </div>
-                </div> */}
+                    <button onClick={() => this.fileInput.click()}>
+                        Choose a file
+                    </button>
+                    <button type="submit">Submit</button>
+                </form>
+
                 <div className="child-info-container">
                     <div className="name-age">
-                        <h2 className="child-name">
+                        {/* <h2 className="child-name">
                             {this.props.child.first_name}
                         </h2>
                         <div className="img-container">
@@ -65,7 +103,11 @@ export default class BabySummary extends React.Component {
                                 alt="image of baby girl"
                                 className="baby-image"
                             />
-                        </div>
+                        </div> */}
+                        <DeleteBaby child={this.props.child} />
+                        <BabyAge child={this.props.child} />
+                        <BabyWeight child={this.props.child} />
+                    </div>
 
                         <p className="baby-age">
                             <span className="bold">Age:</span>{' '}

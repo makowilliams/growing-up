@@ -2,8 +2,6 @@ import React from 'react';
 import HomeMenu from '../../Components/home-menu';
 import GrowingContext from '../../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
 import BabySummary from '../../Components/baby-summary';
 import AddBaby from '../../Components/add-baby';
 import { ReactComponent as PlusSign } from '../../assets/plus-sign.svg';
@@ -90,6 +88,19 @@ export default class HomePage extends React.Component {
                             <AddBaby
                                 onAddSuccess={() => this.cancelUpdateMode()}
                             />
+                        )}
+                    </div>
+                    <div className="summary-container">
+                        {!this.context.currentChildren.length ? (
+                            <p id="empty-results-error">
+                                Thanks for joining! Please add a child.
+                            </p>
+                        ) : (
+                            this.context.currentChildren.map((child) => {
+                                return (
+                                    <BabySummary key={child.id} child={child} />
+                                );
+                            })
                         )}
                     </div>
                 </div>

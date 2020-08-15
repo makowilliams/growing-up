@@ -1,9 +1,9 @@
 import React from 'react';
 import GrowingContext from '../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
-import UpdateWeight from './update-weight';
+import UpdateAge from './update-age';
 
-export default class BabyWeight extends React.Component {
+export default class BabyAge extends React.Component {
     static contextType = GrowingContext;
 
     constructor() {
@@ -42,24 +42,14 @@ export default class BabyWeight extends React.Component {
                     <div
                         onMouseEnter={() => this.toggleVisibility()}
                         onMouseLeave={() => this.toggleVisibility()}
-                        class="baby-weight-container"
                     >
-                        <p className="baby-weight">
-                            <span className="bold">Weight:</span>{' '}
-                            {this.props.child.weight}lbs
-                        </p>
+                        <p>Age: {this.props.child.age} months</p>
                         {this.state.isVisible ? (
-                            <EditIcon
-                                class="baby-weight-icon"
-                                onClick={() => this.enableUpdateMode()}
-                            />
+                            <EditIcon onClick={() => this.enableUpdateMode()} />
                         ) : null}
                     </div>
                 ) : (
-                    <UpdateWeight
-                        childId={this.props.child.id}
-                        onUpdateSuccess={() => this.cancelUpdateMode()}
-                    />
+                    <UpdateAge childId={this.props.child.id} onUpdateSuccess={() => this.cancelUpdateMode()}/>
                 )}
             </>
         );

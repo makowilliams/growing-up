@@ -102,7 +102,7 @@ export class Timer extends React.Component {
         let lastSession = [];
         if (this.context.currentChildren) {
             child = this.context.currentChildren.find(
-                (child) => child.id == this.context.currentChild.id
+                (child) => child.id === this.context.currentChild.id
             );
             if (this.context.type === 'sleeping') {
                 lastSession = 'First Session';

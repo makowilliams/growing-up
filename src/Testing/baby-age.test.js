@@ -1,15 +1,17 @@
 import React from 'react';
-import BabySummary from '../Components/baby-summary';
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import '@testing-library/jest-dom/extend-expect';
+import BabyAge from '../Components/baby-age';
 import GrowingContext from '../growing-up-context';
+import { BrowserRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
 const contextValue = {
     type: 'feeding',
     currentChild: {
         id: 1,
         first_name: 'liam',
+        age: 8,
+        weight:  10.22,
         eating: [
             {
                 0: {
@@ -39,6 +41,7 @@ const contextValue = {
         {
             id: 1,
             age: 8,
+            weight:  10.22,
             eating: [
                 {
                     0: {
@@ -65,17 +68,17 @@ const contextValue = {
             ]
         }
     ],
-    updateType: jest.fn(() => {}),
+    updateType: jest.fn(() => {})
 };
 
-test('renders last time the baby ate', () => {
+test('renders baby age', () => {
     const { getByText } = render(
         <GrowingContext.Provider value={contextValue}>
             <BrowserRouter>
-                <BabySummary child={contextValue.currentChild}/>
-            </BrowserRouter>   
+                <BabyAge child={contextValue.currentChild} />
+            </BrowserRouter>
         </GrowingContext.Provider>
     );
-    const linkElement = getByText(/Ate: /i);
+    const linkElement = getByText('Age: 8 months');
     expect(linkElement).toBeInTheDocument();
 });
