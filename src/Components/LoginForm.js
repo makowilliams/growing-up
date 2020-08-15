@@ -1,6 +1,7 @@
 import React from 'react';
 import TokenService from '../token-service';
 import AuthApiService from '../auth-api-service';
+import { ReactComponent as BackArrow } from '../../src/assets/back-arrow.svg';
 
 export default class LoginPage extends React.Component {
     static defaultProps = {
@@ -50,7 +51,7 @@ export default class LoginPage extends React.Component {
                     className="loginForm signUpForm"
                     onSubmit={(e) => this.handleSubmitJwtAuth(e)}
                 >
-                    <h1>Login</h1>
+                    <h1 className="login-header">Login</h1>
 
                     <div className="inputContainer">
                         {this.state.error && (
@@ -58,38 +59,57 @@ export default class LoginPage extends React.Component {
                         )}
 
                         <div className="username">
-                            <label htmlFor="username">Username:</label>
+                            <label
+                                htmlFor="username"
+                                className="username-input"
+                            >
+                                Username:
+                            </label>
                             <input name="username" id="username" required />
                         </div>
                         <div className="password">
-                            <label htmlFor="password">Password:</label>
+                            <label
+                                htmlFor="password"
+                                className="password-input-container"
+                            >
+                                Password:
+                            </label>
 
                             <input
                                 type="password"
                                 name="password"
                                 id="password"
+                                className="password-input"
                                 required
                             />
                             <input
                                 type="checkbox"
                                 onClick={(e) => this.Toggle(e)}
                             />
-                            <b>Show Password</b>
+                            <b className="show-password">Show Password</b>
                         </div>
                     </div>
                     <div>
-                        <button type="submit">Submit</button>
+                        <button type="submit" className="submit">
+                            Submit
+                        </button>
                         <div role="alert">
                             {error && <p className="error">{error}</p>}
                         </div>
                     </div>
                 </form>
-                <button onClick={() => window.history.back()}>Back</button>
+                <button onClick={() => window.history.back()} className="back">
+                    <BackArrow />
+                    Back
+                </button>
                 <p className="hero-copy">
                     To Demo our app, you can login with:
+                    <br />
+                    <br />
+                    <span className="bold">Username:</span> test_user
+                    <br />
+                    <span className="bold">Password:</span> Pass5555
                 </p>
-                <p className="hero-copy">username: test_user</p>
-                <p className="hero-copy">password: Pass5555</p>
             </main>
         );
     }

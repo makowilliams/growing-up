@@ -105,7 +105,7 @@ export default class StopButton extends React.Component {
                     <Link
                         onClick={this.submitFeeding.bind(this)}
                         to="/tracking/feeding"
-                        className="feed-stop long-button"
+                        className="feed-stop submit-button"
                     >
                         Submit Feeding
                     </Link>
@@ -113,7 +113,7 @@ export default class StopButton extends React.Component {
                     <Link
                         onClick={this.submitSleep.bind(this)}
                         to="/tracking/sleeping"
-                        className="feed-stop long-button"
+                        className="feed-stop submit-button"
                     >
                         Submit Sleep
                     </Link>

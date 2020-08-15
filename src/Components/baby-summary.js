@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
 import BabyWeight from './baby-weight';
 import moment from 'moment';
+import babyGirl from '../../src/assets/baby-girl/baby-girl-lg.png';
 
 export default class BabySummary extends React.Component {
     static contextType = GrowingContext;
@@ -28,9 +29,8 @@ export default class BabySummary extends React.Component {
             let ate = this.props.child.eating.slice(-1)[0].date;
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
-        
+
         return (
-            
             <div className="summary-container">
                 {/* <div className="update-img-container">
                     <input
@@ -56,31 +56,53 @@ export default class BabySummary extends React.Component {
                 </div> */}
                 <div className="child-info-container">
                     <div className="name-age">
-                        <h2>{this.props.child.first_name}</h2>
-                        <p>Age: {this.props.child.age} months</p>
-                        <BabyWeight child={this.props.child}/>
+                        <h2 className="child-name">
+                            {this.props.child.first_name}
+                        </h2>
+                        <div className="img-container">
+                            <img
+                                src={babyGirl}
+                                alt="image of baby girl"
+                                className="baby-image"
+                            />
+                        </div>
+
+                        <p className="baby-age">
+                            <span className="bold">Age:</span>{' '}
+                            {this.props.child.age} months
+                        </p>
+                        <BabyWeight child={this.props.child} />
                     </div>
+                    <div className="additional-info">
+                        <div className="baby-info">
+                            <p className="last-slept">
+                                <span className="bold">Last Slept:</span>{' '}
+                                {lastSlept}
+                            </p>
+                            <p className="last-ate">
+                                <span className="bold">Last Ate:</span>{' '}
+                                {lastAte}
+                            </p>
+                        </div>
 
-                    <p>Last Slept: {lastSlept}</p>
-                    <p>Last Ate: {lastAte}</p>
-
-                    <div className="action-button-container">
-                        <Link
-                            to={`/tracking/sleeping/${this.props.child.id}`}
-                            className="link"
-                            name="sleeping"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Sleep
-                        </Link>
-                        <Link
-                            to={`/tracking/feeding/${this.props.child.id}`}
-                            className="link"
-                            name="feeding"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Feeding
-                        </Link>
+                        <div className="action-button-container">
+                            <Link
+                                to={`/tracking/sleeping/${this.props.child.id}`}
+                                className="link"
+                                name="sleeping"
+                                onClick={(e) => this.updateTypeAndChild(e)}
+                            >
+                                Sleep
+                            </Link>
+                            <Link
+                                to={`/tracking/feeding/${this.props.child.id}`}
+                                className="link"
+                                name="feeding"
+                                onClick={(e) => this.updateTypeAndChild(e)}
+                            >
+                                Feeding
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

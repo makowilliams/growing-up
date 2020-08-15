@@ -3,6 +3,7 @@ import HomeMenu from '../../Components/home-menu';
 import TrackerList from '../../Components/tracker-list';
 import StartButton from '../../Components/start-button';
 import GrowingContext from '../../growing-up-context';
+import { ReactComponent as BackArrow } from '../../assets/back-arrow.svg';
 
 export default class TrackingHomePage extends React.Component {
     static contextType = GrowingContext;
@@ -36,12 +37,14 @@ export default class TrackingHomePage extends React.Component {
                 <div className="main-container">
                     {this.state.type === 'feeding' ? (
                         <>
-                            <h1 className="feed-header">Feeding Tracker Log</h1>
-                            <h2>{name}</h2>
+                            <h1 className="tracker-header">
+                                Feeding Tracker Log
+                            </h1>
+                            <h2 class="current-baby">{name}</h2>
                         </>
                     ) : (
                         <>
-                            <h1 className="feed-header">
+                            <h1 className="tracker-header">
                                 Sleeping Tracker Log
                             </h1>
                             <h2>{name}</h2>
@@ -49,7 +52,10 @@ export default class TrackingHomePage extends React.Component {
                     )}
                     <TrackerList type={this.state.type} child={child} />
                     <StartButton type={this.state.type} />
-                    <button onClick={() => window.history.back()}>Back</button>
+                    <button class="back" onClick={() => window.history.back()}>
+                        <BackArrow />
+                        Back
+                    </button>
                 </div>
             </div>
         );

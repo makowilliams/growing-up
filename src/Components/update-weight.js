@@ -29,10 +29,10 @@ export default class UpdateWeight extends React.Component {
             }
         }
 
-        const newWeight= {
+        const newWeight = {
             childId: this.props.childId,
             weight: weight.value
-        }
+        };
 
         BabyApiService.patchWeight(newWeight)
             .then((res) => {
@@ -54,7 +54,9 @@ export default class UpdateWeight extends React.Component {
 
         return (
             <form onSubmit={(e) => this.handleupdateWeight(e)}>
-                <label htmlFor="weight">Weight: </label>
+                <label htmlFor="weight">
+                    <span className="weight-input">Weight:</span>{' '}
+                </label>
                 <input
                     className="name-input"
                     id="weight"
