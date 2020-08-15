@@ -43,7 +43,7 @@ export default class SignUpPage extends React.Component {
         return (
             <section className="signUpMain">
                 <form onSubmit={this.handleSubmit}>
-                    <h1>Sign Up</h1>
+                    <h1 className="signup-header">Sign Up</h1>
 
                     <div className="inputContainer">
                         <div className="firstname">

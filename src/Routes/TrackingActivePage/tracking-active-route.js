@@ -11,7 +11,7 @@ export default class TrackingActivePage extends React.Component {
 
     constructor(props) {
         super(props);
-        window.addEventListener("beforeunload", (event) => {
+        window.addEventListener('beforeunload', (event) => {
             event.preventDefault();
             event.returnValue = '';
             return '';
@@ -23,8 +23,8 @@ export default class TrackingActivePage extends React.Component {
     }
 
     render() {
-        if(!this.context.currentChild){
-            return <Redirect to='/home'></Redirect>
+        if (!this.context.currentChild) {
+            return <Redirect to="/home"></Redirect>;
         }
         return (
             <div className="tracking-active">
@@ -32,7 +32,7 @@ export default class TrackingActivePage extends React.Component {
                 <div className="main-container feed-main-container">
                     <div className="feed-dashboard">
                         {this.state.type === 'feeding' ? (
-                            <h2 className="feed-header">Feeding Tracker</h2>
+                            <h2 className="tracker-header">Feeding Tracker</h2>
                         ) : (
                             <h2 className="sleep-header">Sleep Tracker</h2>
                         )}

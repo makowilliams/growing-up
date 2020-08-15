@@ -4,6 +4,7 @@ import GrowingContext from '../../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
 import BabySummary from '../../Components/baby-summary';
 import AddBaby from '../../Components/add-baby';
+import { ReactComponent as PlusSign } from '../../assets/plus-sign.svg';
 
 export default class HomePage extends React.Component {
     static contextType = GrowingContext;
@@ -47,15 +48,35 @@ export default class HomePage extends React.Component {
         return (
             <div className="home-page">
                 <HomeMenu />
-                <div className="dashboard">
+                <div className="main-view-home">
+                    <div className="dashboard">
+                        <div className="summary-container">
+                            {!this.context.currentChildren.length ? (
+                                <p id="empty-results-error">
+                                    Thanks for joining! Please add a child.
+                                </p>
+                            ) : (
+                                this.context.currentChildren.map((child) => {
+                                    return (
+                                        <BabySummary
+                                            key={child.id}
+                                            child={child}
+                                        />
+                                    );
+                                })
+                            )}
+                        </div>
+                    </div>
                     <div className="baby-container">
                         {this.state.updateMode === false ? (
                             <div
                                 className="baby-copy-container"
-                                onMouseEnter={() => this.toggleVisibility()}
-                                onMouseLeave={() => this.toggleVisibility()}
+                                onClick={() => this.enableUpdateMode()}
                             >
-                                <h3 className="baby-name">Add Baby</h3>
+                                <h3 className="baby-name add-baby">
+                                    Add Baby{' '}
+                                </h3>
+                                <PlusSign />
 
                                 {this.state.isVisible ? (
                                     <EditIcon
@@ -69,7 +90,6 @@ export default class HomePage extends React.Component {
                             />
                         )}
                     </div>
-
                     <div className="summary-container">
                         {!this.context.currentChildren.length ? (
                             <p id="empty-results-error">
@@ -78,7 +98,7 @@ export default class HomePage extends React.Component {
                         ) : (
                             this.context.currentChildren.map((child) => {
                                 return (
-                                    <BabySummary key={child.id} child={child}/>
+                                    <BabySummary key={child.id} child={child} />
                                 );
                             })
                         )}

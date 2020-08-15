@@ -4,6 +4,7 @@ import GrowingContext from '../growing-up-context';
 import BabyWeight from './baby-weight';
 import BabyAge from './baby-age';
 import moment from 'moment';
+import babyGirl from '../../src/assets/baby-girl/baby-girl-lg.png';
 import DeleteBaby from './delete-baby';
 import BabyApiService from '../baby-api-service';
 
@@ -93,13 +94,37 @@ export default class BabySummary extends React.Component {
 
                 <div className="child-info-container">
                     <div className="name-age">
+                        {/* <h2 className="child-name">
+                            {this.props.child.first_name}
+                        </h2>
+                        <div className="img-container">
+                            <img
+                                src={babyGirl}
+                                alt="image of baby girl"
+                                className="baby-image"
+                            />
+                        </div> */}
                         <DeleteBaby child={this.props.child} />
                         <BabyAge child={this.props.child} />
                         <BabyWeight child={this.props.child} />
                     </div>
 
-                    <p>Last Slept: {lastSlept}</p>
-                    <p>Last Ate: {lastAte}</p>
+                    <p className="baby-age">
+                        <span className="bold">Age:</span>{' '}
+                        {this.props.child.age} months
+                    </p>
+                    <BabyWeight child={this.props.child} />
+                </div>
+                <div className="additional-info">
+                    <div className="baby-info">
+                        <p className="last-slept">
+                            <span className="bold">Last Slept:</span>{' '}
+                            {lastSlept}
+                        </p>
+                        <p className="last-ate">
+                            <span className="bold">Last Ate:</span> {lastAte}
+                        </p>
+                    </div>
 
                     <div className="action-button-container">
                         <Link

@@ -73,18 +73,29 @@ export class Timer extends React.Component {
     render() {
         let start =
             this.state.time === 0 ? (
-                <button onClick={this.startTimer}>Start</button>
+                <button
+                    onClick={this.startTimer}
+                    class="start-button timer-start"
+                >
+                    Start
+                </button>
             ) : null;
         let stop = this.state.active ? (
-            <button onClick={this.stopTimer}>Stop</button>
+            <button onClick={this.stopTimer} class="stop-button">
+                Stop
+            </button>
         ) : null;
         let reset =
             this.state.time !== 0 && !this.state.active ? (
-                <button onClick={this.resetTimer}>Reset</button>
+                <button onClick={this.resetTimer} class="reset-button">
+                    Reset
+                </button>
             ) : null;
         let resume =
             this.state.time !== 0 && !this.state.active ? (
-                <button onClick={this.startTimer}>Resume</button>
+                <button onClick={this.startTimer} class="resume-button">
+                    Resume
+                </button>
             ) : null;
 
         let child;
@@ -94,21 +105,19 @@ export class Timer extends React.Component {
                 (child) => child.id === this.context.currentChild.id
             );
             if (this.context.type === 'sleeping') {
-                lastSession = 'First Session'
-                if(child.sleeping && child.sleeping.length){
-                    let last_slept = child.sleeping.slice(-1)[0].date
+                lastSession = 'First Session';
+                if (child.sleeping && child.sleeping.length) {
+                    let last_slept = child.sleeping.slice(-1)[0].date;
                     let last_time = moment(last_slept).format('h:mma');
                     lastSession = ['Last sleep was at ' + last_time];
                 }
-                
             } else {
-                lastSession = 'First Session'
-                if(child.eating && child.eating.length){
-                    let last_ate = child.eating.slice(-1)[0].date
+                lastSession = 'First Session';
+                if (child.eating && child.eating.length) {
+                    let last_ate = child.eating.slice(-1)[0].date;
                     let last_time = moment(last_ate).format('h:mma');
                     lastSession = ['Last meal was at ' + last_time];
                 }
-                
             }
         }
 
@@ -123,17 +132,12 @@ export class Timer extends React.Component {
                           })}
                 </p>
                 {start}
-                {resume}
                 {stop}
-                {reset}
-                {!lastSession ? (
-                    ''
-                ) : (
-                    <p className="last-feed">
-                        
-                        {lastSession}
-                    </p>
-                )}
+                <div className="button-container">
+                    {resume}
+                    {reset}
+                </div>
+                {!lastSession ? '' : <p className="last-feed">{lastSession}</p>}
             </div>
         );
     }
