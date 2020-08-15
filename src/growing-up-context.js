@@ -51,6 +51,7 @@ export class GrowingContextProvider extends React.Component {
         this.updateType = this.updateType.bind(this);
         this.setSelectedChild = this.setSelectedChild.bind(this);
         this.updateImageState = this.updateImageState.bind(this);
+        this.renderImage = this.renderImage.bind(this);
     }
 
     login = (credentials) => {
@@ -165,6 +166,15 @@ export class GrowingContextProvider extends React.Component {
         this.setState(newState);
     }
 
+    renderImage(image, childId) {
+        let newState = { ...this.state };
+        let index = newState.currentChildren.findIndex(
+            (child) => child.id === childId
+        );
+        newState.currentChildren[index].image = image;
+        this.setState(newState);
+    }
+
     deleteBaby(childId) {
         let currChildren = this.state.currentChildren;
         let newChildren = currChildren.filter((child) => child.id !== childId);
@@ -188,23 +198,6 @@ export class GrowingContextProvider extends React.Component {
             }
         })
             .then((res) => res.json())
-            .catch((err) => console.error(err));
-    };
-
-    updateImage = (childId, encodedImage) => {
-        return fetch(`${config.API_ENDPOINT}/children/${childId}`, {
-            method: 'PATCH',
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${TokenService.getAuthToken()}`
-            },
-            body: JSON.stringify({
-                image: encodedImage
-            })
-        })
-            .then((res) => {
-                res.json();
-            })
             .catch((err) => console.error(err));
     };
 
@@ -249,9 +242,8 @@ export class GrowingContextProvider extends React.Component {
                     updateDate: this.updateDate,
                     updateType: this.updateType,
                     setSelectedChild: this.setSelectedChild,
-                    updateImage: this.updateImage,
                     updateImageState: this.updateImageState,
-                    getChildImage: this.getChildImage
+                    renderImage: this.renderImage
                 }}
             >
                 {this.props.children}
