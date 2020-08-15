@@ -35,9 +35,10 @@ export default class LandingPage extends React.Component {
                     <p className="demo-copy copy">
                         To Demo our app, you can login with:
                         <br />
-                        username: test_user
                         <br />
-                        password: Pass5555
+                        <span className="bold">Username:</span> test_user
+                        <br />
+                        <span className="bold">Password:</span> Pass5555
                     </p>
                 </div>
                 <div className="features-container">
@@ -51,11 +52,18 @@ export default class LandingPage extends React.Component {
                             <h2 className="feature-one-header feature-header">
                                 Track Sleep
                             </h2>
-                            <p className="feature-one-copy feature-copy copy">
-                                -Start and stop sleeping timer -Helps
-                                distinguish between naps and nightime sleeping
-                                -Keep track of how well your baby slept
-                            </p>
+                            <ul className="feature-one-list">
+                                <li className="feature-list-item">
+                                    Start and stop sleeping timer
+                                </li>
+                                <li className="feature-list-item">
+                                    Helps distinguish between naps and nightime
+                                    sleeping
+                                </li>
+                                <li className="feature-list-item">
+                                    Keep track of how well your baby slept
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div className="feature-two feature">
@@ -69,9 +77,15 @@ export default class LandingPage extends React.Component {
                                 Track Feeding
                             </h2>
                             <p className="feature-two-copy feature-copy copy">
-                                -Start and stop eating timer -Settings for
-                                different types of nursing -Track nursing time
-                                per breast
+                                <li className="feature-list-item">
+                                    Start and stop eating timer
+                                </li>
+                                <li className="feature-list-item">
+                                    Settings for different types of nursing
+                                </li>
+                                <li className="feature-list-item">
+                                    Track nursing time per breast
+                                </li>{' '}
                             </p>
                         </div>
                     </div>
