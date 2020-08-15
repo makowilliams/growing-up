@@ -13,12 +13,12 @@ export default class TrackerLog extends React.Component {
                 </div>
                 <p className="duration">{this.props.duration}</p>
                 <p className="time">
-                    {moment(this.props.date).format('h:mma')}
+                    {moment(new Date(this.props.date)).format('h:mma')}
                 </p>
                 <p className="date">
-                    {moment(this.props.date).format('MMM Do')}
+                    {moment(new Date(this.props.date)).format('MMM Do')}
                 </p>
-                <DeleteSession session={this.props}/>
+                <DeleteSession session={this.props} />
             </div>
         );
     }

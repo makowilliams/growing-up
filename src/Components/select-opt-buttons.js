@@ -48,6 +48,7 @@ export default class FeedingButtons extends React.Component {
 
     handleTypeOpts(e) {
         e.preventDefault();
+        this.props.setError(null);
         if (this.context.type === 'feeding') {
             this.context.updateContext({ food_type: e.target.value });
             if (e.target.value === 'breast_fed') {
@@ -59,6 +60,7 @@ export default class FeedingButtons extends React.Component {
     }
     handleCategoryOpts(e) {
         e.preventDefault();
+        this.props.setError(null);
         if (this.context.type === 'feeding') {
             this.context.updateContext({ side_fed: e.target.value });
         } else {
