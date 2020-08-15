@@ -24,9 +24,10 @@ export default class LandingPage extends React.Component {
                         With Your Family
                     </h1>
                     <p className="hero-copy copy">
-                        Cum sociis natoque penatibus et magnis dis parturient
-                        montes, nascetur ridiculus mus. Nullam id dolor id nibh
-                        ultricies vehicula ut id elit.
+                        Growing Up makes it simple to track and identify the
+                        eating and sleeping patterns of your baby in one place.
+                        Logging your baby's important infomation couldnt be
+                        easier.
                     </p>
                     <Link to="/signup" className="link sign-up">
                         Sign Up
@@ -51,9 +52,9 @@ export default class LandingPage extends React.Component {
                                 Track Sleep
                             </h2>
                             <p className="feature-one-copy feature-copy copy">
-                                Duis mollis, est non commodo luctus, nisi erat
-                                porttitor ligula, eget lacinia odio sem nec
-                                elit.
+                                -Start and stop sleeping timer -Helps
+                                distinguish between naps and nightime sleeping
+                                -Keep track of how well your baby slept
                             </p>
                         </div>
                     </div>
@@ -68,10 +69,9 @@ export default class LandingPage extends React.Component {
                                 Track Feeding
                             </h2>
                             <p className="feature-two-copy feature-copy copy">
-                                Cras mattis consectetur purus sit amet
-                                fermentum. Integer posuere erat a ante venenatis
-                                dapibus posuere velit aliquet. Sed posuere
-                                consectetur est at lobortis.
+                                -Start and stop eating timer -Settings for
+                                different types of nursing -Track nursing time
+                                per breast
                             </p>
                         </div>
                     </div>
