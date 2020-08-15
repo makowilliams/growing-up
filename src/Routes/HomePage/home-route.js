@@ -51,57 +51,52 @@ export default class HomePage extends React.Component {
                 <div className="main-view-home">
                     <div className="dashboard">
                         <div className="summary-container">
-                            {!this.context.currentChildren.length ? (
-                                <p id="empty-results-error">
-                                    Thanks for joining! Please add a child.
-                                </p>
-                            ) : (
-                                this.context.currentChildren.map((child) => {
-                                    return (
-                                        <BabySummary
-                                            key={child.id}
-                                            child={child}
-                                        />
-                                    );
-                                })
-                            )}
-                        </div>
-                    </div>
-                    <div className="baby-container">
-                        {this.state.updateMode === false ? (
-                            <div
-                                className="baby-copy-container"
-                                onClick={() => this.enableUpdateMode()}
-                            >
-                                <h3 className="baby-name add-baby">
-                                    Add Baby{' '}
-                                </h3>
-                                <PlusSign />
-
-                                {this.state.isVisible ? (
-                                    <EditIcon
-                                        onClick={() => this.enableUpdateMode()}
-                                    />
-                                ) : null}
+                            <div className="baby-summaries">
+                                {!this.context.currentChildren.length ? (
+                                    <p id="empty-results-error">
+                                        Thanks for joining! Please add a child.
+                                    </p>
+                                ) : (
+                                    this.context.currentChildren.map(
+                                        (child) => {
+                                            return (
+                                                <BabySummary
+                                                    key={child.id}
+                                                    child={child}
+                                                />
+                                            );
+                                        }
+                                    )
+                                )}
                             </div>
-                        ) : (
-                            <AddBaby
-                                onAddSuccess={() => this.cancelUpdateMode()}
-                            />
-                        )}
-                    </div>
-                    <div className="summary-container">
-                        {!this.context.currentChildren.length ? (
-                            <p id="empty-results-error">
-                                Thanks for joining! Please add a child.
-                            </p>
-                        ) : (
-                            this.context.currentChildren.map((child) => {
-                                return (
-                                    <BabySummary key={child.id} child={child} />
-                                );
-                            })
-                        )}
+                            <div className="baby-container">
+                                {this.state.updateMode === false ? (
+                                    <div
+                                        className="baby-copy-container"
+                                        onClick={() => this.enableUpdateMode()}
+                                    >
+                                        <h3 className="baby-name add-baby">
+                                            Add Baby{' '}
+                                        </h3>
+                                        <PlusSign />
+
+                                        {this.state.isVisible ? (
+                                            <EditIcon
+                                                onClick={() =>
+                                                    this.enableUpdateMode()
+                                                }
+                                            />
+                                        ) : null}
+                                    </div>
+                                ) : (
+                                    <AddBaby
+                                        onAddSuccess={() =>
+                                            this.cancelUpdateMode()
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

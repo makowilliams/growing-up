@@ -6,6 +6,12 @@ $lightPurple : #DABBF7
 $pink : #F4CAE0
 $darkRed : #C63016
 
+//Screen Sizes
+$mobile : 375px
+$lgmobile : 411px
+$iPad: 768px
+$laptop: 1280px
+
 //Fonts
 @font-face 
     font-family: 'Open Sans'
@@ -72,11 +78,22 @@ $darkRed : #C63016
     justify-content: center
     align-items: center
 
+=flexRowAndCenterWrap
+    display: flex
+    flex-flow: row wrap
+    justify-content: center
+    align-items: center
+
 //Universal
 h1, .child-name 
     +lora-bold 
     font-size: 34px
     color: $darkPurple
+
+ul
+    padding: 0px
+    text-align: center
+    margin: 0px
 
 .copy
     color: $darkPurple
@@ -229,6 +246,8 @@ tr
     width: 100vw
     justify-content: center
     align-items: center
+    @media screen and ( max-width: $lgmobile )
+        flex-direction: column
 
 .feature-container
     +flexColumnAndCenter 
@@ -292,11 +311,27 @@ tr
     +flexColumnAndCenter
     border: $lightBlue 5px solid
     border-radius: 5% 
-    min-width: 375px
-    margin-bottom: 50px
+    width: 300px
     padding: 25px
     box-sizing: border-box
     background-color: $teal
+
+.baby-summary-container
+    &:nth-child(even)
+        margin: 0px 15px
+    @media screen and ( max-width: $iPad )
+        &:nth-child(even)
+            margin: 15px 15px
+
+.baby-summaries
+    +flexRowAndCenterWrap
+    margin-bottom: 50px
+
+.dashboard
+    +flexRowAndCenterWrap
+
+.feature-list-item
+    padding: 5px 0px
 
 .additional-info
     +flexColumnAndCenter
@@ -349,14 +384,17 @@ tr
     justify-content: space-around
 
 .summary-container
-    +flexRowAndCenter 
+    +flexRowAndCenterWrap
     min-width: 415px
     max-width: 80vw
-    @media screen and ( max-width: 895px )
-        flex-wrap: wrap
+    margin-bottom: 50px
+    @media screen and ( max-width: $iPad )
+        +flexColumnAndCenter
 
 .main-view-home
-    +flexRowAndCenter
+    +flexRowAndCenterWrap
+    margin-top: 50px
+    width: 75%
 
 .baby-copy-container
     +flexRowAndCenter
