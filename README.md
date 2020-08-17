@@ -97,7 +97,7 @@ removes specific child from database
 required:
 
 -   childId, passed as a string parameter
--   change at least 1 value for first_name, weight, or age
+-   change at least 1 value for first_name, weight, image, or age
 
 returns the updated child's first_name and age
 
