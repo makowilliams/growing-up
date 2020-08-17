@@ -21,6 +21,7 @@ export class Timer extends React.Component {
     }
 
     startTimer() {
+        this.props.setError(null);
         let new_date = new Date();
         this.setState({
             time: this.state.time,
@@ -56,9 +57,10 @@ export class Timer extends React.Component {
     }
 
     stopTimer() {
-        let formatDate = moment(this.state.date).format('YYYY-MM-DD HH:mm:ss');
+        let formatDate = moment(this.state.date).format(
+            'YYYY-MM-DD HH:mm:ssZZ'
+        );
         let formatedDuration = this.format_Duration(this.state.time);
-
         this.setState({ active: false });
         clearInterval(this.timer);
 
@@ -133,11 +135,10 @@ export class Timer extends React.Component {
                 </p>
                 {start}
                 {stop}
-                {reset}
-//                 <div className="button-container">
-//                     {resume}
-//                     {reset}
-//                 </div>
+                <div className="button-container">
+                    {resume}
+                    {reset}
+                </div>
                 {!lastSession ? '' : <p className="last-feed">{lastSession}</p>}
             </div>
         );

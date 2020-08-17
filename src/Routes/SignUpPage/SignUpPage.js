@@ -31,7 +31,6 @@ export default class SignUpPage extends React.Component {
                 this.handleRegistrationSuccess();
             })
             .catch((res) => {
-                console.log(res);
                 this.setState({
                     error: res.error || 'Sorry, something went wrong.'
                 });

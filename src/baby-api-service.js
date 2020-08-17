@@ -67,9 +67,14 @@ const AddBabyService = {
             body: JSON.stringify({
                 image: encodedImage
             })
-        })
-            .then((res) => res.json())
-            .catch((err) => console.error(err));
+        }).then((res) => {
+            if (!res.ok) {
+                return res.json().then((error) => {
+                    throw error;
+                });
+            }
+            return;
+        });
     },
     delete_baby(childId) {
         return fetch(`${config.API_ENDPOINT}/children/${childId}`, {

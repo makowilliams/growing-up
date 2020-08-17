@@ -25,10 +25,10 @@ export default class TrackerList extends React.Component {
         return (
             <table className="tracking-table">
                 <tr>
-                    <th class="table-header" >Sleep Type</th>
-                    <th class="table-header">Duration</th>
-                    <th class="table-header">Time</th>
-                    <th class="table-header">Date</th>
+                    <th className="table-header" >Sleep Type</th>
+                    <th className="table-header">Duration</th>
+                    <th className="table-header">Time</th>
+                    <th className="table-header">Date</th>
                 </tr>
                 {!displayData
                     ? ''
