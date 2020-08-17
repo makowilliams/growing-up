@@ -23,6 +23,7 @@ export default class BabySummary extends React.Component {
 
     onChange = (ev) => {
         this.context.updateImageState(ev.target.files[0]);
+        this.setState({error: null})
     };
 
     onSubmit = (ev) => {
@@ -30,6 +31,11 @@ export default class BabySummary extends React.Component {
         if (!this.context.image) return;
         this.uploadImage(this.context.image);
     };
+
+    chooseFile = (ev) => {
+        this.setState({error: null})
+        this.fileInput.click();
+    }
 
     uploadImage = (imageFile) => {
         const toBase64 = (file) =>
@@ -41,16 +47,24 @@ export default class BabySummary extends React.Component {
             });
 
         toBase64(imageFile).then((encodedImage) => {
-            BabyApiService.updateImage(this.props.child.id, encodedImage).then(
-                () => {
+            BabyApiService.updateImage(this.props.child.id, encodedImage)
+                .then((res) => {
                     this.context.renderImage(encodedImage, this.props.child.id);
                     this.props.onUpdateSuccess();
-                }
-            );
+                })
+                .catch((res) => {
+                    this.setState({
+                        error: res.error
+                            ? res.error
+                            : 'Sorry, something went wrong.'
+                    });
+                });
         });
     };
 
+
     render() {
+        const { error } = this.state;
         let lastSlept;
         if (this.props.child.sleeping && this.props.child.sleeping.length) {
             let slept = this.props.child.sleeping.slice(-1)[0].date;
@@ -85,11 +99,14 @@ export default class BabySummary extends React.Component {
                             ref={(fileInput) => (this.fileInput = fileInput)}
                             style={{ display: 'none' }}
                         />
-                        <button onClick={() => this.fileInput.click()}>
+                        <button onClick={() => this.chooseFile()}>
                             Choose a file
                         </button>
                         <button type="submit">Submit</button>
                     </form>
+                    <div role="alert">
+                        {error && <p className="error">{error}</p>}
+                    </div>
                     <div className="name-age">
                         <DeleteBaby child={this.props.child} />
                         <BabyAge child={this.props.child} />
