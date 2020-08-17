@@ -39,7 +39,7 @@ export default class TrackingActivePage extends React.Component {
                 <div className="main-container feed-main-container">
                     <div className="feed-dashboard">
                         {this.state.type === 'feeding' ? (
-                            <h2 className="feed-header">Feeding Tracker</h2>
+                            <h2 className="tracker-header">Feeding Tracker</h2>
                         ) : (
                             <h2 className="sleep-header">Sleep Tracker</h2>
                         )}

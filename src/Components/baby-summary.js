@@ -4,6 +4,7 @@ import GrowingContext from '../growing-up-context';
 import BabyWeight from './baby-weight';
 import BabyAge from './baby-age';
 import moment from 'moment';
+import babyGirl from '../../src/assets/baby-girl/baby-girl-lg.png';
 import DeleteBaby from './delete-baby';
 import BabyApiService from '../baby-api-service';
 
@@ -65,59 +66,67 @@ export default class BabySummary extends React.Component {
         console.log(this.context);
 
         return (
-            <div className="summary-container">
-                <img
-                    className="child-img"
-                    src={this.props.child.image}
-                    alt="baby"
-                    width="300"
-                />
-
-                <form
-                    onSubmit={this.onSubmit.bind(this)}
-                    className="update-img-container"
-                >
-                    <input
-                        type="file"
-                        id="image"
-                        name="image"
-                        onChange={this.onChange}
-                        ref={(fileInput) => (this.fileInput = fileInput)}
-                        style={{ display: 'none' }}
-                    />
-                    <button onClick={() => this.fileInput.click()}>
-                        Choose a file
-                    </button>
-                    <button type="submit">Submit</button>
-                </form>
-
+            <div className="baby-summary-container">
                 <div className="child-info-container">
+                    <img
+                        className="baby-image"
+                        src={this.props.child.image}
+                        alt="baby"
+                        width="300"
+                    />
+
+                    <form
+                        onSubmit={this.onSubmit.bind(this)}
+                        className="update-img-container"
+                    >
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            onChange={this.onChange}
+                            ref={(fileInput) => (this.fileInput = fileInput)}
+                            style={{ display: 'none' }}
+                        />
+                        <button onClick={() => this.fileInput.click()}>
+                            Choose a file
+                        </button>
+                        <button type="submit">Submit</button>
+                    </form>
                     <div className="name-age">
                         <DeleteBaby child={this.props.child} />
                         <BabyAge child={this.props.child} />
                         <BabyWeight child={this.props.child} />
                     </div>
+                    <div className="additional-info">
+                        <div className="baby-info">
+                            <p className="last-slept">
+                                <span className="bold">Last Slept:</span>{' '}
+                                {lastSlept}
+                            </p>
+                            <p className="last-ate">
+                                <span className="bold">Last Ate:</span>{' '}
+                                {lastAte}
+                            </p>
+                        </div>
 
-                    <p>Last Slept: {lastSlept}</p>
-                    <p>Last Ate: {lastAte}</p>
-
-                    <div className="action-button-container">
-                        <Link
-                            to={`/tracking/sleeping/${this.props.child.id}`}
-                            className="link"
-                            name="sleeping"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Sleep
-                        </Link>
-                        <Link
-                            to={`/tracking/feeding/${this.props.child.id}`}
-                            className="link"
-                            name="feeding"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Feeding
-                        </Link>
+                        <div className="action-button-container">
+                            <Link
+                                to={`/tracking/sleeping/${this.props.child.id}`}
+                                className="link"
+                                name="sleeping"
+                                onClick={(e) => this.updateTypeAndChild(e)}
+                            >
+                                Sleep
+                            </Link>
+                            <Link
+                                to={`/tracking/feeding/${this.props.child.id}`}
+                                className="link"
+                                name="feeding"
+                                onClick={(e) => this.updateTypeAndChild(e)}
+                            >
+                                Feeding
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

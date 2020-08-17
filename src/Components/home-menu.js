@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import GrowingContext from '../growing-up-context';
 import TokenService from '../token-service';
 
-
 export default class HomeMenu extends React.Component {
     static contextType = GrowingContext;
 
     handleLogoutClick = () => {
         TokenService.clearAuthToken();
-    }
+    };
 
     render() {
         return (
@@ -20,13 +19,11 @@ export default class HomeMenu extends React.Component {
                     </Link>
                 </div>
                 <div className="main-button-container">
-
-                    <Link 
-                        to="/" 
-                        className="link"
+                    <Link
+                        to="/"
+                        className="link logout-button"
                         onClick={() => this.handleLogoutClick()}
-                        >
-
+                    >
                         Log Out
                     </Link>
                 </div>

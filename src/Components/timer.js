@@ -73,18 +73,29 @@ export class Timer extends React.Component {
     render() {
         let start =
             this.state.time === 0 ? (
-                <button onClick={this.startTimer}>Start</button>
+                <button
+                    onClick={this.startTimer}
+                    class="start-button timer-start"
+                >
+                    Start
+                </button>
             ) : null;
         let stop = this.state.active ? (
-            <button onClick={this.stopTimer}>Stop</button>
+            <button onClick={this.stopTimer} class="stop-button">
+                Stop
+            </button>
         ) : null;
         let reset =
             this.state.time !== 0 && !this.state.active ? (
-                <button onClick={this.resetTimer}>Reset</button>
+                <button onClick={this.resetTimer} class="reset-button">
+                    Reset
+                </button>
             ) : null;
         let resume =
             this.state.time !== 0 && !this.state.active ? (
-                <button onClick={this.startTimer}>Resume</button>
+                <button onClick={this.startTimer} class="resume-button">
+                    Resume
+                </button>
             ) : null;
 
         let child;
@@ -121,9 +132,12 @@ export class Timer extends React.Component {
                           })}
                 </p>
                 {start}
-                {resume}
                 {stop}
                 {reset}
+//                 <div className="button-container">
+//                     {resume}
+//                     {reset}
+//                 </div>
                 {!lastSession ? '' : <p className="last-feed">{lastSession}</p>}
             </div>
         );

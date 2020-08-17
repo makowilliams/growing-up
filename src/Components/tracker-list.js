@@ -23,17 +23,25 @@ export default class TrackerList extends React.Component {
             } else return <div>Please add a session</div>;
         }
         return (
-            <ul>
+            <table className="tracking-table">
+                <tr>
+                    <th class="table-header" >Sleep Type</th>
+                    <th class="table-header">Duration</th>
+                    <th class="table-header">Time</th>
+                    <th class="table-header">Date</th>
+                </tr>
                 {!displayData
                     ? ''
                     : displayData.map((item) => {
                           return (
-                              <li key={item.id} className="feed-list-container">
-                                  <TrackerLog {...item} />
-                              </li>
+                              <TrackerLog
+                                  key={item.id}
+                                  className="feed-list-container"
+                                  {...item}
+                              />
                           );
                       })}
-            </ul>
+            </table>
         );
     }
 }
