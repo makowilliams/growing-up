@@ -57,7 +57,7 @@ export default class TrackingHomePage extends React.Component {
                     )}
                     <TrackerList type={this.state.type} child={child} />
                     <StartButton type={this.state.type} />
-                    <button class="back" onClick={() => window.history.back()}>
+                    <button className="back" onClick={() => window.history.back()}>
                         <BackArrow />
                         Back
                     </button>

@@ -42,7 +42,7 @@ export default class BabyWeight extends React.Component {
                     <div
                         onMouseEnter={() => this.toggleVisibility()}
                         onMouseLeave={() => this.toggleVisibility()}
-                        class="baby-weight-container"
+                        className="baby-weight-container"
                     >
                         <p className="baby-weight">
                             <span className="bold">Weight:</span>{' '}
@@ -50,7 +50,7 @@ export default class BabyWeight extends React.Component {
                         </p>
                         {this.state.isVisible ? (
                             <EditIcon
-                                class="baby-weight-icon"
+                                className="baby-weight-icon"
                                 onClick={() => this.enableUpdateMode()}
                             />
                         ) : null}

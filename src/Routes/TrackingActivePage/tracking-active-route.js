@@ -43,7 +43,7 @@ export default class TrackingActivePage extends React.Component {
                         ) : (
                             <h2 className="sleep-header">Sleep Tracker</h2>
                         )}
-                        <Timer />
+                        <Timer setError={this.setError.bind(this)}/>
                     </div>
                     <SelectOptButtons setError={this.setError.bind(this)} />
                     <StopButton
