@@ -54,14 +54,14 @@ export default class LandingPage extends React.Component {
                             </h2>
                             <ul className="feature-one-list">
                                 <li className="feature-list-item">
-                                    Start and stop sleeping timer
+                                    Start, resume, and reset sleeping timer
                                 </li>
                                 <li className="feature-list-item">
-                                    Helps distinguish between naps and nightime
+                                    Distinguish between naps and nightime
                                     sleeping
                                 </li>
                                 <li className="feature-list-item">
-                                    Keep track of how well your baby slept
+                                    Track how well your baby slept
                                 </li>
                             </ul>
                         </div>
@@ -78,10 +78,10 @@ export default class LandingPage extends React.Component {
                             </h2>
                             <p className="feature-two-copy feature-copy copy">
                                 <li className="feature-list-item">
-                                    Start and stop eating timer
+                                    Start, resume, and reset eating timer
                                 </li>
                                 <li className="feature-list-item">
-                                    Settings for different types of nursing
+                                Distinguish between different types of nursing
                                 </li>
                                 <li className="feature-list-item">
                                     Track nursing time per breast

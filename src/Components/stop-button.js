@@ -41,7 +41,6 @@ export default class StopButton extends React.Component {
 
     submitSleep(e) {
         e.preventDefault();
-        //this.setState({ error: null });
         this.props.setError(null);
         let { duration, date, sleep_type, sleep_category } = this.context;
         if (this.context.duration === '') {

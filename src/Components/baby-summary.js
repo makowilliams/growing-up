@@ -63,8 +63,6 @@ export default class BabySummary extends React.Component {
             lastAte = moment(ate).format('h:mma');
         } else lastAte = 'No sessions yet';
 
-        console.log(this.context);
-
         return (
             <div className="baby-summary-container">
                 <div className="child-info-container">

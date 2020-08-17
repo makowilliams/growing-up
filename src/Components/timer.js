@@ -133,11 +133,10 @@ export class Timer extends React.Component {
                 </p>
                 {start}
                 {stop}
-                {reset}
-//                 <div className="button-container">
-//                     {resume}
-//                     {reset}
-//                 </div>
+                 <div className="button-container">
+                     {resume}
+                     {reset}
+                 </div>
                 {!lastSession ? '' : <p className="last-feed">{lastSession}</p>}
             </div>
         );
