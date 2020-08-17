@@ -23,7 +23,6 @@ export default class BabySummary extends React.Component {
 
     onChange = (ev) => {
         this.context.updateImageState(ev.target.files[0]);
-        this.setState({error: null})
     };
 
     onSubmit = (ev) => {
