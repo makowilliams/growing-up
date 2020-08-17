@@ -18,8 +18,15 @@ export default class TrackingActivePage extends React.Component {
         });
 
         this.state = {
-            type: props.match.params.type
+            type: props.match.params.type,
+            error: null
         };
+    }
+
+    setError(error) {
+        this.setState({
+            error: error
+        });
     }
 
     render() {
@@ -38,8 +45,11 @@ export default class TrackingActivePage extends React.Component {
                         )}
                         <Timer />
                     </div>
-                    <SelectOptButtons />
-                    <StopButton />
+                    <SelectOptButtons setError={this.setError.bind(this)} />
+                    <StopButton
+                        error={this.state.error}
+                        setError={this.setError.bind(this)}
+                    />
                 </div>
             </div>
         );

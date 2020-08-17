@@ -10,15 +10,25 @@ export default class TrackerLog extends React.Component {
                     {this.props.sleep_type
                         ? this.props.sleep_type
                         : this.props.food_type}
-                </td>
-                <td className="duration">{this.props.duration}</td>
-                <td className="time">
-                    {moment(this.props.date).format('h:mma')}
-                </td>
-                <td className="date">
-                    {moment(this.props.date).format('MMM Do')}
-                </td>
-            </tr>
+                </div>
+                <p className="duration">{this.props.duration}</p>
+                <p className="time">
+                    {moment(new Date(this.props.date)).format('h:mma')}
+                </p>
+                <p className="date">
+                    {moment(new Date(this.props.date)).format('MMM Do')}
+                </p>
+                <DeleteSession session={this.props} />
+            </div>
+//                 </td>
+//                 <td className="duration">{this.props.duration}</td>
+//                 <td className="time">
+//                     {moment(this.props.date).format('h:mma')}
+//                 </td>
+//                 <td className="date">
+//                     {moment(this.props.date).format('MMM Do')}
+//                 </td>
+//             </tr>
             // <DeleteSession session={this.props}/>
         );
     }
