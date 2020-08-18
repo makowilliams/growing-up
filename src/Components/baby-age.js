@@ -49,7 +49,10 @@ export default class BabyAge extends React.Component {
                         ) : null}
                     </div>
                 ) : (
-                    <UpdateAge childId={this.props.child.id} onUpdateSuccess={() => this.cancelUpdateMode()}/>
+                    <UpdateAge
+                        childId={this.props.child.id}
+                        onUpdateSuccess={() => this.cancelUpdateMode()}
+                    />
                 )}
             </>
         );

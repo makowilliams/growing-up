@@ -7,7 +7,6 @@ export default class FeedingButtons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            //type: props.match.params.type,
             sleep_type_opts: [
                 'Crying',
                 'Restless',

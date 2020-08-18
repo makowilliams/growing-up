@@ -1,5 +1,10 @@
 import React from 'react';
 import MainMenu from '../../Components/main-menu';
+import { Link } from 'react-router-dom';
+import { ReactComponent as BlueCloud } from '../../assets/blue-cloud.svg';
+import { ReactComponent as PinkCloud } from '../../assets/pink-cloud.svg';
+import { ReactComponent as PurpleCloud } from '../../assets/purple-cloud.svg';
+import cribIcon from '../../assets/crib-icon/crib-icon-lg.png';
 
 export default class LandingPage extends React.Component {
     render() {
@@ -7,47 +12,82 @@ export default class LandingPage extends React.Component {
             <div className="landing-page">
                 <MainMenu />
                 <div className="hero-container container">
-                    <h1>The App That Grows With Your Family</h1>
-                    <p className="hero-copy">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Vestibulum id ligula porta felis euismod semper.
+                    <BlueCloud
+                        className="cloud blue-cloud"
+                        fill="currentColor"
+                    />
+                    <PinkCloud className="cloud pink-cloud" />
+                    <PurpleCloud className="cloud purple-cloud" />
+                    <h1 className="hero-header">
+                        The App That Grows
+                        <br />
+                        With Your Family
+                    </h1>
+                    <p className="hero-copy copy">
+                        Growing Up makes it simple to track and identify the
+                        eating and sleeping patterns of your baby in one place.
+                        Logging your baby's important infomation couldnt be
+                        easier.
                     </p>
-                    <p className="hero-copy">
+                    <Link to="/signup" className="link sign-up">
+                        Sign Up
+                    </Link>
+                    <p className="demo-copy copy">
                         To Demo our app, you can login with:
-                    </p>
-                    <p className="hero-copy">
-                        username: test_user
-                    </p>
-                    <p className="hero-copy">
-                        password: Pass5555
+                        <br />
+                        <br />
+                        <span className="bold">Username:</span> test_user
+                        <br />
+                        <span className="bold">Password:</span> Pass5555
                     </p>
                 </div>
-                <div className="feature-one feature">
-                    <div className="feature-one-copy-container feature-container container">
-                        <h2 className="feature-one-header">Feature #1</h2>
-                        <p className="feature-one-copy">
-                            Cras mattis consectetur purus sit amet fermentum.
-                            Integer posuere erat a ante venenatis dapibus
-                            posuere velit aliquet. Sed posuere consectetur est
-                            at lobortis.
-                        </p>
+                <div className="features-container">
+                    <div className="feature-one feature">
+                        <div className="feature-one-copy-container feature-container container">
+                            <img
+                                src={cribIcon}
+                                alt="Crib Icon"
+                                className="crib-icon icon"
+                            />
+                            <h2 className="feature-one-header feature-header">
+                                Track Sleep
+                            </h2>
+                            <ul className="feature-one-list">
+                                <li className="feature-list-item">
+                                    Start, resume, and reset sleeping timer
+                                </li>
+                                <li className="feature-list-item">
+                                    Distinguish between naps and nightime
+                                    sleeping
+                                </li>
+                                <li className="feature-list-item">
+                                    Track how well your baby slept
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div className="feature-one-image image">
-                        <p className="image-text">Image</p>
-                    </div>
-                </div>
-                <div className="feature-two feature">
-                    <div className="feature-two-image image">
-                        <p className="image-text">Image</p>
-                    </div>
-                    <div className="feature-container container feature-two-copy-container">
-                        <h2 className="feature-two-header">Feature #2</h2>
-                        <p className="feature-two-copy">
-                            Cras mattis consectetur purus sit amet fermentum.
-                            Integer posuere erat a ante venenatis dapibus
-                            posuere velit aliquet. Sed posuere consectetur est
-                            at lobortis.
-                        </p>
+                    <div className="feature-two feature">
+                        <div className="feature-container container feature-two-copy-container">
+                            <img
+                                src={cribIcon}
+                                alt="Crib Icon"
+                                className="crib-icon icon"
+                            />
+                            <h2 className="feature-two-header feature-header">
+                                Track Feeding
+                            </h2>
+                            <p className="feature-two-copy feature-copy copy">
+                                <li className="feature-list-item">
+                                    Start, resume, and reset eating timer
+                                </li>
+                                <li className="feature-list-item">
+                                Distinguish between different types of nursing
+                                </li>
+                                <li className="feature-list-item">
+                                    Track nursing time per breast
+                                </li>{' '}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import GrowingContext from '../../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
 import BabySummary from '../../Components/baby-summary';
 import AddBaby from '../../Components/add-baby';
+import { ReactComponent as PlusSign } from '../../assets/plus-sign.svg';
 
 export default class HomePage extends React.Component {
     static contextType = GrowingContext;
@@ -47,41 +48,55 @@ export default class HomePage extends React.Component {
         return (
             <div className="home-page">
                 <HomeMenu />
-                <div className="dashboard">
-                    <div className="baby-container">
-                        {this.state.updateMode === false ? (
-                            <div
-                                className="baby-copy-container"
-                                onMouseEnter={() => this.toggleVisibility()}
-                                onMouseLeave={() => this.toggleVisibility()}
-                            >
-                                <h3 className="baby-name">Add Baby</h3>
-
-                                {this.state.isVisible ? (
-                                    <EditIcon
-                                        onClick={() => this.enableUpdateMode()}
-                                    />
-                                ) : null}
+                <div className="main-view-home">
+                    <div className="dashboard">
+                        <div className="summary-container">
+                            <div className="baby-summaries">
+                                {!this.context.currentChildren.length ? (
+                                    <p id="empty-results-error">
+                                        Thanks for joining! Please add a child.
+                                    </p>
+                                ) : (
+                                    this.context.currentChildren.map(
+                                        (child) => {
+                                            return (
+                                                <BabySummary
+                                                    key={child.id}
+                                                    child={child}
+                                                />
+                                            );
+                                        }
+                                    )
+                                )}
                             </div>
-                        ) : (
-                            <AddBaby
-                                onAddSuccess={() => this.cancelUpdateMode()}
-                            />
-                        )}
-                    </div>
+                            <div className="baby-container">
+                                {this.state.updateMode === false ? (
+                                    <div
+                                        className="baby-copy-container"
+                                        onClick={() => this.enableUpdateMode()}
+                                    >
+                                        <h3 className="baby-name add-baby">
+                                            Add Baby{' '}
+                                        </h3>
+                                        <PlusSign />
 
-                    <div className="summary-container">
-                        {!this.context.currentChildren.length ? (
-                            <p id="empty-results-error">
-                                Thanks for joining! Please add a child.
-                            </p>
-                        ) : (
-                            this.context.currentChildren.map((child) => {
-                                return (
-                                    <BabySummary key={child.id} child={child}/>
-                                );
-                            })
-                        )}
+                                        {this.state.isVisible ? (
+                                            <EditIcon
+                                                onClick={() =>
+                                                    this.enableUpdateMode()
+                                                }
+                                            />
+                                        ) : null}
+                                    </div>
+                                ) : (
+                                    <AddBaby
+                                        onAddSuccess={() =>
+                                            this.cancelUpdateMode()
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
