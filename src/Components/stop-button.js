@@ -36,6 +36,7 @@ export default class StopButton extends React.Component {
                 side_fed: side_fed
             };
             this.postData(sessionData);
+            // initialize the context for duration and food type
         }
     }
 
