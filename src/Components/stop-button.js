@@ -23,10 +23,10 @@ export default class StopButton extends React.Component {
         e.preventDefault();
         this.setState({ error: null });
         let { duration, date, food_type, side_fed } = this.context;
-        if (this.context.duration === '') {
-            this.setState({ error: this.state.error_opts[0] });
+        if (duration === '') {
+            this.props.setError(this.state.error_opts[0]);
         } else if (!food_type) {
-            this.setState({ error: this.state.error_opts[1] });
+            this.props.setError(this.state.error_opts[1]);
         } else {
             let sessionData = {
                 type: 'eating',
@@ -41,14 +41,14 @@ export default class StopButton extends React.Component {
 
     submitSleep(e) {
         e.preventDefault();
-        this.setState({ error: null });
+        this.props.setError(null);
         let { duration, date, sleep_type, sleep_category } = this.context;
         if (this.context.duration === '') {
-            this.setState({ error: this.state.error_opts[0] });
+            this.props.setError(this.state.error_opts[0]);
         } else if (!sleep_type) {
-            this.setState({ error: this.state.error_opts[2] });
+            this.props.setError(this.state.error_opts[2]);
         } else if (!sleep_category) {
-            this.setState({ error: this.state.error_opts[3] });
+            this.props.setError(this.state.error_opts[3]);
         } else {
             let sessionData = {
                 type: this.context.type,
@@ -92,7 +92,7 @@ export default class StopButton extends React.Component {
     };
 
     render() {
-        const { error } = this.state;
+        const { error } = this.props;
         return (
             <>
                 {this.context.type === 'feeding' ? (
