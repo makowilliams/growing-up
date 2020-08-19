@@ -66,9 +66,17 @@ export default class SignUpPage extends React.Component {
                             <input name="password" id="password" />
                         </div>
                     </div>
-
-                    <button type="submit">Submit</button>
-                    <button onClick={() => window.history.back()}>Back</button>
+                    <div className="button-container signup-button-container">
+                        <button type="submit" className="submit-button">
+                            Submit
+                        </button>
+                        <button
+                            className="back"
+                            onClick={() => window.history.back()}
+                        >
+                            Back
+                        </button>
+                    </div>
                 </form>
                 <div role="alert">
                     {error && <p className="error">{error}</p>}
