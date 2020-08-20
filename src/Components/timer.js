@@ -1,5 +1,6 @@
 import React from 'react';
-import GrowingContext from '../growing-up-context'
+import GrowingContext from '../growing-up-context';
+import moment from 'moment';
 const ms = require('pretty-ms');
 
 export class Timer extends React.Component {
@@ -20,6 +21,7 @@ export class Timer extends React.Component {
     }
 
     startTimer() {
+        this.props.setError(null);
         let new_date = new Date();
         this.setState({
             time: this.state.time,
@@ -41,6 +43,7 @@ export class Timer extends React.Component {
             colonNotation: true,
             secondsDecimalDigits: 0
         });
+
         if (formatDuration.length < 8) {
             if (formatDuration.length === 7) {
                 formatDuration = '0'.concat('', formatDuration);
@@ -54,16 +57,15 @@ export class Timer extends React.Component {
     }
 
     stopTimer() {
-        let formatDate = this.state.date
-            .substring(0, this.state.date.length - 5)
-            .replace('T', ' ');
+        let formatDate = moment(this.state.date).format(
+            'YYYY-MM-DD HH:mm:ssZZ'
+        );
         let formatedDuration = this.format_Duration(this.state.time);
-
         this.setState({ active: false });
         clearInterval(this.timer);
 
         this.context.updateDate(formatDate);
-        this.context.updateDuration(formatedDuration );
+        this.context.updateDuration(formatedDuration);
     }
 
     resetTimer() {
@@ -73,19 +75,54 @@ export class Timer extends React.Component {
     render() {
         let start =
             this.state.time === 0 ? (
-                <button onClick={this.startTimer}>Start</button>
+                <button
+                    onClick={this.startTimer}
+                    class="start-button timer-start"
+                >
+                    Start
+                </button>
             ) : null;
         let stop = this.state.active ? (
-            <button onClick={this.stopTimer}>Stop</button>
+            <button onClick={this.stopTimer} class="stop-button">
+                Stop
+            </button>
         ) : null;
         let reset =
             this.state.time !== 0 && !this.state.active ? (
-                <button onClick={this.resetTimer}>Reset</button>
+                <button onClick={this.resetTimer} class="reset-button">
+                    Reset
+                </button>
             ) : null;
         let resume =
             this.state.time !== 0 && !this.state.active ? (
-                <button onClick={this.startTimer}>Resume</button>
+                <button onClick={this.startTimer} class="resume-button">
+                    Resume
+                </button>
             ) : null;
+
+        let child;
+        let lastSession = [];
+        if (this.context.currentChildren) {
+            child = this.context.currentChildren.find(
+                (child) => child.id === this.context.currentChild.id
+            );
+            if (this.context.type === 'sleeping') {
+                lastSession = 'First Session';
+                if (child.sleeping && child.sleeping.length) {
+                    let last_slept = child.sleeping.slice(-1)[0].date;
+                    let last_time = moment(last_slept).format('h:mma');
+                    lastSession = ['Last sleep was at ' + last_time];
+                }
+            } else {
+                lastSession = 'First Session';
+                if (child.eating && child.eating.length) {
+                    let last_ate = child.eating.slice(-1)[0].date;
+                    let last_time = moment(last_ate).format('h:mma');
+                    lastSession = ['Last meal was at ' + last_time];
+                }
+            }
+        }
+
         return (
             <div className="timer-container">
                 <p className="timer">
@@ -97,10 +134,12 @@ export class Timer extends React.Component {
                           })}
                 </p>
                 {start}
-                {resume}
                 {stop}
-                {reset}
-                <p className="last-feed">Last feed was at 5:00PM</p>
+                <div className="button-container">
+                    {resume}
+                    {reset}
+                </div>
+                {!lastSession ? '' : <p className="last-feed">{lastSession}</p>}
             </div>
         );
     }

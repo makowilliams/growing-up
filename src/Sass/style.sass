@@ -1,3 +1,40 @@
+//Colors
+$teal : #8ED1D4
+$lightBlue : #C0E9FF
+$darkPurple : #341F78
+$lightPurple : #DABBF7
+$pink : #F4CAE0
+$darkRed : #C63016
+
+//Screen Sizes
+$mobile : 375px
+$lgmobile : 411px
+$iPad: 768px
+$laptop: 1280px
+
+//Fonts
+@font-face 
+    font-family: 'Open Sans'
+    src: local('Open Sans'), url('../fonts/open_sans/OpenSans-ExtraBold.ttf') format('truetype')
+
+@font-face 
+    font-family: 'Lora'
+    src: local('Lora'), url('../fonts/Lora/static/Lora-Bold.ttf') format('truetype')
+    
+=open-sans-bold 
+    font-family: 'Open Sans'
+    font-weight: 700
+
+=open-sans-reg
+    font-family: "Open Sans"
+    font-weight: 400
+
+=lora-bold
+    font-family: 'Lora'
+    font-weight: 700
+
+
+//Mixins
 =flexRow
     display: flex
     flex-direction: row
@@ -6,207 +43,402 @@
     display: flex
     flex-direction: column
 
-=featureImageHolder
-    width: 200px
-    height: 200px
-    background-color: lightgrey
+=cloud 
+    position: absolute
+    z-index: -1
+
+=mainButton 
+    box-sizing: border-box
+    border: none
+    border-radius: 14px
+    width: 138px
+    height: 44px
+    text-align: center
+    padding: 10px
+    text-decoration: none
+    +open-sans-bold
+    font-size: 16px
+
+=linkButton
+    box-sizing: border-box
+    padding: 10px 35px
+    border-radius: 10px
+    text-decoration: none
+    +open-sans-bold
+
+=flexColumnAndCenter
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+=flexRowAndCenter
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+
+=flexRowAndCenterWrap
+    display: flex
+    flex-flow: row wrap
+    justify-content: center
+    align-items: center
+
+//Universal
+h1, .child-name 
+    +lora-bold 
+    font-size: 34px
+    color: $darkPurple
+
+ul
+    padding: 0px
     text-align: center
     margin: 0px
 
-=regularButton
-    font-size: 14px
-    padding-top: 10px
-    padding-bottom: 10px
-    padding-left: 20px
-    padding-right: 20px
-    border: solid grey 2px
-    background: lightgrey
-    color: black
-    text-decoration: none
-
-=longButton
-    font-size: 14px
-    padding-top: 10px
-    padding-bottom: 10px
-    padding-left: 20px
-    padding-right: 20px
-    border: solid grey 2px
-    background: lightgrey
-    color: black
-    text-decoration: none
-    width: -webkit-fill-available
-    text-align: center
-
-=smallIcon
-    background: grey
-    border-radius: 100px
-    padding: 11px
-    width: 20px
-    text-align: center
-
-body, .main-container
-    +flexColumn 
-    justify-content: center
-
-.logo
-    margin-top: 10px
-    border-bottom-width: 10px
-    margin-bottom: 10px
-    margin-left: 25px
-    margin-right: 25px
-    
-.main-menu-container
-    +flexRow
-    justify-content: space-between
-
-
-.menu-button-container
-    +flexRow
-    justify-content: space-between
-    width: 190px
-
-.hero-container
-    +flexColumn
-    justify-content: center
-    align-items: center
-    margin-top: 50px
-
-.image
-    +featureImageHolder 
+.copy
+    color: $darkPurple
 
 .icon
-    +smallIcon
+    height: 100px
+    width: auto
 
-.feature-container
-    +flexColumn 
-    width: 400px
+.landing-page, .home-page, .LoginPage, .tracking, .tracking-active
+    width: 100%
+    +flexColumnAndCenter 
 
-.feature
-    +flexRow 
-    justify-content: center
-    align-content: center
-    align-items: center
-    margin-top: 50px
-    flex-wrap: wrap
+.bold
+    font-weight: 700
+    padding-right: 5px
 
-.feature-two-copy-container
-    margin-left: 50px
+.submit
+    +mainButton 
+    background-color: $teal
+    cursor: pointer
 
-.feature-one-copy-container
-    margin-right: 50px
+.back
+    border: none
+    background-color: white
+    margin-top: 15px
+    color: $darkPurple
+    margin-bottom: 50px
+    cursor: pointer
+    +flexRowAndCenter 
 
-button, .link 
-    +regularButton
+.link
+    background-color: $lightBlue
+    border: 2px $darkPurple solid
+    color: $darkPurple
+    +linkButton 
 
-.feature-two
-    flex-wrap: wrap-reverse
+.start-button
+    +mainButton
+    background-color: $teal
+    color: $darkPurple
 
-.home
-    justify-content: flex-end
+.stop-button
+    +mainButton 
+    background-color: $darkRed
+    color: white
 
-.baby-container
-    +flexColumn 
-    align-items: center
-    margin-top: 50px
-    text-align: center
+.resume-button
+    +mainButton 
+    background-color: lightgrey
 
-.baby-copy-container 
-    +flexRow 
-    align-items: center
-    justify-content: space-evenly
-    margin-top: 25px
-    margin-bottom: 0px
-    padding: 7px
-    width: 265px
-    &:hover 
-        border: solid black 2px
-        padding: 5px 
+.reset-button
+    +mainButton
+    background-color: $darkRed
+    color: white
 
-.baby-input-container
-    +flexRow 
-    margin-top: 25px
-    margin-bottom: 0px
-    padding: 7px
-    width: 265px
-
-.age-input, .name-input
-    margin-right: 15px
-
-.baby-name, .age
-    margin-top: 0px
-    margin-bottom: 0px
-    margin-right: 5px
-
-.action-button-container
-    text-align: center
-
-.summary-container
-    max-width: 750px
-    align-self: center
-
-.dashboard
-    +flexRow
-    align-self: center
+.button-container
+    width: 295px
+    +flexRowAndCenter
     justify-content: space-between
-    width: 500px
+
+li
+    list-style: none
+
+tr 
+    height: 36px
+
+//Main Menu
+.main-menu-container
+    box-sizing: border-box
+    +flexRow 
+    justify-content: space-between
+    align-items: center
+    margin-right: 5vw
+    margin-left: 5vw
+    margin-top: 25px
+    width: 100%
+    padding-right: 5vw
+    padding-left: 5vw
+    height: 50px
+
+.menu-button-container, .main-button-container
+    box-sizing: border-box
+    +flexRow 
+
+.login
+    background-color: $teal
+    font-color: $darkPurple
+    +mainButton 
+
+.logout-button
+    +mainButton 
+    background-color: $darkPurple
+    color: white
+
+.left-menu-button
+    +mainButton 
+
+//Hero Section
+.hero-container
+    box-sizing: border-box
+    +flexColumn 
+    align-items: center
+    justify-content: center
+    margin-top: 35px
+    position: relative
+    width: 600px
     margin-bottom: 50px
 
-.baby-image
-    border-radius: 100px
+.hero-copy
+    text-align: center
+    margin-bottom: 50px
+    max-width: 400px
 
-.sleep-header, .sleep-list-container, .sleep-start, .feed-header, .feed-list-container, .feed-start
-    align-self: center
-
-.sleep-log-container, .feed-log-container
-    +flexRow 
-    justify-content: space-between
-    align-items: center
-    width: 300px
-
-.sleep-list-container, .feed-list-container
-    margin-top: 50px
-
-.sleep-start, .sleep-stop, .feed-start, .feed-stop
-    +longButton 
-    margin-top: 25px
-
-.main-container
-    align-self: center
-
-.sleep-dashboard, .feed-dashboard
-    margin-top: 50px
+.hero-header
     text-align: center
 
-.sleep-main-container, .feed-main-container
+.cloud
+    +cloud
+
+.sign-up
+    +mainButton
+    background-color: $pink
+    color: $darkPurple
+    margin-bottom: 25px
+
+.blue-cloud
+    top: -15px
+    right: 134px
+    height: 122px
+    width: auto
+
+.purple-cloud
+    top: 38px
+    left: 114px
+    height: 79px
+    width: auto
+
+.pink-cloud
+    top: -7px
+    left: 134px
+    height: 100px
+    width: auto
+
+.feature
+    width: 100%
+
+.features-container
+    display: flex
+    flex-direction: row
+    width: 100vw
+    justify-content: center
+    align-items: center
+    @media screen and ( max-width: $lgmobile )
+        flex-direction: column
+
+.feature-container
+    +flexColumnAndCenter 
+    background-color: $lightBlue
+    box-sizing: border-box
+    width: 100%
+    height: 350px
+
+.feature-header
+    +lora-bold 
+    color: $darkPurple
+    margin-bottom: 15px
+
+.feature-two-copy-container
+    background-color: $lightPurple
+
+.feature-copy
+    max-width: 340px
+    text-align: center
+    margin-top: 0px
+
+.demo-copy
+    text-align: center
+
+//Login Page
+.loginMain, .signUpMain
+    +flexColumnAndCenter
+
+.login-header, .signup-header
+    text-align: center
+
+.username, .password
+    width: 150px
+
+.username-input, .password-input-container
+    margin-bottom: 15px
+
+.username
+    margin-bottom: 15px
+
+.password
+    margin-bottom: 25px
+
+.password-input
+    margin-bottom: 5px
+
+.input-container
+    +flexColumnAndCenter
+
+.loginForm
+    +flexColumnAndCenter
+
+.show-password
+    text-align: center
+
+.LoginPage, .signUpMain
+    height: 100vh
+
+//Home Page
+.child-info-container
+    +flexColumnAndCenter
+    border: $lightBlue 5px solid
+    border-radius: 5% 
+    width: 300px
+    padding: 25px
+    box-sizing: border-box
+    background-color: $teal
+
+.baby-summary-container
+    &:nth-child(even)
+        margin: 0px 15px
+    @media screen and ( max-width: $iPad )
+        &:nth-child(even)
+            margin: 15px 15px
+
+.baby-summaries
+    +flexRowAndCenterWrap
+    margin-bottom: 50px
+
+.dashboard
+    +flexRowAndCenterWrap
+
+.feature-list-item
+    padding: 5px 0px
+
+.additional-info
+    +flexColumnAndCenter
+    margin: 0px 25px
+    width: 265px
+
+.baby-info
+    margin-bottom: 25px
+    
+
+.baby-image
+    height: 210px
+    width: auto
+    border-radius: 100%
+    clip-path: circle(32% at 50% 50%)
+    margin: 15px 
+
+.img-container
+    width: 250px
+    overflow: hidden
+    display: flex
+    justify-content: center
     align-items: center
 
+.last-ate, .last-slept, .baby-age, .baby-weight
+    text-align: center
+    +open-sans-reg
+    margin: 0px
+
+.weight-input
+    +open-sans-bold
+
+.baby-weight-container
+    +flexRowAndCenter
+
+.baby-weight-icon
+    width: 15px
+    height: auto
+    margin-left: 5px
+
+.child-name
+    +open-sans-bold
+    text-align: center
+    margin-top: 0px
+    margin-bottom: 0px
+
+.action-button-container
+    +flexRow
+    width: 100%
+    justify-content: space-around
+
+.summary-container
+    +flexRowAndCenterWrap
+    min-width: 415px
+    max-width: 80vw
+    margin-bottom: 50px
+    @media screen and ( max-width: $iPad )
+        +flexColumnAndCenter
+
+.main-view-home
+    +flexRowAndCenterWrap
+    margin-top: 50px
+    width: 75%
+
+.baby-copy-container
+    +flexRowAndCenter
+    cursor: pointer
+
+.add-baby
+    color: $darkPurple
+    margin: 0px
+
+//Tracker Page
+.main-container
+    +flexColumnAndCenter
+
+.feed-log-container
+    +flexRowAndCenter
+    width: 400px
+    justify-content: space-between
+
+.tracking-table
+    width: 500px
+    text-align: center
+    margin-bottom: 50px
+    tr:nth-child(odd)
+        background-color: lightgrey
+
+.table-header
+    background-color: white
+    border-bottom: 2px black solid
+
+//Timing Page
 .timer
     font-size: 50px
 
-.left-menu-button
-    margin-left: 15px
+.timer-container
+    +flexColumnAndCenter 
+    margin-bottom: 50px
 
-.home-page
-    display: flex
-    flex-direction: column
+.timer-start, .timer-start
+    cursor: pointer
 
-@media only screen and (max-width:45.625em) 
-    .feature-two-copy-container
-        margin-left: 0px
-        margin-bottom: 25px
-    .feature-one-copy-container
-        margin-right: 0px
-        margin-bottom: 25px
-    .feature-one
-        flex-direction: column
-        width: 90vw
-    .feature-two
-        flex-direction: column-reverse
-        width: 90vw
-    .hero-container
-        margin-right: 10vw
-        margin-left: 10vw
-        text-align: center
-    .dashboard
-        +flexColumn
-        
+.sleep-header, .tracker-header
+    text-align: center
+
+.submit-button
+    +mainButton 
+    margin-top: 25px
+ 

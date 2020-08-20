@@ -1,37 +1,27 @@
 import React from 'react';
+import LoginForm from '../../Components/LoginForm';
 
-export default class Login extends React.Component {
+export default class LoginPage extends React.Component {
     static defaultProps = {
         location: {},
         history: {
             push: () => {}
-        },
-        handleLoginSuccess: () => {}
+        }
     };
 
-    state = { error: null };
+    handleLoginSuccess = () => {
+        const { location, history } = this.props
+        const destination = (location.state || {}).from || '/home'
+        history.push(destination)
+  }
 
-    render() {
-        return (
-            <main className="loginMain signUpMain">
-                <form
-                    className="loginForm signUpForm"
-                    onSubmit={this.handleSubmitJwtAuth}
-                >
-                    <h1>Login</h1>
-
-                    <div className="inputContainer">
-                        <div className="username">
-                            <label htmlFor="username">Username:</label>
-                            <input name="username" id="username" />
-                        </div>
-                        <div className="password">
-                            <label htmlFor="password">Password:</label>
-                            <input></input>
-                        </div>
+        render() {
+            return (
+                <section className='LoginPage'>
+                    <div>
+                        <LoginForm onLoginSuccess={this.handleLoginSuccess} />
                     </div>
-                </form>
-            </main>
-        );
-    }
+                </section>
+            );
+        }
 }

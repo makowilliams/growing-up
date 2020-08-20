@@ -1,36 +1,47 @@
 import React from 'react';
 import TrackerLog from './tracker-log';
 import GrowingContext from '../growing-up-context';
-//import TokenService from '../token-service';
 
 export default class TrackerList extends React.Component {
     static contextType = GrowingContext;
 
-    componentDidMount() {
-        //const id = this.props.params.child_id;
-
-        const currentChild =
-            this.context.currentChild !== '' ? this.context.currentChild : 1;
-
-        this.context.getSleepData(currentChild, () => {});
-
-        if (!this.context.user_id) {
-            // get user info fetch
-            this.context.getUserInfo();
-        }
-    }
-
     render() {
+        let displayData = '';
+        if (!displayData) {
+            if (this.props.child) {
+                if (this.props.type === 'feeding') {
+                    displayData = this.props.child.eating;
+                } else {
+                    displayData = this.props.child.sleeping;
+                }
+            } else if (this.context.currentChild) {
+                if (this.props.type === 'feeding') {
+                    displayData = this.context.currentChild.eating;
+                } else {
+                    displayData = this.context.currentChild.sleeping;
+                }
+            } else return <div>Please add a session</div>;
+        }
         return (
-            <ul className="feed-log-container">
-                {this.context.sleepData.map((item) => {
-                    return (
-                        <li key={item.id} className="feed-list-container">
-                            <TrackerLog {...item} />
-                        </li>
-                    );
-                })}
-            </ul>
+            <table className="tracking-table">
+                <tr>
+                    <th className="table-header" >Sleep Type</th>
+                    <th className="table-header">Duration</th>
+                    <th className="table-header">Time</th>
+                    <th className="table-header">Date</th>
+                </tr>
+                {!displayData
+                    ? ''
+                    : displayData.map((item) => {
+                          return (
+                              <TrackerLog
+                                  key={item.id}
+                                  className="feed-list-container"
+                                  {...item}
+                              />
+                          );
+                      })}
+            </table>
         );
     }
 }

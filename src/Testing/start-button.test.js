@@ -6,10 +6,9 @@ import StartButton from '../Components/start-button';
 it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(
-    <BrowserRouter>
-    <StartButton />
-    </BrowserRouter>, 
-    div
+        <BrowserRouter>
+            <StartButton />
+        </BrowserRouter>,
+        div
     );
-    //ReactDOM.unmountComponentAtNode(div);
 });

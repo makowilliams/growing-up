@@ -7,9 +7,8 @@ it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(
         <BrowserRouter>
-        <HomeMenu />
+            <HomeMenu />
         </BrowserRouter>,
         div
-    )
-    //ReactDOM.unmountComponentAtNode(div);
+    );
 });

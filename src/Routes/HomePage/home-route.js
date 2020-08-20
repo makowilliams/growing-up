@@ -1,10 +1,10 @@
 import React from 'react';
 import HomeMenu from '../../Components/home-menu';
-import { Link } from 'react-router-dom';
 import GrowingContext from '../../growing-up-context';
 import EditIcon from '@material-ui/icons/Edit';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
+import BabySummary from '../../Components/baby-summary';
+import AddBaby from '../../Components/add-baby';
+import { ReactComponent as PlusSign } from '../../assets/plus-sign.svg';
 
 export default class HomePage extends React.Component {
     static contextType = GrowingContext;
@@ -18,6 +18,10 @@ export default class HomePage extends React.Component {
             age: null,
             updateMode: false
         };
+    }
+
+    componentDidMount() {
+        this.context.getChildInfo();
     }
 
     toggleVisibility() {
@@ -40,86 +44,60 @@ export default class HomePage extends React.Component {
         });
     }
 
-    updateState = (newUpdate) => {
-        const key = Object.keys(newUpdate);
-        const value = Object.values(newUpdate);
-
-        this.setState({
-            [key[0]]: value[0]
-        });
-        console.log('this worked');
-    };
-
     render() {
         return (
             <div className="home-page">
                 <HomeMenu />
-                <div className="dashboard">
-                    <div className="baby-container">
-                        <div className="baby-image image">
-                            <p className="image-text">Image</p>
-                        </div>
-                        {this.state.updateMode === false ? (
-                            <div
-                                className="baby-copy-container"
-                                onMouseEnter={() => this.toggleVisibility()}
-                                onMouseLeave={() => this.toggleVisibility()}
-                            >
-                                <h3 className="baby-name">Baby Name</h3>
-                                <p className="age">Age: 13 Months</p>
-                                {this.state.isVisible ? (
-                                    <EditIcon
-                                        onClick={() => this.enableUpdateMode()}
-                                    />
-                                ) : null}
+                <div className="main-view-home">
+                    <div className="dashboard">
+                        <div className="summary-container">
+                            <div className="baby-summaries">
+                                {!this.context.currentChildren.length ? (
+                                    <p id="empty-results-error">
+                                        Thanks for joining! Please add a child.
+                                    </p>
+                                ) : (
+                                    this.context.currentChildren.map(
+                                        (child) => {
+                                            return (
+                                                <BabySummary
+                                                    key={child.id}
+                                                    child={child}
+                                                />
+                                            );
+                                        }
+                                    )
+                                )}
                             </div>
-                        ) : (
-                            <form className="baby-input-container">
-                                <input
-                                    className="name-input"
-                                    placeholder="Baby Name"
-                                />
-                                <input
-                                    className="age-input"
-                                    placeholder="Age: 13 Months"
-                                />
-                                <CheckCircleIcon
-                                    onClick={() => this.cancelUpdateMode()}
-                                />
-                                <CancelIcon
-                                    onClick={() => this.cancelUpdateMode()}
-                                />
-                            </form>
-                        )}
+                            <div className="baby-container">
+                                {this.state.updateMode === false ? (
+                                    <div
+                                        className="baby-copy-container"
+                                        onClick={() => this.enableUpdateMode()}
+                                    >
+                                        <h3 className="baby-name add-baby">
+                                            Add Baby{' '}
+                                        </h3>
+                                        <PlusSign />
+
+                                        {this.state.isVisible ? (
+                                            <EditIcon
+                                                onClick={() =>
+                                                    this.enableUpdateMode()
+                                                }
+                                            />
+                                        ) : null}
+                                    </div>
+                                ) : (
+                                    <AddBaby
+                                        onAddSuccess={() =>
+                                            this.cancelUpdateMode()
+                                        }
+                                    />
+                                )}
+                            </div>
+                        </div>
                     </div>
-                    <div className="summary-container">
-                        <h2>The last time #Baby Name:</h2>
-                        <p>
-                            Slept: <br />
-                            Ate: <br />
-                            Was Changed: <br />
-                        </p>
-                    </div>
-                </div>
-                <div className="action-button-container">
-                    <Link
-                        to="/tracking/sleeping"
-                        className="link"
-                        onClick={() => this.context.updateType('sleeping')}
-                    >
-                        Sleep
-                    </Link>
-                    <Link
-                        to="/tracking/feeding"
-                        className="link"
-                        onClick={() =>
-                            this.context.updateType({
-                                type: 'feeding'
-                            })
-                        }
-                    >
-                        Feeding
-                    </Link>
                 </div>
             </div>
         );

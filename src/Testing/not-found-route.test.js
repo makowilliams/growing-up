@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TimerList from '../Components/timer-list';
+import NotFoundPage from '../Routes/NotFoundPage/not-found-route';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<TimerList />, div);
+    ReactDOM.render(<NotFoundPage />, div);
     ReactDOM.unmountComponentAtNode(div);
 });

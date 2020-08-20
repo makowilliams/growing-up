@@ -1,68 +1,187 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Growing Up Server
 
-## Available Scripts
+This is the api for our capstone project, called Growing Up.
 
-In the project directory, you can run:
+## Live App
 
-### `npm start`
+Deployed App: https://growing-up.vercel.app/
+Please feel free to check out our app! We have set up a test user account and password.
+    - username: test_user
+    - password: Pass5555
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Summary
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Growing up is the app that grows with your family. It allows parents to easily track and monitor their child's eating and sleeping habits. Parents can start new feeding and sleeping sessions, add details about how well they slept or what they at, and see a list of last sessions and their details. 
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technology Used
 
-### `npm run build`
+Front End: HTML, CSS, JavaScript, React
+<br />
+Back End: Node, Express, PostresSQL
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## API Documentation
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Authentication
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+GrowingUp uses JWT tokens, required on the children, eating, and sleeping endpoint requests. The tokens are created upon a users login and sent in the response body. All protected endpoints pull user_id from the JWT token give at login, and only return data specific to that user.
 
-### `npm run eject`
+# API Endpoints:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## '/'
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   This endpoint allows you to test your connection to the server. It will send a response containing 'The good stuff' if you have connected sucessfully. It is not protected.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## /api/users endpoint:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### POST '/'
 
-## Learn More
+required:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-   first_name (string)
+-   last_name (string)
+-   username (string)
+    -   must be unique
+-   password (string)
+    -   must include:
+        -   at least 8 and less than 72 characters
+        -   can't start with or end with spaces
+        -   at least 1 uppercase, 1 lowercase, and 1 number
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+returns 201 adding user to the database
 
-### Code Splitting
+## /api/auth endpoint
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### POST '/login'
 
-### Analyzing the Bundle Size
+required:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+-   username (string)
+-   password (string)
 
-### Making a Progressive Web App
+returns JWT
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## /api/children endpoints:
 
-### Advanced Configuration
+### GET '/'
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+returns all children for a specific user
 
-### Deployment
+### POST '/'
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+required:
 
-### `npm run build` fails to minify
+-   first_name (string)
+-   age (integer)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+returns 201 adding child to the database
+
+### GET '/:childId'
+
+required:
+
+-   childId, passed as a string parameter
+
+returns specific child data
+
+### DELETE '/:childId'
+
+required:
+
+-   childId, passed as a string parameter
+
+removes specific child from database
+
+### PATCH '/:childId'
+
+required:
+
+-   childId, passed as a string parameter
+-   change at least 1 value for first_name, weight, image, or age
+
+returns the updated child's first_name and age
+
+## /api/eating endpoints:
+
+### GET '/all/:childId'
+
+required:
+
+-   childId, passed as a string parameter
+    returns all meal data for a specific child
+
+### POST '/all/:childId'
+
+required:
+
+-   childId - passed as a string parameter
+-   duration (time)
+-   food_type (enum: 'bottle', 'breast_fed', 'formula')
+    optional:
+-   side_fed (string)
+-   notes (string)
+
+returns meal data created
+
+### DELETE '/:mealId'
+
+required:
+
+-   mealId, passed as a string parameter
+    removes specific meal from database
+
+### PATCH '/:mealId'
+
+required:
+
+-   childId, passed as a string parameter
+-   one of the values (notes, duration, food_type, side_fed) must be changed
+
+returns 201 and updates
+
+## /api/sleeping endpoints:
+
+### GET '/all/:childId'
+
+required:
+
+-   childId, passed as a string parameter
+    returns all sleep data for a specific child
+
+### GET '/:sleepId'
+
+required:
+
+-   sleepId, passed as a string parameter
+    returns sleep data for a specific child
+
+### POST '/all/:childId'
+
+required:
+
+-   childId, passed as a string parameter
+-   duration (time)
+-   sleep_type (enum: 'crying','restless','calm')
+-   sleep_category (enum: 'nap','bedtime')
+    optional:
+-   notes (string)
+
+returns new sleep data
+
+### DELETE '/:sleepId'
+
+required:
+
+-   sleepId, passed as a string parameter
+    removes specific sleep data from database
+
+### PATCH '/:sleepId
+
+required:
+
+-   sleepId, passed as a string parameter
+-   one of the values (notes, duration, sleep_type, sleep_category) must be changed
+
+returns 201 and updates
+
+## Screenshots
