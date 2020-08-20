@@ -50,7 +50,7 @@ export default class HomePage extends React.Component {
                 <HomeMenu />
                 <div className="main-view-home">
                     <div className="dashboard">
-                        <div className="summary-container">
+                        <div className="summaries-container">
                             <div className="baby-summaries">
                                 {!this.context.currentChildren.length ? (
                                     <p id="empty-results-error">

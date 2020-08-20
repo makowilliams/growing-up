@@ -25,7 +25,7 @@ export default class UpdateAge extends React.Component {
             childId: this.props.childId,
             age: age.value
         };
-        
+
         BabyApiService.patchAge(newAge)
             .then((res) => {
                 age.value = '';
@@ -45,7 +45,10 @@ export default class UpdateAge extends React.Component {
         const { error } = this.state;
 
         return (
-            <form onSubmit={(e) => this.handleUpdateAge(e)}>
+            <form
+                className="age-form"
+                onSubmit={(e) => this.handleUpdateAge(e)}
+            >
                 <CancelIcon onClick={() => this.props.onUpdateSuccess()} />
                 <label htmlFor="age">Age(months)</label>
                 <select name="age" id="age" required>

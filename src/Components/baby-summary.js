@@ -32,9 +32,9 @@ export default class BabySummary extends React.Component {
     };
 
     chooseFile = (ev) => {
-        this.setState({error: null})
+        this.setState({ error: null });
         this.fileInput.click();
-    }
+    };
 
     uploadImage = (imageFile) => {
         const toBase64 = (file) =>
@@ -61,7 +61,6 @@ export default class BabySummary extends React.Component {
         });
     };
 
-
     render() {
         const { error } = this.state;
         let lastSlept;
@@ -78,34 +77,22 @@ export default class BabySummary extends React.Component {
 
         return (
             <div className="summary-container">
-                <img
-                    className="child-img"
-                    src={this.props.child.image}
-                    alt="baby"
-                    width="300"
-                />
-
-                <form
-                    onSubmit={this.onSubmit.bind(this)}
-                    className="update-img-container"
-                >
-                    <input
-                        type="file"
-                        id="image"
-                        name="image"
-                        onChange={this.onChange}
-                        ref={(fileInput) => (this.fileInput = fileInput)}
-                        style={{ display: 'none' }}
-                    />
-                    <button onClick={() => this.fileInput.click()}>
-                        Choose a file
-                    </button>
-                    <button type="submit">Submit</button>
-                </form>
-
+                <div className="child-info-container">
+                    <div className="img-container">
+                        <img
+                            className="baby-image"
+                            src={
+                                this.props.child.image
+                                    ? this.props.child.image
+                                    : babyGirl
+                            }
+                            alt="baby"
+                            width="300"
+                        />
+                    </div>
                     <form
                         onSubmit={this.onSubmit.bind(this)}
-                        className="child-info-container"
+                        className="update-img-container"
                     >
                         <input
                             type="file"
@@ -115,7 +102,7 @@ export default class BabySummary extends React.Component {
                             ref={(fileInput) => (this.fileInput = fileInput)}
                             style={{ display: 'none' }}
                         />
-                        <button onClick={() => this.chooseFile()}>
+                        <button onClick={() => this.fileInput.click()}>
                             Choose a file
                         </button>
                         <button type="submit">Submit</button>
@@ -123,56 +110,39 @@ export default class BabySummary extends React.Component {
                     <div role="alert">
                         {error && <p className="error">{error}</p>}
                     </div>
-                    <div className="name-age">
-                        {/* <h2 className="child-name">
-                            {this.props.child.first_name}
-                        </h2>
-                        <div className="img-container">
-                            <img
-                                src={babyGirl}
-                                alt="image of baby girl"
-                                className="baby-image"
-                            />
-                        </div> */}
+                    <div className="additional-info">
                         <DeleteBaby child={this.props.child} />
                         <BabyAge child={this.props.child} />
                         <BabyWeight child={this.props.child} />
-                    </div>
+                        <div className="baby-info">
+                            <p className="last-slept">
+                                <span className="bold">Last Slept:</span>{' '}
+                                {lastSlept}
+                            </p>
+                            <p className="last-ate">
+                                <span className="bold">Last Ate:</span>{' '}
+                                {lastAte}
+                            </p>
+                        </div>
 
-                    <p className="baby-age">
-                        <span className="bold">Age:</span>{' '}
-                        {this.props.child.age} months
-                    </p>
-                    <BabyWeight child={this.props.child} />
-                </div>
-                <div className="additional-info">
-                    <div className="baby-info">
-                        <p className="last-slept">
-                            <span className="bold">Last Slept:</span>{' '}
-                            {lastSlept}
-                        </p>
-                        <p className="last-ate">
-                            <span className="bold">Last Ate:</span> {lastAte}
-                        </p>
-                    </div>
-
-                    <div className="action-button-container">
-                        <Link
-                            to={`/tracking/sleeping/${this.props.child.id}`}
-                            className="link"
-                            name="sleeping"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Sleep
-                        </Link>
-                        <Link
-                            to={`/tracking/feeding/${this.props.child.id}`}
-                            className="link"
-                            name="feeding"
-                            onClick={(e) => this.updateTypeAndChild(e)}
-                        >
-                            Feeding
-                        </Link>
+                        <div className="action-button-container">
+                            <Link
+                                to={`/tracking/sleeping/${this.props.child.id}`}
+                                className="link"
+                                name="sleeping"
+                                onClick={(e) => this.updateTypeAndChild(e)}
+                            >
+                                Sleep
+                            </Link>
+                            <Link
+                                to={`/tracking/feeding/${this.props.child.id}`}
+                                className="link"
+                                name="feeding"
+                                onClick={(e) => this.updateTypeAndChild(e)}
+                            >
+                                Feeding
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

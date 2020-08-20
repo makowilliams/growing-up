@@ -1,5 +1,6 @@
 import React from 'react';
 import GrowingContext from '../../growing-up-context';
+import { ReactComponent as BackArrow } from '../../assets/back-arrow.svg';
 
 export default class SignUpPage extends React.Component {
     static contextType = GrowingContext;
@@ -73,6 +74,7 @@ export default class SignUpPage extends React.Component {
                             className="back"
                             onClick={() => window.history.back()}
                         >
+                            <BackArrow />
                             Back
                         </button>
                     </div>

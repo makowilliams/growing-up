@@ -42,8 +42,12 @@ export default class BabyAge extends React.Component {
                     <div
                         onMouseEnter={() => this.toggleVisibility()}
                         onMouseLeave={() => this.toggleVisibility()}
+                        className="baby-age-container"
                     >
-                        <p>Age: {this.props.child.age} months</p>
+                        <p className="baby-age">
+                            <span className="bold">Age:</span>{' '}
+                            {this.props.child.age} months
+                        </p>
                         {this.state.isVisible ? (
                             <EditIcon onClick={() => this.enableUpdateMode()} />
                         ) : null}
