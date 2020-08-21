@@ -19,6 +19,17 @@ export default class StopButton extends React.Component {
         };
     }
 
+    updateContext(){
+        this.context.updateContext({
+            duration: '',
+            date: '',
+            sleep_type: '',
+            sleep_category: '',
+            food_type: '',
+            side_fed: ''
+        })
+    }
+
     submitFeeding(e) {
         e.preventDefault();
         this.setState({ error: null });
@@ -81,6 +92,7 @@ export default class StopButton extends React.Component {
             })
             .then((returnData) => {
                 this.context.updateSession(returnData, data.type);
+                this.updateContext();
                 window.history.back();
             })
             .catch((error) => {
