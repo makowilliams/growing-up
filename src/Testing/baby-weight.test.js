@@ -79,6 +79,6 @@ test('renders baby weight', () => {
             </BrowserRouter>
         </GrowingContext.Provider>
     );
-    const linkElement = getByText('Weight: 10.22lbs');
+    const linkElement = getByText('10.22lbs');
     expect(linkElement).toBeInTheDocument();
 });

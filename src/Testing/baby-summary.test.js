@@ -76,6 +76,6 @@ test('renders last time the baby ate', () => {
             </BrowserRouter>   
         </GrowingContext.Provider>
     );
-    const linkElement = getByText(/Ate: /i);
+    const linkElement = getByText(/Last Ate:/i);
     expect(linkElement).toBeInTheDocument();
 });

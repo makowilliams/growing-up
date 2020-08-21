@@ -1,7 +1,7 @@
-import React from 'src/Testing/node_modules/react';
-import ReactDOM from 'src/Testing/node_modules/react-dom';
-import LandingPage from 'src/Routes/LandingPage/landing-route';
-import { MemoryRouter } from 'src/Testing/node_modules/react-router-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import LandingPage from '../Routes/LandingPage/landing-route';
+import { MemoryRouter } from 'react-router-dom';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
