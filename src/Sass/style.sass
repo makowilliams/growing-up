@@ -160,6 +160,12 @@ li
 tr 
     height: 36px
 
+.weight-form, .age-form, .baby-input-container, .baby-age-container, .baby-weight-container, .feed-buttons-container
+    +flexRowAndCenter 
+    width: 100%
+    *:not(:last-child)
+        margin-right: 5px
+
 //Main Menu
 .main-menu-container
     box-sizing: border-box
@@ -205,10 +211,13 @@ tr
 .hero-copy
     text-align: center
     margin-bottom: 50px
-    max-width: 400px
+    width: 400px
+    max-width: 90vw
 
 .hero-header
     text-align: center
+    @media screen and ( max-width: $lgmobile )
+        font-size: 30px
 
 .cloud
     +cloud
@@ -311,10 +320,14 @@ tr
     +flexColumnAndCenter
     border: $lightBlue 5px solid
     border-radius: 5% 
-    width: 300px
+    width: 310px
+    min-height: 584.812px
     padding: 25px
     box-sizing: border-box
     background-color: $teal
+
+.baby-age-container
+    +flexRowAndCenter
 
 .baby-summary-container
     &:nth-child(even)
@@ -323,12 +336,21 @@ tr
         &:nth-child(even)
             margin: 15px 15px
 
+.baby-input-container
+    +flexRowAndCenterWrap 
+
+.age-form
+    +flexRowAndCenter 
+
 .baby-summaries
     +flexRowAndCenterWrap
     margin-bottom: 50px
+    margin-top: -25px
+
 
 .dashboard
     +flexRowAndCenterWrap
+    width: 100%
 
 .feature-list-item
     padding: 5px 0px
@@ -361,6 +383,9 @@ tr
     +open-sans-reg
     margin: 0px
 
+.baby-age
+    +flexRow 
+
 .weight-input
     +open-sans-bold
 
@@ -385,20 +410,26 @@ tr
 
 .summary-container
     +flexRowAndCenterWrap
-    min-width: 415px
     max-width: 80vw
-    margin-bottom: 50px
+    margin-top: 25px
+    &:nth-child(even)
+        margin-right: 15px
+        margin-left: 15px
+        
     @media screen and ( max-width: $iPad )
         +flexColumnAndCenter
 
 .main-view-home
     +flexRowAndCenterWrap
     margin-top: 50px
-    width: 75%
+    width: 100%
 
 .baby-copy-container
     +flexRowAndCenter
     cursor: pointer
+
+.baby-container
+    margin-bottom: 50px
 
 .add-baby
     color: $darkPurple
@@ -415,6 +446,7 @@ tr
 
 .tracking-table
     width: 500px
+    max-width: 90vw
     text-align: center
     margin-bottom: 50px
     tr:nth-child(odd)
@@ -441,4 +473,24 @@ tr
 .submit-button
     +mainButton 
     margin-top: 25px
- 
+    background-color: $teal
+    color: $darkPurple
+
+.feed-buttons-container
+    max-width: 90vw
+    +flexRowAndCenterWrap 
+    margin-top: -15px
+    *
+        margin-top: 15px
+
+//Sign Up
+.firstname, .lastname
+    +flexColumn 
+    margin-bottom: 15px
+
+.signup-button-container
+    +flexColumnAndCenter 
+
+.username
+    input
+        width: 100%
