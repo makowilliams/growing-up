@@ -42,9 +42,9 @@ export default class DeleteSession extends React.Component {
             <>
                 <DeleteIcon onClick={(e) => this.handleDeleteSession(e)} />
 
-                <div role="alert">
+                <td role="alert">
                     {error && <p className="error">{error}</p>}
-                </div>
+                </td>
             </>
         );
     }
