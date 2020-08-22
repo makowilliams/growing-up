@@ -54,7 +54,10 @@ export default class UpdateWeight extends React.Component {
         const { error } = this.state;
 
         return (
-            <form onSubmit={(e) => this.handleupdateWeight(e)}>
+            <form
+                className="weight-form"
+                onSubmit={(e) => this.handleupdateWeight(e)}
+            >
                 <CancelIcon onClick={() => this.props.onUpdateSuccess()} />
                 <label htmlFor="weight">
                     <span className="weight-input">Weight:</span>{' '}

@@ -80,15 +80,20 @@ export default class BabySummary extends React.Component {
         } else lastAte = 'No sessions yet';
 
         return (
-            <div className="baby-summary-container">
+            <div className="summary-container">
                 <div className="child-info-container">
-                    <img
-                        className="baby-image"
-                        src={this.props.child.image}
-                        alt="baby"
-                        width="300"
-                    />
-
+                    <div className="img-container">
+                        <img
+                            className="baby-image"
+                            src={
+                                this.props.child.image
+                                    ? this.props.child.image
+                                    : babyGirl
+                            }
+                            alt="baby"
+                            width="300"
+                        />
+                    </div>
                     <form
                         onSubmit={this.onSubmit}
                         className="update-img-container"
@@ -101,6 +106,7 @@ export default class BabySummary extends React.Component {
                             ref={(fileInput) => (this.fileInput = fileInput)}
                             style={{ display: 'none' }}
                         />
+<<<<<<< HEAD
                         {this.context.image === null ? (
                             <button onClick={() => this.chooseFile()}>
                                 Choose a file
@@ -113,16 +119,20 @@ export default class BabySummary extends React.Component {
                                 </>
                             )
                         )}
+=======
+                        <button onClick={() => this.fileInput.click()}>
+                            Choose a file
+                        </button>
+                        <button type="submit">Submit</button>
+>>>>>>> master
                     </form>
                     <div role="alert">
                         {error && <p className="error">{error}</p>}
                     </div>
-                    <div className="name-age">
+                    <div className="additional-info">
                         <DeleteBaby child={this.props.child} />
                         <BabyAge child={this.props.child} />
                         <BabyWeight child={this.props.child} />
-                    </div>
-                    <div className="additional-info">
                         <div className="baby-info">
                             <p className="last-slept">
                                 <span className="bold">Last Slept:</span>{' '}

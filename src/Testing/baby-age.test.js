@@ -79,6 +79,6 @@ test('renders baby age', () => {
             </BrowserRouter>
         </GrowingContext.Provider>
     );
-    const linkElement = getByText('Age: 8 months');
+    const linkElement = getByText('8 months');
     expect(linkElement).toBeInTheDocument();
 });
