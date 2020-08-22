@@ -9,6 +9,7 @@ const GrowingContext = React.createContext({
     duration: '',
     date: '',
     image: '',
+    imageChild: null,
 
     updateContext: () => {},
     postUser: () => {},
@@ -38,7 +39,7 @@ export class GrowingContextProvider extends React.Component {
             currentChildren: [],
             duration: '',
             date: '',
-            image: ''
+            image: null
         };
 
         this.updateContext = this.updateContext.bind(this);
@@ -211,6 +212,10 @@ export class GrowingContextProvider extends React.Component {
         this.setState({ currentChild: child });
     }
 
+    setImageChild = (childId) => {
+        this.setState({ imageChild: childId });
+    };
+
     render() {
         return (
             <GrowingContext.Provider
@@ -230,7 +235,8 @@ export class GrowingContextProvider extends React.Component {
                     updateType: this.updateType,
                     setSelectedChild: this.setSelectedChild,
                     updateImageState: this.updateImageState,
-                    renderImage: this.renderImage
+                    renderImage: this.renderImage,
+                    setImageChild: this.setImageChild
                 }}
             >
                 {this.props.children}
