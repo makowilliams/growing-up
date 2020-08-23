@@ -106,7 +106,6 @@ export default class BabySummary extends React.Component {
                             ref={(fileInput) => (this.fileInput = fileInput)}
                             style={{ display: 'none' }}
                         />
-<<<<<<< HEAD
                         {this.context.image === null ? (
                             <button onClick={() => this.chooseFile()}>
                                 Choose a file
@@ -119,12 +118,6 @@ export default class BabySummary extends React.Component {
                                 </>
                             )
                         )}
-=======
-                        <button onClick={() => this.fileInput.click()}>
-                            Choose a file
-                        </button>
-                        <button type="submit">Submit</button>
->>>>>>> master
                     </form>
                     <div role="alert">
                         {error && <p className="error">{error}</p>}
