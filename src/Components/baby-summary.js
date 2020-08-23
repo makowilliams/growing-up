@@ -22,12 +22,15 @@ export default class BabySummary extends React.Component {
     }
 
     onChange = (ev) => {
+        this.setState({ image: true });
         this.context.updateImageState(ev.target.files[0]);
+        this.context.setImageChild(this.props.child.id);
     };
 
     onSubmit = (ev) => {
         ev.preventDefault();
         if (!this.context.image) return;
+        this.context.setImageChild(null);
         this.uploadImage(this.context.image);
     };
 
@@ -50,6 +53,7 @@ export default class BabySummary extends React.Component {
                 .then((res) => {
                     this.context.renderImage(encodedImage, this.props.child.id);
                     this.props.onUpdateSuccess();
+                    this.context.updateImageState(null);
                 })
                 .catch((res) => {
                     this.setState({
@@ -91,7 +95,7 @@ export default class BabySummary extends React.Component {
                         />
                     </div>
                     <form
-                        onSubmit={this.onSubmit.bind(this)}
+                        onSubmit={this.onSubmit}
                         className="update-img-container"
                     >
                         <input
@@ -102,10 +106,18 @@ export default class BabySummary extends React.Component {
                             ref={(fileInput) => (this.fileInput = fileInput)}
                             style={{ display: 'none' }}
                         />
-                        <button onClick={() => this.fileInput.click()}>
-                            Choose a file
-                        </button>
-                        <button type="submit">Submit</button>
+                        {this.context.image === null ? (
+                            <button onClick={() => this.chooseFile()}>
+                                Choose a file
+                            </button>
+                        ) : (
+                            this.context.imageChild === this.props.child.id && (
+                                <>
+                                    <p>Image Ready to Submit</p>
+                                    <button type="submit">Submit</button>
+                                </>
+                            )
+                        )}
                     </form>
                     <div role="alert">
                         {error && <p className="error">{error}</p>}
